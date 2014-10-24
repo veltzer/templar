@@ -1,5 +1,5 @@
 # packaging stuff
-/build_deb/debian/files
-/build_deb/debian/templar.debhelper.log
-/build_deb/debian/templar.substvars
-/build_deb/debian/templar/
+/debian/files
+/debian/templar.debhelper.log
+/debian/templar.substvars
+/debian/templar/
