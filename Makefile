@@ -74,8 +74,9 @@ deb-build:
 	$(info doing [$@])
 	$(Q)rm -f ../$(NAME)-* ../$(NAME)_* $(REPO)/$(NAME)-* $(REPO)_*
 	$(Q)git clean -xdf
-	$(Q)git-buildpackage
+	$(Q)git-buildpackage > /tmp/git-buildpackage.log
 	$(Q)mv ../$(PKG) $(REPO)
+	$(Q)rm -f ../$(NAME)-* ../$(NAME)_*
 
 .PHONY: deb-install
 deb-install:
