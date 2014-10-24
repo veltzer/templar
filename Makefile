@@ -73,7 +73,7 @@ source-sdist:
 deb-build:
 	$(info doing [$@])
 	$(Q)rm -f ../$(NAME)-* ../$(NAME)_* $(REPO)/$(NAME)-* $(REPO)/$(NAME)_*
-	$(Q)git clean -xdf
+	$(Q)git clean -xdf > /dev/null
 	$(Q)git-buildpackage > /tmp/git-buildpackage.log
 	$(Q)mv ../$(PKG) $(REPO)
 	$(Q)rm -f ../$(NAME)-* ../$(NAME)_*
