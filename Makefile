@@ -7,6 +7,8 @@
 DO_MKDBG?=0
 # version
 VER:=$(shell git describe)
+# name of this package
+NAME:=templar
 
 #########
 # Logic #
@@ -60,7 +62,7 @@ debianize:
 .PHONY: deb2
 deb2:
 	$(error dont use this)
-	rm -f ../pdmt-* ../pdmt_*
+	rm -f ../$(NAME)-* ../$(NAME)_*
 	git clean -xdf
 	python setup.py sdist --dist-dir=../ --prune
 #	python setup.py sdist --dist-dir=../
@@ -68,25 +70,25 @@ deb2:
 
 .PHONY: deb
 deb:
-	rm -f ../pdmt-* ../pdmt_*
+	rm -f ../$(NAME)-* ../$(NAME)_*
 	git clean -xdf
 	git-buildpackage --git-ignore-new
-	mv ../pdmt_* ~/packages/
+	mv ../$(NAME)_* ~/packages/
 
 .PHONY: install-deb
 install-deb:
-	sudo dpkg --install deb_dist/pdmt_1-1_all.deb
+	sudo dpkg --install deb_dist/$(NAME)_$(VER)_all.deb
 
 .PHONY: listfiles
 listfiles:
-	dpkg --listfiles pdmt
+	dpkg --listfiles $(NAME)
 .PHONY: purge
 purge:
-	sudo dpkg --purge pdmt
+	sudo dpkg --purge $(NAME)
 .PHONY: results
 results:
-	dpkg --contents ~/packages/pdmt_$(VER)_all.deb
-	dpkg --info ~/packages/pdmt_$(VER)_all.deb
+	dpkg --contents ~/packages/$(NAME)_$(VER)_all.deb
+	dpkg --info ~/packages/$(NAME)_$(VER)_all.deb
 
 .PHONY: check_main
 check_main:
