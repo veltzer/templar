@@ -3,3 +3,5 @@
 /debian/templar.debhelper.log
 /debian/templar.substvars
 /debian/templar/
+/build-indep
+/templar.egg-info
