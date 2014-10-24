@@ -1,6 +1,6 @@
-#############
-# Variables #
-#############
+##############
+# parameters #
+##############
 # do you want to show the commands executed ?
 # Since we are using ?= for assignment it means that you can just
 # set this from the command line and avoid changing the makefile...
@@ -10,9 +10,9 @@ VER:=$(shell git describe)
 # name of this package
 NAME:=templar
 
-#########
-# Logic #
-#########
+########
+# code #
+########
 # silent stuff
 ifeq ($(DO_MKDBG),1)
 Q:=
@@ -23,7 +23,7 @@ Q:=@
 endif # DO_MKDBG
 
 #########
-# Rules #
+# rules #
 #########
 
 .PHONY: all
@@ -31,71 +31,79 @@ all: deb
 
 .PHONY: debug
 debug:
+	$(info doing [$@])
 	$(info VER is $(VER))
+	$(info NAME is $(NAME))
 
 .PHONY: build
 build:
-	./setup.py build
+	$(info doing [$@])
+	$(Q)setup.py build
 
 .PHONY: install
 install:
-	./setup.py install
-
-.PHONY: clean_old
-clean_old:
-	rm -rf `find . -name "*.pyc"` `find . -name "*.o"` `find . -name "*.elf"`
-	rm -rf build dist deb_dist
+	$(info doing [$@])
+	$(Q)setup.py install
 
 .PHONY: clean
 clean:
-	git clean -xdf
+	$(info doing [$@])
+	$(Q)git clean -xdf
 
 .PHONY: sdist
 sdist:
-	./setup.py sdist
-
-.PHONY: debianize
-debianize:
-	\rm -rf debian/source
-	python2 ./setup.py --command-packages=stdeb.command debianize
-
-.PHONY: deb2
-deb2:
-	$(error dont use this)
-	rm -f ../$(NAME)-* ../$(NAME)_*
-	git clean -xdf
-	python setup.py sdist --dist-dir=../ --prune
-#	python setup.py sdist --dist-dir=../
-	dpkg-buildpackage -i -I -rfakeroot
+	$(info doing [$@])
+	$(Q)setup.py sdist
 
 .PHONY: deb
 deb:
-	rm -f ../$(NAME)-* ../$(NAME)_*
-	git clean -xdf
-	git-buildpackage --git-ignore-new
-	mv ../$(NAME)_* ~/packages/
+	$(info doing [$@])
+	$(Q)rm -f ../$(NAME)-* ../$(NAME)_*
+	$(Q)git clean -xdf
+	$(Q)#git-buildpackage --git-ignore-new
+	$(Q)git-buildpackage
+	$(Q)mv ../$(NAME)_* ~/packages/
 
 .PHONY: install-deb
 install-deb:
-	sudo dpkg --install deb_dist/$(NAME)_$(VER)_all.deb
+	$(info doing [$@])
+	$(Q)sudo dpkg --install deb_dist/$(NAME)_$(VER)_all.deb
 
-.PHONY: listfiles
-listfiles:
-	dpkg --listfiles $(NAME)
-.PHONY: purge
-purge:
-	sudo dpkg --purge $(NAME)
-.PHONY: results
-results:
-	dpkg --contents ~/packages/$(NAME)_$(VER)_all.deb
-	dpkg --info ~/packages/$(NAME)_$(VER)_all.deb
+.PHONY: installed-listfiles
+installed-listfiles:
+	$(info doing [$@])
+	$(Q)dpkg --listfiles $(NAME)
 
+.PHONY: installed-purge
+installed-purge:
+	$(info doing [$@])
+	$(Q)sudo dpkg --purge $(NAME)
+
+.PHONY: deb-contents
+deb-contents:
+	$(info doing [$@])
+	$(Q)dpkg --contents ~/packages/$(NAME)_$(VER)_all.deb
+
+.PHONY: deb-info
+deb-info:
+	$(info doing [$@])
+	$(Q)dpkg --info ~/packages/$(NAME)_$(VER)_all.deb
+
+.PHONY: deb-all
+deb-all: deb-contents deb-info
+
+#################
+# python checks #
+#################
 .PHONY: check_main
 check_main:
-	@-git grep __main -- "*.py"
+	$(info doing [$@])
+	$(Q)-git grep __main -- "*.py"
 .PHONY: check_semicol
 check_semicol:
-	@-git grep ";$$" -- "*.py"
+	$(info doing [$@])
+	$(Q)-git grep ";$$" -- "*.py"
 
 .PHONY: check_all
 check_all: check_main check_semicol
+	$(info doing [$@])
