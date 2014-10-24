@@ -93,11 +93,18 @@ def cmdline(clsdict):
 		except Exception as e:
 			if os.path.isfile(args.output):
 				os.unlink(args.output)
+			found=False
 			traceback=mako.exceptions.RichTraceback()
 			for (filename, lineno, function, line) in traceback.traceback:
 				if filename==args.input:
 					print('{0}: error {1} in {2}, line {3}'.format(sys.argv[0], str(e), filename, lineno, function))
 					print('{0}'.format(line))
+					found=True
+			if not found:
+				for (filename, lineno, function, line) in traceback.traceback:
+					print('File {0}, line {1}, in {2}'.format(filename, lineno, function))
+					print(line)
+				print('{0}: {1}'.format(str(traceback.error.__class__.__name__), traceback.error))
 			sys.exit(1)
 
 	if args.subcommand=='printmake':
