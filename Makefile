@@ -72,7 +72,7 @@ source-sdist:
 .PHONY: deb-build
 deb-build:
 	$(info doing [$@])
-	$(Q)rm -f ../$(NAME)-* ../$(NAME)_* $(REPO)/$(NAME)-* $(REPO)_*
+	$(Q)rm -f ../$(NAME)-* ../$(NAME)_* $(REPO)/$(NAME)-* $(REPO)/$(NAME)_*
 	$(Q)git clean -xdf
 	$(Q)git-buildpackage > /tmp/git-buildpackage.log
 	$(Q)mv ../$(PKG) $(REPO)
