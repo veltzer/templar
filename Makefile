@@ -7,6 +7,8 @@
 DO_MKDBG?=0
 # version
 VER:=$(shell git describe)
+# tag
+TAG:=$(shell git tag)
 # name of this package
 NAME:=templar
 # where to put the package?
@@ -24,7 +26,7 @@ Q:=@
 #.SILENT:
 endif # DO_MKDBG
 
-PKG:=$(NAME)_$(VER)_all.deb
+PKG:=$(NAME)_$(TAG)_all.deb
 PKG_FULL:=$(REPO)/$(PKG)
 
 #########
@@ -39,6 +41,7 @@ all: deb-build
 source-debug:
 	$(info doing [$@])
 	$(info VER is $(VER))
+	$(info TAG is $(TAG))
 	$(info NAME is $(NAME))
 	$(info PKG is $(PKG))
 	$(info PKG_FULL is $(PKG_FULL))
