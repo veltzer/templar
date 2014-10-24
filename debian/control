@@ -9,5 +9,5 @@ X-Python3-Version: >= 3.4
 Package: templar
 Architecture: all
 Depends: ${misc:Depends}, ${python3:Depends}
-Description: Project Dependency Management Tool
- Project Dependency Management Tool long description
+Description: Easy templating tool
+ Easy templating tool long description
