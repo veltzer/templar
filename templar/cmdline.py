@@ -84,7 +84,7 @@ def cmdline(clsdict):
 				output_encoding=args.output-encoding,
 			)
 			file=open(args.output,'wb')
-			for name, cls in clsdict:
+			for name, cls in clsdict.items():
 				cls.init()
 			file.write(template.render(**clsdict))
 			file.close()
@@ -101,7 +101,7 @@ def cmdline(clsdict):
 			sys.exit(1)
 
 	if args.subcommand=='printmake':
-		for name, cls in clsdict:
+		for name, cls in clsdict.items():
 			cls.init()
 			for k in sorted(cls.__dict__.keys()):
 				v=cls.__dict__[k]
