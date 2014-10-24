@@ -37,5 +37,4 @@ distutils.core.setup(
 		'Topic :: Utilities',
 	],
 	scripts=['templar.py'],
-	packages=['templar'],
 )
