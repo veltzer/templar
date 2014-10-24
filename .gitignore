@@ -8,3 +8,6 @@
 /build-indep
 /templar.egg-info
 /build
+
+# python
+__pycache__
