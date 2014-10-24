@@ -1,0 +1,13 @@
+Source: templar
+Maintainer: Mark Veltzer <mark@veltzer.net>
+Section: python
+Priority: optional
+Build-Depends: python3, debhelper
+Standards-Version: 3.9.4
+X-Python3-Version: >= 3.4
+
+Package: templar
+Architecture: all
+Depends: ${misc:Depends}, ${python3:Depends}
+Description: Project Dependency Management Tool
+ Project Dependency Management Tool long description
