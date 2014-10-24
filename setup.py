@@ -36,6 +36,7 @@ distutils.core.setup(
 		'Topic :: Software Development :: Libraries',
 		'Topic :: Utilities',
 	],
-	scripts=['templar.py'],
-	install-scripts='/usr/bin',
+	# scripts cannot specify target directory by data_files can...:)
+	data_files=[('/usr/bin', ['templar.py']),
+	#scripts=['templar.py'],
 )
