@@ -80,17 +80,17 @@ deb-build:
 .PHONY: deb-install
 deb-install:
 	$(info doing [$@])
-	$(Q)sudo dpkg --install $(PKGFULL)
+	$(Q)sudo dpkg --install $(PKG_FULL)
 
 .PHONY: deb-contents
 deb-contents:
 	$(info doing [$@])
-	$(Q)dpkg --contents $(PKGFULL)
+	$(Q)dpkg --contents $(PKG_FULL)
 
 .PHONY: deb-info
 deb-info:
 	$(info doing [$@])
-	$(Q)dpkg --info $(PKGFULL)
+	$(Q)dpkg --info $(PKG_FULL)
 
 .PHONY: deb-all
 deb-all: deb-contents deb-info
