@@ -25,38 +25,41 @@ endif # DO_MKDBG
 #########
 # rules #
 #########
-
 .PHONY: all
-all: deb
+all: deb-build
 
-.PHONY: debug
-debug:
+# source
+
+.PHONY: source-debug
+source-debug:
 	$(info doing [$@])
 	$(info VER is $(VER))
 	$(info NAME is $(NAME))
 
-.PHONY: build
-build:
+.PHONY: source-build
+source-build:
 	$(info doing [$@])
 	$(Q)setup.py build
 
-.PHONY: install
-install:
+.PHONY: source-install
+source-install:
 	$(info doing [$@])
 	$(Q)setup.py install
 
-.PHONY: clean
-clean:
+.PHONY: source-clean
+source-clean:
 	$(info doing [$@])
 	$(Q)git clean -xdf
 
-.PHONY: sdist
-sdist:
+.PHONY: source-sdist
+source-sdist:
 	$(info doing [$@])
 	$(Q)setup.py sdist
 
-.PHONY: deb
-deb:
+# deb
+
+.PHONY: deb-build
+deb-build:
 	$(info doing [$@])
 	$(Q)rm -f ../$(NAME)-* ../$(NAME)_*
 	$(Q)git clean -xdf
@@ -64,20 +67,10 @@ deb:
 	$(Q)git-buildpackage
 	$(Q)mv ../$(NAME)_* ~/packages/
 
-.PHONY: install-deb
-install-deb:
+.PHONY: deb-install
+deb-install:
 	$(info doing [$@])
 	$(Q)sudo dpkg --install deb_dist/$(NAME)_$(VER)_all.deb
-
-.PHONY: installed-listfiles
-installed-listfiles:
-	$(info doing [$@])
-	$(Q)dpkg --listfiles $(NAME)
-
-.PHONY: installed-purge
-installed-purge:
-	$(info doing [$@])
-	$(Q)sudo dpkg --purge $(NAME)
 
 .PHONY: deb-contents
 deb-contents:
@@ -91,6 +84,18 @@ deb-info:
 
 .PHONY: deb-all
 deb-all: deb-contents deb-info
+
+# installed
+
+.PHONY: installed-listfiles
+installed-listfiles:
+	$(info doing [$@])
+	$(Q)dpkg --listfiles $(NAME)
+
+.PHONY: installed-purge
+installed-purge:
+	$(info doing [$@])
+	$(Q)sudo dpkg --purge $(NAME)
 
 #################
 # python checks #
