@@ -36,5 +36,5 @@ distutils.core.setup(
 		'Topic :: Software Development :: Libraries',
 		'Topic :: Utilities',
 	],
-	scripts=[('/usr/bin', 'templar.py')],
+	scripts=['/usr/bin/templar.py'],
 )
