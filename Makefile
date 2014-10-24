@@ -9,6 +9,8 @@ DO_MKDBG?=0
 VER:=$(shell git describe)
 # name of this package
 NAME:=templar
+# where to put the package?
+REPO:=~/packages
 
 ########
 # code #
@@ -21,6 +23,9 @@ else # DO_MKDBG
 Q:=@
 #.SILENT:
 endif # DO_MKDBG
+
+PKG:=$(NAME)_$(VER)_all.deb
+PKG_FULL:=$(REPO)/$(PKG)
 
 #########
 # rules #
@@ -35,6 +40,9 @@ source-debug:
 	$(info doing [$@])
 	$(info VER is $(VER))
 	$(info NAME is $(NAME))
+	$(info PKG is $(PKG))
+	$(info PKG_FULL is $(PKG_FULL))
+	$(info REPO is $(REPO))
 
 .PHONY: source-build
 source-build:
@@ -63,24 +71,23 @@ deb-build:
 	$(info doing [$@])
 	$(Q)rm -f ../$(NAME)-* ../$(NAME)_*
 	$(Q)git clean -xdf
-	$(Q)#git-buildpackage --git-ignore-new
 	$(Q)git-buildpackage
-	$(Q)mv ../$(NAME)_* ~/packages/
+	$(Q)mv ../$(PKG) $(REPO)
 
 .PHONY: deb-install
 deb-install:
 	$(info doing [$@])
-	$(Q)sudo dpkg --install deb_dist/$(NAME)_$(VER)_all.deb
+	$(Q)sudo dpkg --install $(PKGFULL)
 
 .PHONY: deb-contents
 deb-contents:
 	$(info doing [$@])
-	$(Q)dpkg --contents ~/packages/$(NAME)_$(VER)_all.deb
+	$(Q)dpkg --contents $(PKGFULL)
 
 .PHONY: deb-info
 deb-info:
 	$(info doing [$@])
-	$(Q)dpkg --info ~/packages/$(NAME)_$(VER)_all.deb
+	$(Q)dpkg --info $(PKGFULL)
 
 .PHONY: deb-all
 deb-all: deb-contents deb-info
