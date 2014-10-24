@@ -76,6 +76,7 @@ deb-build:
 	$(Q)git clean -xdf > /dev/null
 	$(Q)git-buildpackage > /tmp/git-buildpackage.log
 	$(Q)mv ../$(PKG) $(REPO)
+	$(Q)chmod 444 $(PKG_FULL)
 	$(Q)rm -f ../$(NAME)-* ../$(NAME)_*
 
 .PHONY: deb-install
