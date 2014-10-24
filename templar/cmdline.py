@@ -41,9 +41,9 @@ def cmdline(clsdict):
 		formatter_class=argparse.ArgumentDefaultsHelpFormatter,
 	)
 	subparser_process.add_argument('--input', help='input file')
-	subparser_process.add_argument('--input-encoding', help='specify input encoding', default=sys.getdefaultencoding())
+	subparser_process.add_argument('--inputencoding', help='specify input encoding', default=sys.getdefaultencoding())
 	subparser_process.add_argument('--output', help='output file')
-	subparser_process.add_argument('--output-encoding', help='specify output encoding', default=sys.getdefaultencoding())
+	subparser_process.add_argument('--outputencoding', help='specify output encoding', default=sys.getdefaultencoding())
 	subparser_process.add_argument('--chmod', help='chmod the output?', default=True, action='store_false')
 
 	subparser_print=subparsers.add_parser(
@@ -74,14 +74,14 @@ def cmdline(clsdict):
 				os.unlink(args.output)
 			mylookup=mako.lookup.TemplateLookup(
 				directories=['.'],
-				input_encoding=args.input-encoding,
-				output_encoding=args.output-encoding,
+				input_encoding=args.inputencoding,
+				output_encoding=args.outputencoding,
 			)
 			template=mako.template.Template(
 				filename=args.input,
 				lookup=mylookup,
-				input_encoding=args.input-encoding,
-				output_encoding=args.output-encoding,
+				input_encoding=args.inputencoding,
+				output_encoding=args.outputencoding,
 			)
 			file=open(args.output,'wb')
 			for name, cls in clsdict.items():
