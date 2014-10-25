@@ -125,6 +125,7 @@ deb-dput: deb-build-debuild-source
 .PHONY: deb-archive
 deb-archive: deb-build-debuild-all
 	$(info doing [$@])
+	$(Q)rm $(REPO)/$(NAME)_*
 	$(Q)cp $(BUILD.ALL)/$(NAME)_* $(REPO)
 
 .PHONY: deb-install
