@@ -94,6 +94,7 @@ def cmdline(clsdict):
 			file.write(template.render(**clsdict))
 			file.close()
 			if args.chmod:
+				# FIXME: only remove the w from user group and all.
 				os.chmod(args.output,0o0444)
 		except Exception as e:
 			if os.path.isfile(args.output):
