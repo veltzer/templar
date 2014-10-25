@@ -13,6 +13,12 @@ TAG:=$(shell git tag)
 NAME:=templar
 # where to put the package?
 REPO:=~/packages
+# where to build full packages?
+BUILD.ALL:=build.full
+# where to build source packages?
+BUILD.SOURCE:=build.source
+# where to build source packages?
+BUILD.GBP:=build.gbp
 
 ########
 # code #
@@ -69,14 +75,32 @@ source-sdist:
 
 # deb
 
-.PHONY: deb-build
-deb-build:
+.PHONY: deb-build-gbp
+deb-build-gbp:
 	$(info doing [$@])
-	$(Q)rm -f ../$(NAME)_* $(REPO)/$(REPO)/$(NAME)_*
+	$(Q)rm -f ../$(NAME)_*
 	$(Q)git clean -xdf > /dev/null
 	$(Q)git-buildpackage > /tmp/git-buildpackage.log
-	$(Q)mv ../$(NAME)_* $(REPO)
-	$(Q)chmod 444 $(REPO)/$(NAME)_*
+	$(Q)mv ../$(NAME)_* $(BUILD.GBP)
+	$(Q)chmod 444 $(BUILD.GBP)/$(NAME)_*
+
+.PHONY: deb-build-debuild-all
+deb-build-debuild-all:
+	$(info doing [$@])
+	$(Q)rm -f ../$(NAME)_*
+	$(Q)git clean -xdf > /dev/null
+	$(Q)debuild -S > /tmp/debuild_s.log
+	$(Q)mv ../$(NAME)_* $(BUILD.ALL)
+	$(Q)chmod 444 $(BUILD.ALL)/$(NAME)_*
+
+.PHONY: deb-build-debuild-source
+deb-build-debuild-source:
+	$(info doing [$@])
+	$(Q)rm -f ../$(NAME)_*
+	$(Q)git clean -xdf > /dev/null
+	$(Q)debuild -S > /tmp/debuild.log
+	$(Q)mv ../$(NAME)_* $(BUILD.SOURCE)
+	$(Q)chmod 444 $(BUILD.SOURCE)/$(NAME)_*
 
 .PHONY: deb-install
 deb-install:
