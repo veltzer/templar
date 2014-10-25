@@ -1,5 +1,6 @@
 This is the todo list for templar
 
+- add mako as requirement for this package.
 - when chmodding an output file in templar just removed the write, don't change all the permissions.
 - add an example .details.ini file to the package so that people will know how to write this.
 - make this package work with templar to ease mgmt.
