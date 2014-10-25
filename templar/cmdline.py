@@ -21,7 +21,7 @@ import mako.exceptions # for RickTraceback
 import mako.template # for Template
 import mako.lookup # for TemplateLookup
 import os # for chmod, unlink, makedirs
-import os.path # for isfile, dirname
+import os.path # for isfile, dirname, isdir
 import argparse # for ArgumentParser, ArgumentDefaultsHelpFormatter
 
 #############
@@ -89,7 +89,7 @@ def cmdline(clsdict):
 				output_encoding=args.outputencoding,
 			)
 			output_folder=os.path.dirname(args.output)
-			if output_folder!='':
+			if output_folder!='' and not os.path.isdir(output_folder):
 				os.makedirs(output_folder)
 			file=open(args.output,'wb')
 			for name, cls in clsdict.items():
