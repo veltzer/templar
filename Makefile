@@ -75,7 +75,7 @@ source-sdist:
 
 # deb
 
-.PHONY: deb-build
+.PHONY: deb-build-all
 deb-build-all: deb-build-gbp deb-build-debuild-all deb-build-debuild-source
 
 .PHONY: deb-build-gbp
