@@ -1,7 +1,10 @@
 #!/usr/bin/python3
 
+'''
+This is the installation tool. use minimal packages here
+'''
+
 import distutils.core # for setup
-import setuptools # for find_packages
 import subprocess # for check_output
 
 distutils.core.setup(
@@ -22,7 +25,7 @@ distutils.core.setup(
 	platforms=[
 		'ALL',
 	],
-	packages=setuptools.find_packages(),
+	packages=['templar'],
 	version=subprocess.check_output(['git','describe']).decode().rstrip(),
 	classifiers=[
 		'Development Status :: 4 - Beta',
