@@ -3,6 +3,5 @@
 	can supply that script.
 - add mako as requirement for this package.
 - when chmodding an output file in templar just removed the write, don't change all the permissions.
-- make the script create the folders of the output files (the makefile no longer does this).
 - add an example .details.ini file to the package so that people will know how to write this.
 - make this package use itself to ease mgmt.
