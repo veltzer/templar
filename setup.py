@@ -14,15 +14,15 @@ distutils.core.setup(
 	description='Templating engine for python',
 	long_description='Templating engine for python (long description)',
 	author='Mark Veltzer',
-	author_email='mark@veltzer.net',
+	author_email='mark.veltzer@gmail.com',
 	maintainer='Mark Veltzer',
-	maintainer_email='mark@veltzer.net',
+	maintainer_email='mark.veltzer@gmail.com',
 	keywords=[
 		'mako',
 		'templating',
 		'python',
 	],
-	url='https://www.veltzer.net/templar',
+	url='https://veltzer.net/templar',
 	license='LGPL',
 	platforms=[
 		'ALL',
