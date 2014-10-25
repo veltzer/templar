@@ -78,6 +78,8 @@ source-sdist:
 .PHONY: deb-build-gbp
 deb-build-gbp:
 	$(info doing [$@])
+	$(Q)-rm -rf $(BUILD.GBP)
+	$(Q)-mkdir $(BUILD.GBP)
 	$(Q)rm -f ../$(NAME)_*
 	$(Q)git clean -xdf > /dev/null
 	$(Q)git-buildpackage > /tmp/git-buildpackage.log
@@ -87,6 +89,8 @@ deb-build-gbp:
 .PHONY: deb-build-debuild-all
 deb-build-debuild-all:
 	$(info doing [$@])
+	$(Q)-rm -rf $(BUILD.ALL)
+	$(Q)-mkdir $(BUILD.ALL)
 	$(Q)rm -f ../$(NAME)_*
 	$(Q)git clean -xdf > /dev/null
 	$(Q)debuild -S > /tmp/debuild_s.log
@@ -96,6 +100,8 @@ deb-build-debuild-all:
 .PHONY: deb-build-debuild-source
 deb-build-debuild-source:
 	$(info doing [$@])
+	$(Q)-rm -rf $(BUILD.SOURCE)
+	$(Q)-mkdir $(BUILD.SOURCE)
 	$(Q)rm -f ../$(NAME)_*
 	$(Q)git clean -xdf > /dev/null
 	$(Q)debuild -S > /tmp/debuild.log
