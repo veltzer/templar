@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 
 '''
-This is the installation tool. use minimal packages here
+This is the installation tool. use minimal packages here.
+dont use setuptools, dont use subprocess.
+
+We really this file to be generated.
 '''
 
 import distutils.core # for setup
-import subprocess # for check_output
 
 distutils.core.setup(
 	name='templar',
@@ -26,7 +28,7 @@ distutils.core.setup(
 		'ALL',
 	],
 	packages=['templar'],
-	version=subprocess.check_output(['git','describe']).decode().rstrip(),
+	version='0.3',
 	classifiers=[
 		'Development Status :: 4 - Beta',
 		'Environment :: Console',
@@ -42,8 +44,4 @@ distutils.core.setup(
 	data_files=[
 		('/usr/share/templar', ['make/Makefile.prep']),
 	],
-	#data_files=[
-	#	('/usr/bin', ['templar.py']),
-	#],
-	#scripts=['templar.py'],
 )
