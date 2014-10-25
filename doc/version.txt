@@ -1,0 +1,6 @@
+the current version appears in 3 places:
+	debian/changelog which has it.
+	git tag (which is consumed by the makefile).
+	setup.py (which shouldnt really have the version).
+
+we need to unify all of them.

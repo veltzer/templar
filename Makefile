@@ -118,9 +118,14 @@ deb-build-debuild-source:
 	$(Q)chmod 444 $(BUILD.SOURCE)/$(NAME)_*
 
 .PHONY: deb-dput
-deb-dput:
+deb-dput: deb-build-debuild-source
 	$(info doing [$@])
 	$(Q)dput $(PPA) $(BUILD.SOURCE)/$(PKG_CHANGES)
+
+.PHONY: deb-archive
+deb-archive: deb-build-debuild-all
+	$(info doing [$@])
+	$(Q)cp $(BUILD.ALL)/$(NAME)_* $(REPO)
 
 .PHONY: deb-install
 deb-install:
