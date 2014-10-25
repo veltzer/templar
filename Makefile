@@ -8,7 +8,7 @@ DO_MKDBG?=0
 # version
 VER:=$(shell git describe)
 # tag
-TAG:=$(shell git tag)
+TAG:=$(shell git tag | tail -1)
 # name of this package
 NAME:=templar
 # where to put the package?
