@@ -103,7 +103,7 @@ deb-build-debuild-all:
 	$(Q)rm -f ../$(NAME)_*
 	$(Q)git clean -xdf > /dev/null
 	$(Q)-mkdir $(BUILD.ALL)
-	$(Q)debuild -S > /tmp/debuild_s.log
+	$(Q)debuild > /tmp/debuild.log
 	$(Q)mv ../$(NAME)_* $(BUILD.ALL)
 	$(Q)chmod 444 $(BUILD.ALL)/$(NAME)_*
 
@@ -113,7 +113,7 @@ deb-build-debuild-source:
 	$(Q)rm -f ../$(NAME)_*
 	$(Q)git clean -xdf > /dev/null
 	$(Q)-mkdir $(BUILD.SOURCE)
-	$(Q)debuild -S > /tmp/debuild.log
+	$(Q)debuild -S > /tmp/debuild_s.log
 	$(Q)mv ../$(NAME)_* $(BUILD.SOURCE)
 	$(Q)chmod 444 $(BUILD.SOURCE)/$(NAME)_*
 
