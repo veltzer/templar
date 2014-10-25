@@ -32,8 +32,11 @@ Q:=@
 #.SILENT:
 endif # DO_MKDBG
 
-PKG:=$(NAME)_$(TAG)_all.deb
+PKG_TIGHT:=$(NAME)_$(TAG)
+PKG_BASE:=$(PKG_TIGHT)_all
+PKG:=$(PKG_BASE).deb
 PKG_FULL:=$(REPO)/$(PKG)
+PKG_CHANGES:=$(PKG_TIGHT)_source.changes
 
 #########
 # rules #
@@ -49,8 +52,11 @@ source-debug:
 	$(info VER is $(VER))
 	$(info TAG is $(TAG))
 	$(info NAME is $(NAME))
+	$(info PKG_TIGHT is $(PKG_TIGHT))
+	$(info PKG_BASE is $(PKG_BASE))
 	$(info PKG is $(PKG))
 	$(info PKG_FULL is $(PKG_FULL))
+	$(info PKG_CHANGES is $(PKG_CHANGES))
 	$(info REPO is $(REPO))
 
 .PHONY: source-build
@@ -111,7 +117,7 @@ deb-build-debuild-source:
 .PHONY: deb-dput
 deb-dput:
 	$(info doing [$@])
-	$(Q)dput $(BUILD.SOURCE)/*.changes
+	$(Q)dput $(BUILD.SOURCE)/$(PKG_CHANGES)
 
 .PHONY: deb-install
 deb-install:
