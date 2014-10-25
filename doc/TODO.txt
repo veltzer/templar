@@ -1,1 +1,4 @@
 This is the todo list for templar
+
+- check that I can install from the ppa.
+- add an example .details.ini file to the package so that people will know how to write this.
