@@ -108,6 +108,11 @@ deb-build-debuild-source:
 	$(Q)mv ../$(NAME)_* $(BUILD.SOURCE)
 	$(Q)chmod 444 $(BUILD.SOURCE)/$(NAME)_*
 
+.PHONY: deb-dput
+deb-dput:
+	$(info doing [$@])
+	$(Q)dput $(BUILD.SOURCE)/*.changes
+
 .PHONY: deb-install
 deb-install:
 	$(info doing [$@])
