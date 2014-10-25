@@ -13,8 +13,8 @@ TAG:=$(shell git tag | tail -1)
 NAME:=templar
 # where to put the package?
 REPO:=~/packages
-# where to build full packages?
-BUILD.ALL:=build.full
+# where to build binary packages?
+BUILD.ALL:=build.all
 # where to build source packages?
 BUILD.SOURCE:=build.source
 # where to build source packages?
