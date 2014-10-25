@@ -88,7 +88,7 @@ def cmdline(clsdict):
 				input_encoding=args.inputencoding,
 				output_encoding=args.outputencoding,
 			)
-			os.makedirs(os.path.dirname(file))
+			os.makedirs(os.path.dirname(args.output))
 			file=open(args.output,'wb')
 			for name, cls in clsdict.items():
 				cls.init()
