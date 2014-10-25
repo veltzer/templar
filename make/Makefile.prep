@@ -13,10 +13,10 @@ TMPL_FILE_DEPS:=$(shell scripts/templar_cmd.py getdeps)
 -include $(TMPL_FILE)
 
 # prep sources and targets
-ALL_MAKO_PREP_SRC:=$(shell find mako.prep -type f -and -name "*.mako")
+ALL_MAKO_PREP_SRC:=$(shell find mako.prep -type f -and -name "*.mako" 2> /dev/null)
 ALL_MAKO_PREP_TGT:=$(shell scripts/remove_first_dir_and_suffix.py $(ALL_MAKO_PREP_SRC))
 # sources and targets
-ALL_MAKO_SRC:=$(shell find mako -type f -and -name "*.mako")
+ALL_MAKO_SRC:=$(shell find mako -type f -and -name "*.mako" 2> /dev/null)
 ALL_MAKO_TGT:=$(shell scripts/remove_first_dir_and_suffix.py $(ALL_MAKO_SRC))
 Q=@
 
