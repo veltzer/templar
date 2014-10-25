@@ -20,7 +20,7 @@ ALL_MAKO_SRC:=$(shell find mako -type f -and -name "*.mako")
 ALL_MAKO_TGT:=$(shell scripts/remove_first_dir_and_suffix.py $(ALL_MAKO_SRC))
 Q=@
 
-ALL_DEP+=$(TMPL_FILE) Makefile.prep
+ALL_PREP_DEP:=$(TMPL_FILE)
 ALL_PREP:=$(ALL_MAKO_TGT)
 
 ###########
@@ -37,7 +37,7 @@ debug_prep:
 	$(info ALL_PREP is $(ALL_PREP))
 
 # rule about creating the template file
-# it should not depend on ALL_DEP since ALL_DEP includes it and this will create circular dependency
+# it should not depend on ALL_DEP_PREP since ALL_DEP_PREP includes it and this will create circular dependency
 $(TMPL_FILE): scripts/templar_cmd.py $(TMPL_FILE_DEPS)
 	$(info doing [$@])
 	$(Q)scripts/templar_cmd.py printmake > $@
@@ -48,11 +48,11 @@ prep: $(ALL_MAKO_PREP_TGT)
 #################
 # pattern rules #
 #################
-$(ALL_MAKO_PREP_TGT): %: mako.prep/%.mako $(TMPL_FILE)
+$(ALL_MAKO_PREP_TGT): %: mako.prep/%.mako $(TMPL_FILE_DEPS) $(ALL_DEP_PREP)
 	$(info doing [$@])
 	$(Q)-mkdir -p $(dir $@)
 	$(Q)scripts/templar_cmd.py process --input $< --output $@
-$(ALL_MAKO_TGT): %: mako/%.mako $(ALL_DEP)
+$(ALL_MAKO_TGT): %: mako/%.mako $(TMPL_FILE_DEPS) $(ALL_DEP_PREP)
 	$(info doing [$@])
 	$(Q)-mkdir -p $(dir $@)
 	$(Q)scripts/templar_cmd.py process --input $< --output $@
