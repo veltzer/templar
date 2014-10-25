@@ -42,7 +42,8 @@ PKG_CHANGES:=$(PKG_TIGHT)_source.changes
 # rules #
 #########
 .PHONY: all
-all: deb-build
+all:
+	$(info tell me what you want to do)
 
 # source
 
@@ -117,7 +118,7 @@ deb-build-debuild-source:
 .PHONY: deb-dput
 deb-dput:
 	$(info doing [$@])
-	$(Q)dput $(BUILD.SOURCE)/$(PKG_CHANGES)
+	$(Q)dput ${attr.launchpad_ppa} $(BUILD.SOURCE)/$(PKG_CHANGES)
 
 .PHONY: deb-install
 deb-install:
