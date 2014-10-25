@@ -72,11 +72,11 @@ source-sdist:
 .PHONY: deb-build
 deb-build:
 	$(info doing [$@])
-	$(Q)rm -f ../$(NAME)-* ../$(NAME)_* $(REPO)/$(NAME)-* $(REPO)/$(NAME)_*
+	$(Q)rm -f ../$(NAME)_* $(REPO)/$(REPO)/$(NAME)_*
 	$(Q)git clean -xdf > /dev/null
 	$(Q)git-buildpackage > /tmp/git-buildpackage.log
-	$(Q)mv ../$(NAME)-* ../$(NAME)_* $(REPO)
-	$(Q)chmod 444 $(REPO)/$(NAME)-* $(REPO)/$(NAME)_*
+	$(Q)mv ../$(NAME)_* $(REPO)
+	$(Q)chmod 444 $(REPO)/$(NAME)_*
 
 .PHONY: deb-install
 deb-install:
