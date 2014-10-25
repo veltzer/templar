@@ -88,7 +88,9 @@ def cmdline(clsdict):
 				input_encoding=args.inputencoding,
 				output_encoding=args.outputencoding,
 			)
-			os.makedirs(os.path.dirname(args.output))
+			output_folder=os.path.dirname(args.output)
+			if output_folder!='':
+				os.makedirs(output_folder)
 			file=open(args.output,'wb')
 			for name, cls in clsdict.items():
 				cls.init()
