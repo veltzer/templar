@@ -117,7 +117,7 @@ def cmdline(clsdict):
 			cls.init()
 			for k in sorted(cls.__dict__.keys()):
 				v=cls.__dict__[k]
-				if not k.startswith('__') and type(v)==str:
+				if not k.startswith('__') and type(v)==str and v.find('\n')==-1:
 					print('{0}.{1}:={2}'.format(name, k, v))
 
 	if args.subcommand=='printall':
