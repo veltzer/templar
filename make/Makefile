@@ -1,3 +1,9 @@
+#########################
+# must be done at start #
+#########################
+# this makefile's name. if you do this after including other stuff you will get
+# the names of the stuff you include
+TEMPLAR_MAKEFILE:=$(lastword $(MAKEFILE_LIST))
 ##############
 # parameters #
 ##############
@@ -22,10 +28,8 @@ TEMPLAR_TMPL_FILE_DEPS:=$(shell $(TEMPLAR_TEMPLAR_SCRIPT) getdeps)
 TEMPLAR_ALL_MAKO_SRC:=$(shell find $(TEMPLAR_TEMPLAR_FOLDER) -type f -and -name "*.mako" 2> /dev/null)
 TEMPLAR_ALL_MAKO_TGT:=$(shell scripts/remove_first_dir_and_suffix.py $(TEMPLAR_ALL_MAKO_SRC))
 
-# this makefile
-TEMPLAR_MAKEFILE:=$(lastword $(MAKEFILE_LIST))
-
-TEMPLAR_ALL_DEP:=$(TEMPLAR_TMPL_FILE) $(TEMPLAR_MAKEFILE)
+TEMPLAR_ALL_DEP:=$(MAKEFILE_LIST)
+#TEMPLAR_ALL_DEP:=$(TEMPLAR_TMPL_FILE) $(TEMPLAR_MAKEFILE)
 TEMPLAR_ALL:=$(TEMPLAR_ALL_MAKO_TGT)
 
 ###########
@@ -33,6 +37,7 @@ TEMPLAR_ALL:=$(TEMPLAR_ALL_MAKO_TGT)
 ###########
 .PHONY: debug_prep
 debug_prep:
+	$(info TEMPLAR_MAKEFILE is $(TEMPLAR_MAKEFILE))
 	$(info TEMPLAR_TMPL_FILE is $(TEMPLAR_TMPL_FILE))
 	$(info TEMPLAR_TMPL_FILE_DEPS is $(TEMPLAR_TMPL_FILE_DEPS))
 	$(info TEMPLAR_ALL_MAKO_SRC is $(TEMPLAR_ALL_MAKO_SRC))
