@@ -52,6 +52,11 @@ def cmdline(clsdict):
 	)
 
 	subparser_print=subparsers.add_parser(
+		'printall',
+		formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+	)
+
+	subparser_print=subparsers.add_parser(
 		'getdeps',
 		formatter_class=argparse.ArgumentDefaultsHelpFormatter,
 	)
@@ -114,6 +119,13 @@ def cmdline(clsdict):
 				v=cls.__dict__[k]
 				if not k.startswith('__') and type(v)==str:
 					print('{0}.{1}:={2}'.format(name, k, v))
+
+	if args.subcommand=='printall':
+		for name, cls in clsdict.items():
+			cls.init()
+			for k in sorted(cls.__dict__.keys()):
+				v=cls.__dict__[k]
+				print('{0}.{1}={2}'.format(name, k, v))
 
 	if args.subcommand=='getdeps':
 		print(' '.join([cls.getdeps() for cls in clsdict.values()]))
