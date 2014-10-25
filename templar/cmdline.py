@@ -20,8 +20,8 @@ import mako # for exceptions
 import mako.exceptions # for RickTraceback
 import mako.template # for Template
 import mako.lookup # for TemplateLookup
-import os # for chmod, unlink
-import os.path # for isfile
+import os # for chmod, unlink, makedirs
+import os.path # for isfile, dirname
 import argparse # for ArgumentParser, ArgumentDefaultsHelpFormatter
 
 #############
@@ -88,6 +88,7 @@ def cmdline(clsdict):
 				input_encoding=args.inputencoding,
 				output_encoding=args.outputencoding,
 			)
+			os.makedirs(os.path.dirname(file))
 			file=open(args.output,'wb')
 			for name, cls in clsdict.items():
 				cls.init()
