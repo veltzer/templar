@@ -26,7 +26,7 @@ TEMPLAR_TMPL_EXTRA_DEPS:=$(shell $(TEMPLAR_TEMPLAR_SCRIPT) getdeps)
 
 # prep sources and targets
 TEMPLAR_ALL_MAKO_SRC:=$(shell find $(TEMPLAR_TEMPLAR_FOLDER) -type f -and -name "*.mako" 2> /dev/null)
-TEMPLAR_ALL_MAKO_TGT:=$(shell scripts/remove_first_dir_and_suffix.py $(TEMPLAR_ALL_MAKO_SRC))
+TEMPLAR_ALL_MAKO_TGT:=$(shell make_helper.py rmfdas $(TEMPLAR_ALL_MAKO_SRC))
 
 TEMPLAR_ALL_DEP:=$(MAKEFILE_LIST) $(TEMPLAR_TMPL_EXTRA_DEPS)
 #TEMPLAR_ALL_DEP:=$(TEMPLAR_TMPL_FILE) $(TEMPLAR_MAKEFILE)

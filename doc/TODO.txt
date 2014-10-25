@@ -1,5 +1,6 @@
-- get the remove_first_dir_and_suffix into this package and remove it from the packages
-	using it.
+- make templar import all modules in templar/
+	this means that all the project can drop their templar_cmd.py script and templar
+	can supply that script.
 - add mako as requirement for this package.
 - when chmodding an output file in templar just removed the write, don't change all the permissions.
 - make the script create the folders of the output files (the makefile no longer does this).
