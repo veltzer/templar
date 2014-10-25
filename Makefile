@@ -39,6 +39,7 @@ PKG_BASE:=$(PKG_TIGHT)_all
 PKG:=$(PKG_BASE).deb
 PKG_FULL:=$(REPO)/$(PKG)
 PKG_CHANGES:=$(PKG_TIGHT)_source.changes
+PKG_LOCAL:=$(BUILD.ALL)/$(PKG)
 
 #########
 # rules #
@@ -60,6 +61,7 @@ source-debug:
 	$(info PKG is $(PKG))
 	$(info PKG_FULL is $(PKG_FULL))
 	$(info PKG_CHANGES is $(PKG_CHANGES))
+	$(info PKG_LOCAL is $(PKG_LOCAL))
 	$(info REPO is $(REPO))
 
 .PHONY: source-build
@@ -117,6 +119,11 @@ deb-build-debuild-source:
 	$(Q)mv ../$(NAME)_* $(BUILD.SOURCE)
 	$(Q)chmod 444 $(BUILD.SOURCE)/$(NAME)_*
 
+.PHONY: deb-install
+deb-install: deb-build-debuild-all
+	$(info doing [$@])
+	$(Q)sudo dpkg --install $(PKG_LOCAL)
+
 .PHONY: deb-dput
 deb-dput: deb-build-debuild-source
 	$(info doing [$@])
@@ -127,11 +134,6 @@ deb-archive: deb-build-debuild-all
 	$(info doing [$@])
 	$(Q)-rm -f $(REPO)/$(NAME)_*
 	$(Q)cp $(BUILD.ALL)/$(NAME)_* $(REPO)
-
-.PHONY: deb-install
-deb-install:
-	$(info doing [$@])
-	$(Q)sudo dpkg --install $(PKG_FULL)
 
 .PHONY: deb-contents
 deb-contents:
