@@ -19,6 +19,8 @@ BUILD.ALL:=build.full
 BUILD.SOURCE:=build.source
 # where to build source packages?
 BUILD.GBP:=build.gbp
+# my ppa
+PPA:=ppa:mark-veltzer/ppa
 
 ########
 # code #
@@ -118,7 +120,7 @@ deb-build-debuild-source:
 .PHONY: deb-dput
 deb-dput:
 	$(info doing [$@])
-	$(Q)dput ${attr.launchpad_ppa} $(BUILD.SOURCE)/$(PKG_CHANGES)
+	$(Q)dput $(PPA) $(BUILD.SOURCE)/$(PKG_CHANGES)
 
 .PHONY: deb-install
 deb-install:
