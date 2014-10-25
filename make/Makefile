@@ -19,7 +19,7 @@ TEMPLAR_TEMPLAR_FOLDER:=templar
 ########
 # code #
 ########
-TEMPLAR_TMPL_FILE_DEPS:=$(shell $(TEMPLAR_TEMPLAR_SCRIPT) getdeps)
+TEMPLAR_TMPL_EXTRA_DEPS:=$(shell $(TEMPLAR_TEMPLAR_SCRIPT) getdeps)
 # the - (minus) at the begining of the next line is so that users wont see
 # an error coming out of make when the file needs to be rebuilt...
 -include $(TEMPLAR_TMPL_FILE)
@@ -28,7 +28,7 @@ TEMPLAR_TMPL_FILE_DEPS:=$(shell $(TEMPLAR_TEMPLAR_SCRIPT) getdeps)
 TEMPLAR_ALL_MAKO_SRC:=$(shell find $(TEMPLAR_TEMPLAR_FOLDER) -type f -and -name "*.mako" 2> /dev/null)
 TEMPLAR_ALL_MAKO_TGT:=$(shell scripts/remove_first_dir_and_suffix.py $(TEMPLAR_ALL_MAKO_SRC))
 
-TEMPLAR_ALL_DEP:=$(MAKEFILE_LIST)
+TEMPLAR_ALL_DEP:=$(MAKEFILE_LIST) $(TEMPLAR_TMPL_EXTRA_DEPS)
 #TEMPLAR_ALL_DEP:=$(TEMPLAR_TMPL_FILE) $(TEMPLAR_MAKEFILE)
 TEMPLAR_ALL:=$(TEMPLAR_ALL_MAKO_TGT)
 
@@ -39,14 +39,15 @@ TEMPLAR_ALL:=$(TEMPLAR_ALL_MAKO_TGT)
 debug_prep:
 	$(info TEMPLAR_MAKEFILE is $(TEMPLAR_MAKEFILE))
 	$(info TEMPLAR_TMPL_FILE is $(TEMPLAR_TMPL_FILE))
-	$(info TEMPLAR_TMPL_FILE_DEPS is $(TEMPLAR_TMPL_FILE_DEPS))
+	$(info TEMPLAR_TMPL_EXTRA_DEPS is $(TEMPLAR_TMPL_EXTRA_DEPS))
 	$(info TEMPLAR_ALL_MAKO_SRC is $(TEMPLAR_ALL_MAKO_SRC))
 	$(info TEMPLAR_ALL_MAKO_TGT is $(TEMPLAR_ALL_MAKO_TGT))
 	$(info TEMPLAR_ALL is $(TEMPLAR_ALL))
+	$(info TEMPLAR_ALL_DEP is $(TEMPLAR_ALL_DEP))
 
 # rule about creating the template file
-# it should not depend on ALL_DEP_PREP since ALL_DEP_PREP includes it and this will create circular dependency
-$(TEMPLAR_TMPL_FILE): $(TEMPLAR_TEMPLAR_SCRIPT) $(TEMPLAR_TMPL_FILE_DEPS)
+# it should not depend on TEMPLAR_ALL_DEP since TEMPLAR_ALL_DEP includes it and this will create circular dependency
+$(TEMPLAR_TMPL_FILE): $(TEMPLAR_TEMPLAR_SCRIPT) $(TEMPLAR_TMPL_EXTRA_DEPS)
 	$(info doing [$@])
 	$(TEMPLAR_Q)$(TEMPLAR_TEMPLAR_SCRIPT) printmake > $@
 
@@ -56,6 +57,6 @@ prep: $(TEMPLAR_ALL_MAKO_TGT)
 #################
 # pattern rules #
 #################
-$(TEMPLAR_ALL_MAKO_TGT): %: $(TEMPLAR_TEMPLAR_FOLDER)/%.mako $(TEMPLAR_TMPL_FILE_DEPS) $(ALL_DEP_PREP)
+$(TEMPLAR_ALL_MAKO_TGT): %: $(TEMPLAR_TEMPLAR_FOLDER)/%.mako $(TEMPLAR_ALL_DEP)
 	$(info doing [$@])
 	$(TEMPLAR_Q)$(TEMPLAR_TEMPLAR_SCRIPT) process --input $< --output $@
