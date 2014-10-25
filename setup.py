@@ -37,7 +37,7 @@ distutils.core.setup(
 		'Topic :: Utilities',
 	],
 	data_files=[
-		('/usr/share/templar', ['data/Makefile.prep']),
+		('/usr/share/templar', ['make/Makefile.prep']),
 	],
 	#data_files=[
 	#	('/usr/bin', ['templar.py']),
