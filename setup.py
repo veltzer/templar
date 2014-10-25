@@ -43,5 +43,7 @@ distutils.core.setup(
 	],
 	data_files=[
 		('/usr/share/templar', ['make/Makefile']),
+		('/usr/bin/templar_cmd.py', ['templar_cmd.py']),
+		('/usr/bin/make_helper.py', ['make_helper.py']),
 	],
 )
