@@ -9,5 +9,10 @@
 /templar.egg-info
 /build
 
+# build folders for my package
+/build.gbp
+/build.source
+/build.all
+
 # python
 __pycache__
