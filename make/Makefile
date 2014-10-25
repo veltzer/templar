@@ -23,7 +23,7 @@ TEMPLAR_ALL_MAKO_SRC:=$(shell find $(TEMPLAR_TEMPLAR_FOLDER) -type f -and -name 
 TEMPLAR_ALL_MAKO_TGT:=$(shell scripts/remove_first_dir_and_suffix.py $(TEMPLAR_ALL_MAKO_SRC))
 
 # this makefile
-TEMPLAR_MAKEFILE:=$(firstwork $(MAKEFILES))
+TEMPLAR_MAKEFILE:=$(firstword $(MAKEFILES))
 
 TEMPLAR_ALL_DEP:=$(TEMPLAR_TMPL_FILE) $(TEMPLAR_MAKEFILE)
 TEMPLAR_ALL:=$(TEMPLAR_ALL_MAKO_TGT)
