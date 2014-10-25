@@ -24,7 +24,7 @@ TEMPLAR_TMPL_EXTRA_DEPS:=$(shell $(TEMPLAR_TEMPLAR_SCRIPT) getdeps)
 # an error coming out of make when the file needs to be rebuilt...
 -include $(TEMPLAR_TMPL_FILE)
 
-# prep sources and targets
+# templar sources and targets
 TEMPLAR_ALL_MAKO_SRC:=$(shell find $(TEMPLAR_TEMPLAR_FOLDER) -type f -and -name "*.mako" 2> /dev/null)
 TEMPLAR_ALL_MAKO_TGT:=$(shell make_helper.py rmfdas $(TEMPLAR_ALL_MAKO_SRC))
 
@@ -35,8 +35,8 @@ TEMPLAR_ALL:=$(TEMPLAR_ALL_MAKO_TGT)
 ###########
 # targets #
 ###########
-.PHONY: debug_prep
-debug_prep:
+.PHONY: templar_debug
+templar_debug:
 	$(info TEMPLAR_MAKEFILE is $(TEMPLAR_MAKEFILE))
 	$(info TEMPLAR_TMPL_FILE is $(TEMPLAR_TMPL_FILE))
 	$(info TEMPLAR_TMPL_EXTRA_DEPS is $(TEMPLAR_TMPL_EXTRA_DEPS))
@@ -51,8 +51,8 @@ $(TEMPLAR_TMPL_FILE): $(TEMPLAR_TEMPLAR_SCRIPT) $(TEMPLAR_TMPL_EXTRA_DEPS)
 	$(info doing [$@])
 	$(TEMPLAR_Q)$(TEMPLAR_TEMPLAR_SCRIPT) printmake > $@
 
-.PHONY: prep
-prep: $(TEMPLAR_ALL_MAKO_TGT)
+.PHONY: templar
+templar: $(TEMPLAR_ALL_MAKO_TGT)
 
 #################
 # pattern rules #
