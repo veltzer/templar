@@ -98,7 +98,7 @@ def cmdline():
 			if output_folder!='' and not os.path.isdir(output_folder):
 				os.makedirs(output_folder)
 			file=open(args.output,'wb')
-			load_and_init();
+			clsdict=load_and_init();
 			file.write(template.render(**clsdict))
 			file.close()
 			if args.chmod:
