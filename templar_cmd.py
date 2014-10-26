@@ -12,4 +12,4 @@ import templar.cmdline # for cmdline
 ########
 # code #
 ########
-templar.cmdline.cmdline({})
+templar.cmdline.cmdline()

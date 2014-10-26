@@ -15,7 +15,7 @@ TODO:
 ###########
 # imports #
 ###########
-import sys # for argv, getdefaultencoding, exit
+import sys # for argv, getdefaultencoding, exit, path
 import mako # for exceptions
 import mako.exceptions # for RickTraceback
 import mako.template # for Template
@@ -27,7 +27,13 @@ import argparse # for ArgumentParser, ArgumentDefaultsHelpFormatter
 #############
 # functions #
 #############
-def cmdline(clsdict):
+def load_and_init():
+	sys.path.append('.')
+	import templardefs.attr
+	templardefs.attr.Attr.init()
+	return {'attr': templardefs.attr.Attr}
+
+def cmdline():
 	parser=argparse.ArgumentParser(
 		formatter_class=argparse.ArgumentDefaultsHelpFormatter,
 	)
@@ -92,8 +98,7 @@ def cmdline(clsdict):
 			if output_folder!='' and not os.path.isdir(output_folder):
 				os.makedirs(output_folder)
 			file=open(args.output,'wb')
-			for name, cls in clsdict.items():
-				cls.init()
+			load_and_init();
 			file.write(template.render(**clsdict))
 			file.close()
 			if args.chmod:
@@ -117,19 +122,20 @@ def cmdline(clsdict):
 			sys.exit(1)
 
 	if args.subcommand=='printmake':
+		clsdict=load_and_init()
 		for name, cls in clsdict.items():
-			cls.init()
 			for k in sorted(cls.__dict__.keys()):
 				v=cls.__dict__[k]
 				if not k.startswith('__') and type(v)==str and v.find('\n')==-1:
 					print('{0}.{1}:={2}'.format(name, k, v))
 
 	if args.subcommand=='printall':
+		clsdict=load_and_init()
 		for name, cls in clsdict.items():
-			cls.init()
 			for k in sorted(cls.__dict__.keys()):
 				v=cls.__dict__[k]
 				print('{0}.{1}={2}'.format(name, k, v))
 
 	if args.subcommand=='getdeps':
+		clsdict=load_and_init()
 		print(' '.join([cls.getdeps() for cls in clsdict.values()]))
