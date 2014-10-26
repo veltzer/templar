@@ -28,7 +28,7 @@ distutils.core.setup(
 		'ALL',
 	],
 	packages=['templar'],
-	version='0.3',
+	version='0.4',
 	classifiers=[
 		'Development Status :: 4 - Beta',
 		'Environment :: Console',
