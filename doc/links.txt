@@ -1,0 +1,4 @@
+launchpad quick links:
+	my page: https://launchpad.net/~mark-veltzer
+	my PPA: https://launchpad.net/~mark-veltzer/+archive/ubuntu/ppa
+	my packages details: https://launchpad.net/~mark-veltzer/+archive/ubuntu/ppa/+packages
