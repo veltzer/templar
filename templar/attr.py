@@ -70,8 +70,10 @@ class Attr(object):
 
 	@classmethod
 	def getdeps(cls):
-		return ' '.join([
-			'templardefs/attr.py',
+		deps=[
 			os.path.expanduser('~/.details.ini'),
 			'/etc/hostname',
-		])
+		]
+		if os.path.isfile('templardefs/attr.py'):
+			deps.append('templardefs/attr.py')
+		return ' '.join(deps)
