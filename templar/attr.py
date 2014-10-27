@@ -48,6 +48,11 @@ class Attr(object):
 		# project
 		if os.path.isfile('project.ini'):
 			cls.read_full_ini('project.ini')
+		if 'project_year_started' in cls:
+			if cls.general_current_year==cls.project_year_started:
+				cls.project_copyright_years=cls.general_current_year
+			else
+				cls.project_copyright_years='{0}-{1}'.format(cls.project_year_started, cls.general_current_year)
 		cls.project_name=os.path.basename(os.getcwd())
 
 		# git
