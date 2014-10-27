@@ -45,7 +45,7 @@ source-install:
 .PHONY: source-clean
 source-clean:
 	$(info doing [$@])
-	$(Q)git clean -xdf
+	$(Q)git clean -xdf > /dev/null
 
 .PHONY: source-sdist
 source-sdist:
