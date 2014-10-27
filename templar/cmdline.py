@@ -23,15 +23,21 @@ import mako.lookup # for TemplateLookup
 import os # for chmod, unlink, makedirs
 import os.path # for isfile, dirname, isdir
 import argparse # for ArgumentParser, ArgumentDefaultsHelpFormatter
+import templar.attr # for Attr
 
 #############
 # functions #
 #############
 def load_and_init():
-	sys.path.append('.')
-	import templardefs.attr
-	templardefs.attr.Attr.init()
-	return {'attr': templardefs.attr.Attr}
+	d={}
+	if os.path.isfile('templardefs/attr.py'):
+		sys.path.append('.')
+		import templardefs.attr
+		templardefs.attr.Attr.init()
+		d['attr_more']=templardefs.attr.Attr
+	templar.attr.Attr.init()
+	d['attr']=templar.attr.Attr
+	return d
 
 def cmdline():
 	parser=argparse.ArgumentParser(
