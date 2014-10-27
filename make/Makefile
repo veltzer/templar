@@ -14,7 +14,7 @@ TEMPLAR_TEMPLAR_SCRIPT:=/usr/bin/templar_cmd.py
 # quiet or not?
 TEMPLAR_Q=@
 # folder where templar files are
-TEMPLAR_TEMPLAR_FOLDER:=templar
+TEMPLAR_TEMPLAR_FOLDER:=templartmpl
 
 ########
 # code #
