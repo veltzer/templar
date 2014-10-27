@@ -95,7 +95,7 @@ source-sdist:
 deb-build-gbp:
 	$(info doing [$@])
 	$(Q)-rm -f ../$(NAME)_*
-	$(Q)git clean -xdf > /dev/null;make
+	$(Q)git clean -xdf > /dev/null;make templar;rm .attr.config
 	$(Q)-mkdir $(BUILD.GBP)
 	$(Q)git-buildpackage > /tmp/git-buildpackage.log
 	$(Q)mv ../$(NAME)_* $(BUILD.GBP)
@@ -107,7 +107,7 @@ deb-build-gbp:
 deb-build-debuild-all:
 	$(info doing [$@])
 	$(Q)-rm -f ../$(NAME)_*
-	$(Q)git clean -xdf > /dev/null;make
+	$(Q)git clean -xdf > /dev/null;make templar;rm .attr.config
 	$(Q)-mkdir $(BUILD.ALL)
 	$(Q)debuild > /tmp/debuild.log
 	$(Q)mv ../$(NAME)_* $(BUILD.ALL)
@@ -119,7 +119,7 @@ deb-build-debuild-all:
 deb-build-debuild-source:
 	$(info doing [$@])
 	$(Q)-rm -f ../$(NAME)_*
-	$(Q)git clean -xdf > /dev/null;make
+	$(Q)git clean -xdf > /dev/null;make templar;rm .attr.config
 	$(Q)-mkdir $(BUILD.SOURCE)
 	$(Q)debuild -S > /tmp/debuild_s.log
 	$(Q)mv ../$(NAME)_* $(BUILD.SOURCE)
