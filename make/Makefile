@@ -27,7 +27,7 @@ TEMPLAR_TMPL_EXTRA_DEPS:=$(shell $(TEMPLAR_TEMPLAR_SCRIPT) getdeps)
 -include $(TEMPLAR_TMPL_FILE)
 
 # templar sources and targets
-TEMPLAR_ALL_MAKO_SRC:=$(shell find $(TEMPLAR_TEMPLAR_FOLDER) -type f -and -name "*.mako" 2> /dev/null)
+TEMPLAR_ALL_MAKO_SRC:=$(shell find $(TEMPLAR_TEMPLAR_FOLDER) -type f -or -type l -and -name "*.mako" 2> /dev/null)
 TEMPLAR_ALL_MAKO_TGT:=$(shell $(TEMPLAR_MAKEHELPER_SCRIPT) rmfdas $(TEMPLAR_ALL_MAKO_SRC))
 
 TEMPLAR_ALL_DEP:=$(MAKEFILE_LIST) $(TEMPLAR_TMPL_EXTRA_DEPS)
