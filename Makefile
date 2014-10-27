@@ -1,4 +1,6 @@
-include /usr/share/templar/Makefile
+#include /usr/share/templar/Makefile
+TEMPLAR_TEMPLAR_SCRIPT=./templar_cmd.py
+include make/Makefile
 
 ALL:=$(TEMPLAR_ALL)
 ALL_DEP:=$(TEMPLAR_ALL_DEP)
