@@ -11,7 +11,7 @@
 
 # created by templar
 /debian/changelog
-.attr.config
+/.attr.config
 
 # build folders for my package
 /build.gbp
@@ -20,3 +20,5 @@
 
 # python
 __pycache__
+*.pyc
+*.pyo
