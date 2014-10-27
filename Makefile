@@ -130,6 +130,21 @@ deb-install: deb-build-debuild-all
 	$(info doing [$@])
 	$(Q)sudo dpkg --install $(PKG_LOCAL)
 
+.PHONY: deb-local-contents
+deb-local-contents:
+	$(info doing [$@])
+	$(Q)dpkg --contents $(PKG_LOCAL)
+
+.PHONY: deb-local-info
+deb-local-info:
+	$(info doing [$@])
+	$(Q)dpkg --info $(PKG_LOCAL)
+
+.PHONY: deb-local-all
+deb-local-all: deb-local-contents deb-local-info
+
+# move the package to somewhere
+
 .PHONY: deb-dput
 deb-dput: deb-build-debuild-source
 	$(info doing [$@])
@@ -141,18 +156,18 @@ deb-archive: deb-build-debuild-all
 	$(Q)-rm -f $(REPO)/$(NAME)_*
 	$(Q)cp $(BUILD.ALL)/$(NAME)_* $(REPO)
 
-.PHONY: deb-contents
-deb-contents:
+.PHONY: deb-archive-contents
+deb-archive-contents:
 	$(info doing [$@])
 	$(Q)dpkg --contents $(PKG_FULL)
 
-.PHONY: deb-info
-deb-info:
+.PHONY: deb-archive-info
+deb-archive-info:
 	$(info doing [$@])
 	$(Q)dpkg --info $(PKG_FULL)
 
-.PHONY: deb-all
-deb-all: deb-contents deb-info
+.PHONY: deb-archive-all
+deb-archive-all: deb-archive-contents deb-archive-info
 
 # installed
 
