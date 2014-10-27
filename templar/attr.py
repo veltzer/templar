@@ -54,10 +54,12 @@ class Attr(object):
 		try:
 			cls.git_describe=subprocess.check_output(['git', 'describe'], stderr=subprocess.DEVNULL).decode().rstrip()
 		except:
-			pass
+			cls.git_describe='no git repository'
 		tag=subprocess.check_output(['git', 'tag']).decode().rstrip();
 		if tag!='':
 			cls.git_lasttag=tag.split()[-1].rstrip()
+		else:
+			cls.git_lasttag='no git tag yet'
 
 		# deb
 		cls.deb_pkgname=os.path.basename(os.getcwd())
