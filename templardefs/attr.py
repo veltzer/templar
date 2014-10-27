@@ -46,6 +46,7 @@ class Attr(object):
 
 		# git
 		cls.git_describe=subprocess.check_output(['git', 'describe']).decode().rstrip()
+		cls.git_lasttag=subprocess.check_output(['git', 'tag']).decode().split()[-1].rstrip()
 
 		# apt
 		cls.apt_protocol='https'
