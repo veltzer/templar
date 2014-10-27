@@ -46,8 +46,13 @@ class Attr(object):
 		cls.read_full_ini('~/.details.ini')
 
 		# git
-		cls.git_describe=subprocess.check_output(['git', 'describe']).decode().rstrip()
-		cls.git_lasttag=subprocess.check_output(['git', 'tag']).decode().split()[-1].rstrip()
+		try:
+			cls.git_describe=subprocess.check_output(['git', 'describe'], stderr=subprocess.DEVNULL).decode().rstrip()
+		except:
+			pass
+		tag=subprocess.check_output(['git', 'tag']).decode().rstrip();
+		if tag!='':
+			cls.git_lasttag=tag.split()[-1].rstrip()
 
 		# deb
 		cls.deb_pkgname=os.path.basename(os.getcwd())
