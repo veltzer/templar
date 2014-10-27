@@ -1,3 +1,14 @@
+- why do we remove passwords when doing "makeprint".
+	the reason is that we don't want passwords written to the .attr.config
+	file.
+	But we can have make(1) read the data from templar without saving it to file.
+		that would actually be better because then no file would need to be created
+		or changed.
+	how do we do that?
+	- one option is to create a fifo and have make read from that.
+	- do we really need make to read from the file? maybe all make laws should
+	be python processes and they can read the parameters directly from the py module?
+
 - make templar import all modules in templar/
 	this means that all the project can drop their templar_cmd.py script and templar
 	can supply that script.
