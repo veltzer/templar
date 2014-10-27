@@ -1,5 +1,5 @@
-templar
-=======
+templar ${attr.git_lasttag}
+===========
 
 templar is a templating wrapper for mako
 
