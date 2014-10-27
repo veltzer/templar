@@ -99,21 +99,25 @@ deb-build-gbp:
 	$(Q)mv ../$(NAME)_* $(BUILD.GBP)
 	$(Q)chmod 444 $(BUILD.GBP)/$(NAME)_*
 
+# we must do hard clean in the next target because debuild will take everything,
+# including results of building of other stuff, into the source package
 .PHONY: deb-build-debuild-all
 deb-build-debuild-all:
 	$(info doing [$@])
 	$(Q)rm -f ../$(NAME)_*
-	$(Q)-rm -rf build $(BUILD.ALL)
+	$(Q)git clean -xdf
 	$(Q)-mkdir $(BUILD.ALL)
 	$(Q)debuild > /tmp/debuild.log
 	$(Q)mv ../$(NAME)_* $(BUILD.ALL)
 	$(Q)chmod 444 $(BUILD.ALL)/$(NAME)_*
 
+# we must do hard clean in the next target because debuild will take everything,
+# including results of building of other stuff, into the source package
 .PHONY: deb-build-debuild-source
 deb-build-debuild-source:
 	$(info doing [$@])
 	$(Q)rm -f ../$(NAME)_*
-	$(Q)-rm -rf build $(BUILD.SOURCE)
+	$(Q)git clean -xdf
 	$(Q)-mkdir $(BUILD.SOURCE)
 	$(Q)debuild -S > /tmp/debuild_s.log
 	$(Q)mv ../$(NAME)_* $(BUILD.SOURCE)
