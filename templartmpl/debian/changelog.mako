@@ -1,4 +1,4 @@
-templar (${attr.git_describe}) trusty; urgency=low
+templar (${attr.git_lasttag}) trusty; urgency=low
 
   * I do not maintain a debian changelog. Look at the git changelog instead.
 
