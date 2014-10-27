@@ -49,6 +49,7 @@ class Attr(object):
 		if os.path.isfile('project.ini'):
 			cls.read_full_ini('project.ini')
 		if 'project_year_started' in cls.__dict__:
+			cls.project_copyright_years=', '.join(map(str,range(int(cls.project_year_started), datetime.datetime.now().year+1)))
 			if cls.general_current_year==cls.project_year_started:
 				cls.project_copyright_years=cls.general_current_year
 			else:
