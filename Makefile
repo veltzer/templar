@@ -98,7 +98,7 @@ deb-build-gbp:
 	$(info doing [$@])
 	$(Q)-rm -f ../$(attr.deb_pkgname)_*
 	$(Q)git clean -xdf > /dev/null;make templar;rm .attr.config
-	$(Q)-mkdir $(attr.deb_build_gbp)
+	$(Q)mkdir $(attr.deb_build_gbp)
 	$(Q)git-buildpackage > /tmp/git-buildpackage.log
 	$(Q)mv ../$(attr.deb_pkgname)_* $(attr.deb_build_gbp)
 	$(Q)chmod 444 $(attr.deb_build_gbp)/$(attr.deb_pkgname)_*
@@ -110,7 +110,7 @@ deb-build-debuild-all:
 	$(info doing [$@])
 	$(Q)-rm -f ../$(attr.deb_pkgname)_*
 	$(Q)git clean -xdf > /dev/null;make templar;rm .attr.config
-	$(Q)-mkdir $(attr.deb_build_all)
+	$(Q)mkdir $(attr.deb_build_all)
 	$(Q)debuild > /tmp/debuild.log
 	$(Q)mv ../$(attr.deb_pkgname)_* $(attr.deb_build_all)
 	$(Q)chmod 444 $(attr.deb_build_all)/$(attr.deb_pkgname)_*
@@ -122,7 +122,7 @@ deb-build-debuild-source:
 	$(info doing [$@])
 	$(Q)-rm -f ../$(attr.deb_pkgname)_*
 	$(Q)git clean -xdf > /dev/null;make templar;rm .attr.config
-	$(Q)-mkdir $(attr.deb_build_source)
+	$(Q)mkdir $(attr.deb_build_source)
 	$(Q)debuild -S > /tmp/debuild_s.log
 	$(Q)mv ../$(attr.deb_pkgname)_* $(attr.deb_build_source)
 	$(Q)chmod 444 $(attr.deb_build_source)/$(attr.deb_pkgname)_*
