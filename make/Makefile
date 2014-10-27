@@ -11,6 +11,8 @@ TEMPLAR_MAKEFILE:=$(lastword $(MAKEFILE_LIST))
 TEMPLAR_TMPL_FILE:=.attr.config
 # what is the templar script?
 TEMPLAR_TEMPLAR_SCRIPT?=/usr/bin/templar_cmd.py
+# what is the make helper script?
+TEMPLAR_MAKEHELPER_SCRIPT?=/usr/bin/make_helper.py
 # quiet or not?
 TEMPLAR_Q=@
 # folder where templar files are
@@ -26,7 +28,7 @@ TEMPLAR_TMPL_EXTRA_DEPS:=$(shell $(TEMPLAR_TEMPLAR_SCRIPT) getdeps)
 
 # templar sources and targets
 TEMPLAR_ALL_MAKO_SRC:=$(shell find $(TEMPLAR_TEMPLAR_FOLDER) -type f -and -name "*.mako" 2> /dev/null)
-TEMPLAR_ALL_MAKO_TGT:=$(shell make_helper.py rmfdas $(TEMPLAR_ALL_MAKO_SRC))
+TEMPLAR_ALL_MAKO_TGT:=$(shell $(TEMPLAR_MAKEHELPER_SCRIPT) rmfdas $(TEMPLAR_ALL_MAKO_SRC))
 
 TEMPLAR_ALL_DEP:=$(MAKEFILE_LIST) $(TEMPLAR_TMPL_EXTRA_DEPS)
 #TEMPLAR_ALL_DEP:=$(TEMPLAR_TMPL_FILE) $(TEMPLAR_MAKEFILE)
