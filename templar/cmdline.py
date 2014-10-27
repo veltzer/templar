@@ -30,11 +30,11 @@ import templar.attr # for Attr
 #############
 def load_and_init():
 	d={}
-	if os.path.isfile('templardefs/attr.py'):
+	if os.path.isfile('templardefs/project.py'):
 		sys.path.append('.')
-		import templardefs.attr
-		templardefs.attr.Attr.init()
-		d['attr_more']=templardefs.attr.Attr
+		import templardefs.project
+		templardefs.project.Attr.init()
+		d['attr_more']=templardefs.project.Attr
 	templar.attr.Attr.init()
 	d['attr']=templar.attr.Attr
 	return d
