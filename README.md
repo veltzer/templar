@@ -1,5 +1,5 @@
-templar
-=======
+templar 0.6
+===========
 
 templar is a templating wrapper for mako
 
