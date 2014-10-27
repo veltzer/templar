@@ -1,3 +1,8 @@
+include make/Makefile
+
+ALL:=$(TEMPLAR_ALL)
+ALL_DEP:=$(TEMPLAR_ALL_DEP)
+
 ##############
 # parameters #
 ##############
@@ -19,8 +24,6 @@ BUILD.ALL:=build.all
 BUILD.SOURCE:=build.source
 # where to build source packages?
 BUILD.GBP:=build.gbp
-# my ppa
-PPA:=ppa:mark-veltzer/ppa
 
 ########
 # code #
@@ -44,9 +47,9 @@ PKG_LOCAL:=$(BUILD.ALL)/$(PKG)
 #########
 # rules #
 #########
+.DEFAULT_GOAL=all
 .PHONY: all
-all:
-	$(info tell me what you want to do)
+all: $(ALL)
 
 # source
 
@@ -92,7 +95,7 @@ source-sdist:
 deb-build-gbp:
 	$(info doing [$@])
 	$(Q)-rm -f ../$(NAME)_*
-	$(Q)git clean -xdf > /dev/null
+	$(Q)git clean -xdf > /dev/null;make
 	$(Q)-mkdir $(BUILD.GBP)
 	$(Q)git-buildpackage > /tmp/git-buildpackage.log
 	$(Q)mv ../$(NAME)_* $(BUILD.GBP)
@@ -104,7 +107,7 @@ deb-build-gbp:
 deb-build-debuild-all:
 	$(info doing [$@])
 	$(Q)-rm -f ../$(NAME)_*
-	$(Q)git clean -xdf > /dev/null
+	$(Q)git clean -xdf > /dev/null;make
 	$(Q)-mkdir $(BUILD.ALL)
 	$(Q)debuild > /tmp/debuild.log
 	$(Q)mv ../$(NAME)_* $(BUILD.ALL)
@@ -116,7 +119,7 @@ deb-build-debuild-all:
 deb-build-debuild-source:
 	$(info doing [$@])
 	$(Q)-rm -f ../$(NAME)_*
-	$(Q)git clean -xdf > /dev/null
+	$(Q)git clean -xdf > /dev/null;make
 	$(Q)-mkdir $(BUILD.SOURCE)
 	$(Q)debuild -S > /tmp/debuild_s.log
 	$(Q)mv ../$(NAME)_* $(BUILD.SOURCE)
@@ -130,7 +133,7 @@ deb-install: deb-build-debuild-all
 .PHONY: deb-dput
 deb-dput: deb-build-debuild-source
 	$(info doing [$@])
-	$(Q)dput $(PPA) $(BUILD.SOURCE)/$(PKG_CHANGES)
+	$(Q)dput $(attr.launchpad_ppa) $(BUILD.SOURCE)/$(PKG_CHANGES)
 
 .PHONY: deb-archive
 deb-archive: deb-build-debuild-all
