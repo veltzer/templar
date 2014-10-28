@@ -1,3 +1,6 @@
+- change the name of the config file from .attr.config to .templar.config
+- change the names of the templar variables from attr.[name] to templar.[name]
+
 - why do we remove passwords when doing "makeprint".
 	the reason is that we don't want passwords written to the .attr.config
 	file.
