@@ -46,12 +46,14 @@ templar_debug:
 	$(info TEMPLAR_ALL_MAKO_TGT is $(TEMPLAR_ALL_MAKO_TGT))
 	$(info TEMPLAR_ALL is $(TEMPLAR_ALL))
 	$(info TEMPLAR_ALL_DEP is $(TEMPLAR_ALL_DEP))
+	$(info TEMPLAR_TEMPLAR_SCRIPT is $(TEMPLAR_TEMPLAR_SCRIPT))
+	$(info TEMPLAR_MAKEHELPER_SCRIPT is $(TEMPLAR_MAKEHELPER_SCRIPT))
 
 # rule about creating the template file
 # it should not depend on TEMPLAR_ALL_DEP since TEMPLAR_ALL_DEP includes it and this will create circular dependency
 $(TEMPLAR_TMPL_FILE): $(TEMPLAR_TEMPLAR_SCRIPT) $(TEMPLAR_TMPL_EXTRA_DEPS)
 	$(info doing [$@])
-	$(TEMPLAR_Q)$(TEMPLAR_TEMPLAR_SCRIPT) printmake > $@
+	$(TEMPLAR_Q)$(TEMPLAR_TEMPLAR_SCRIPT) printmake --nosec > $@
 
 .PHONY: templar
 templar: $(TEMPLAR_ALL_MAKO_TGT)

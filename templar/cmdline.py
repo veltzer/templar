@@ -62,6 +62,7 @@ def cmdline():
 		'printmake',
 		formatter_class=argparse.ArgumentDefaultsHelpFormatter,
 	)
+	subparser_print.add_argument('--nosec', help='dont do security', default=False, action='store_true')
 
 	subparser_print=subparsers.add_parser(
 		'printall',
@@ -132,8 +133,11 @@ def cmdline():
 		for name, cls in clsdict.items():
 			for k in sorted(cls.__dict__.keys()):
 				v=cls.__dict__[k]
-				if not k.startswith('__') and type(v)==str and v.find('\n')==-1 and k.find('password')==-1 and k.find('secret')==-1:
-					print('{0}.{1}:={2}'.format(name, k, v))
+				if k.startswith('__') or type(v)!=str or v.find('\n')!=-1:
+					continue
+				if not args.nosec and ( k.find('password')!=-1 or k.find('secret')!=-1 ):
+					continue
+				print('{0}.{1}:={2}'.format(name, k, v))
 
 	if args.subcommand=='printall':
 		clsdict=load_and_init()
