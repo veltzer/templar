@@ -42,6 +42,9 @@ class Attr(object):
 		cls.general_hostname=socket.gethostname()
 		cls.general_domainname=subprocess.check_output(['hostname','--domain']).decode().rstrip()
 
+		# messages
+		cls.messages_dne='THIS FILE IS AUTO GENERATED. DO NOT EDIT!!!'
+
 		# ini files
 		cls.read_full_ini('~/.details.ini')
 
