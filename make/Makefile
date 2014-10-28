@@ -34,7 +34,7 @@ TEMPLAR_TEMPLAR_SCRIPT_ARGS+=--nosec
 endif
 
 # templar sources and targets
-TEMPLAR_ALL_MAKO_SRC:=$(shell find $(TEMPLAR_TEMPLAR_FOLDER) ( -type f -or -type l ) -and -name "*.mako" 2> /dev/null)
+TEMPLAR_ALL_MAKO_SRC:=$(shell find $(TEMPLAR_TEMPLAR_FOLDER) \( -type f -or -type l \) -and -name "*.mako" 2> /dev/null)
 TEMPLAR_ALL_MAKO_TGT:=$(shell $(TEMPLAR_MAKEHELPER_SCRIPT) rmfdas $(TEMPLAR_ALL_MAKO_SRC))
 
 # MAKEFILE_LIST includes included makefiles like TEMPLAR_TMPL_FILE above...
