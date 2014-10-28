@@ -94,4 +94,6 @@ class Attr(object):
 		]
 		if os.path.isfile('templardefs/attr.py'):
 			deps.append('templardefs/attr.py')
+		if os.path.isfile('project.ini'):
+			deps.append('project.ini')
 		return ' '.join(deps)
