@@ -1,3 +1,4 @@
+- do system for uploading to more than one series in my ppa.
 - change the name of the config file from .attr.config to .templar.config
 - change the names of the templar variables from attr.[name] to templar.[name]
 
