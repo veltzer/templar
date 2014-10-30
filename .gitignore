@@ -6,6 +6,9 @@
 /build.gbp
 /build.source
 /build.all
+/debian/control
+/debian/copyright
+/debian/changelog
 
 # python
 __pycache__

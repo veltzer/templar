@@ -1,0 +1,1 @@
+../../templates/control.mako

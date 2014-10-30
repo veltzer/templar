@@ -4,7 +4,7 @@
 clean:
 	./setup.py clean
 	rm -rf build.* build build-indep
-	find . -name "*.py[co]" -and -type f -delete;
+	find . -name "*.py[co]" -and -type f -delete
 	find . -name "__pycache__" -and -type d -exec rm -r {} +
 
 .PHONY: build-indep
@@ -20,7 +20,7 @@ build-indep:
 
 .PHONY: install
 install:
-	./setup.py install --root debian/templar
+	./setup.py install --root debian/root
 
 .PHONY: binary-indep
 binary-indep: build install

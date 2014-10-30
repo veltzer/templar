@@ -99,7 +99,7 @@ deb-build-gbp:
 	$(Q)mkdir $(attr.deb_build_gbp)
 	$(Q)mv ../$(attr.deb_pkgname)_* $(attr.deb_build_gbp)
 	$(Q)chmod 444 $(attr.deb_build_gbp)/$(attr.deb_pkgname)_*
-	$(Q)rm -rf build-indep build debian/files debian/$(attr.deb_pkgname)*
+	$(Q)rm -rf build-indep build debian/files debian/root* debian/tmp debian/debhelper.log debian/substvars
 
 # we must do hard clean in the next target because debuild will take everything,
 # including results of building of other stuff, into the source package
@@ -112,7 +112,7 @@ deb-build-debuild-all:
 	$(Q)mkdir $(attr.deb_build_all)
 	$(Q)mv ../$(attr.deb_pkgname)_* $(attr.deb_build_all)
 	$(Q)chmod 444 $(attr.deb_build_all)/$(attr.deb_pkgname)_*
-	$(Q)rm -rf build-indep build debian/files debian/$(attr.deb_pkgname)*
+	$(Q)rm -rf build-indep build debian/files debian/root* debian/tmp debian/debhelper.log debian/substvars
 
 # we must do hard clean in the next target because debuild will take everything,
 # including results of building of other stuff, into the source package
@@ -125,7 +125,7 @@ deb-build-debuild-source:
 	$(Q)mkdir $(attr.deb_build_source)
 	$(Q)mv ../$(attr.deb_pkgname)_* $(attr.deb_build_source)
 	$(Q)chmod 444 $(attr.deb_build_source)/$(attr.deb_pkgname)_*
-	$(Q)rm -rf build-indep build debian/files debian/$(attr.deb_pkgname)*
+	$(Q)rm -rf build-indep build debian/files debian/root* debian/tmp debian/debhelper.log debian/substvars
 
 .PHONY: deb-install
 deb-install: deb-build-debuild-all
