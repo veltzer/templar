@@ -1,14 +1,3 @@
-# packaging stuff
-/debian/files
-/debian/templar.debhelper.log
-/debian/templar.substvars
-/debian/templar.postinst.debhelper
-/debian/templar.prerm.debhelper
-/debian/templar/
-/build-indep
-/templar.egg-info
-/build
-
 # created by templar
 /debian/changelog
 /.attr.config

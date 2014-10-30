@@ -2,11 +2,10 @@
 
 .PHONY: clean
 clean:
-	rm -f build-*
-	python3 setup.py clean
-	rm -rf build
-	find . -name *\.py[co] -delete;
-#	dh_clean build-indep
+	./setup.py clean
+	rm -rf build.* build build-indep
+	find . -name "*.py[co]" -and -type f -delete;
+	find . -name "__pycache__" -and -type d -exec rm -r {} +
 
 .PHONY: build-indep
 build: build-indep
@@ -16,16 +15,12 @@ build-arch:
 
 .PHONY: build-indep
 build-indep: 
-	python3 setup.py build
+	./setup.py build
 	touch $@
 
 .PHONY: install
 install:
-	python3 setup.py install --root debian/templar
-#	dh_installdirs
-#	python3 setup.py install \
-#		--single-version-externally-managed \
-#		--root $(CURDIR)/debian/templar
+	./setup.py install --root debian/templar
 
 .PHONY: binary-indep
 binary-indep: build install
