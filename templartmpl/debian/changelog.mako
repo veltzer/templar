@@ -1,1 +1,1 @@
-/usr/share/templar/templates/changelog.mako
+../../templates/changelog.mako
