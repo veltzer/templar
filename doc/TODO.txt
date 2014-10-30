@@ -1,3 +1,6 @@
+- check what the minimum files for building the package are.
+	(in the 'debian' folder)
+	make those that remain templates.
 - change the name of the config file from .attr.config to .templar.config
 - change the names of the templar variables from attr.[name] to templar.[name]
 

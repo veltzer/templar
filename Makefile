@@ -95,10 +95,11 @@ deb-build-gbp:
 	$(info doing [$@])
 	$(Q)-rm -f ../$(attr.deb_pkgname)_*
 	$(Q)git clean -xdf > /dev/null;make templar;rm .attr.config
-	$(Q)mkdir $(attr.deb_build_gbp)
 	$(Q)git-buildpackage > /tmp/git-buildpackage.log
+	$(Q)mkdir $(attr.deb_build_gbp)
 	$(Q)mv ../$(attr.deb_pkgname)_* $(attr.deb_build_gbp)
 	$(Q)chmod 444 $(attr.deb_build_gbp)/$(attr.deb_pkgname)_*
+	$(Q)rm -rf build-indep build debian/files debian/$(attr.deb_pkgname)*
 
 # we must do hard clean in the next target because debuild will take everything,
 # including results of building of other stuff, into the source package
@@ -107,10 +108,11 @@ deb-build-debuild-all:
 	$(info doing [$@])
 	$(Q)-rm -f ../$(attr.deb_pkgname)_*
 	$(Q)git clean -xdf > /dev/null;make templar;rm .attr.config
-	$(Q)mkdir $(attr.deb_build_all)
 	$(Q)debuild > /tmp/debuild.log
+	$(Q)mkdir $(attr.deb_build_all)
 	$(Q)mv ../$(attr.deb_pkgname)_* $(attr.deb_build_all)
 	$(Q)chmod 444 $(attr.deb_build_all)/$(attr.deb_pkgname)_*
+	$(Q)rm -rf build-indep build debian/files debian/$(attr.deb_pkgname)*
 
 # we must do hard clean in the next target because debuild will take everything,
 # including results of building of other stuff, into the source package
@@ -119,10 +121,11 @@ deb-build-debuild-source:
 	$(info doing [$@])
 	$(Q)-rm -f ../$(attr.deb_pkgname)_*
 	$(Q)git clean -xdf > /dev/null;make templar;rm .attr.config
-	$(Q)mkdir $(attr.deb_build_source)
 	$(Q)debuild -S > /tmp/debuild_s.log
+	$(Q)mkdir $(attr.deb_build_source)
 	$(Q)mv ../$(attr.deb_pkgname)_* $(attr.deb_build_source)
 	$(Q)chmod 444 $(attr.deb_build_source)/$(attr.deb_pkgname)_*
+	$(Q)rm -rf build-indep build debian/files debian/$(attr.deb_pkgname)*
 
 .PHONY: deb-install
 deb-install: deb-build-debuild-all
