@@ -8,6 +8,6 @@ X-Python3-Version: >= 3.4
 
 Package: ${attr.deb_pkgname}
 Architecture: all
-Depends: ${"${misc:Depends}"}, ${"${python3:Depends}"}
+Depends: ${"${misc:Depends}"}, ${"${python:Depends}"}
 Description: ${attr.project_short_description}
  ${attr.project_description}

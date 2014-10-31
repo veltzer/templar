@@ -56,7 +56,7 @@ def cmdline():
 	subparser_process.add_argument('--inputencoding', help='specify input encoding', default=sys.getdefaultencoding())
 	subparser_process.add_argument('--output', help='output file')
 	subparser_process.add_argument('--outputencoding', help='specify output encoding', default=sys.getdefaultencoding())
-	subparser_process.add_argument('--chmod', help='chmod the output?', default=True, action='store_false')
+	subparser_process.add_argument('--nochmod', help='dont chmod the output to readonly', default=False, action='store_true')
 
 	subparser_print=subparsers.add_parser(
 		'printmake',
@@ -108,7 +108,7 @@ def cmdline():
 			clsdict=load_and_init();
 			file.write(template.render(**clsdict))
 			file.close()
-			if args.chmod:
+			if not args.nochmod:
 				# FIXME: only remove the w from user group and all.
 				os.chmod(args.output,0o0444)
 		except Exception as e:
