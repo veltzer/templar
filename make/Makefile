@@ -19,6 +19,8 @@ TEMPLAR_Q=@
 TEMPLAR_TEMPLAR_FOLDER:=templartmpl
 # do we want security?
 TEMPLAR_SEC?=1
+# do we want security?
+TEMPLAR_CHMOD?=0
 
 ########
 # code #
@@ -28,9 +30,14 @@ TEMPLAR_TMPL_EXTRA_DEPS:=$(shell $(TEMPLAR_TEMPLAR_SCRIPT) getdeps)
 # an error coming out of make when the file needs to be rebuilt...
 -include $(TEMPLAR_TMPL_FILE)
 
-TEMPLAR_TEMPLAR_SCRIPT_ARGS:=
+TEMPLAR_TEMPLAR_SCRIPT_ARGS_PRINT:=
 ifeq ($(TEMPLAR_SEC), 0)
-TEMPLAR_TEMPLAR_SCRIPT_ARGS+=--nosec
+TEMPLAR_TEMPLAR_SCRIPT_ARGS_PRINT+=--nosec
+endif
+
+TEMPLAR_TEMPLAR_SCRIPT_ARGS_PROCESS:=
+ifeq ($(TEMPLAR_CHMOD), 0)
+TEMPLAR_TEMPLAR_SCRIPT_ARGS_PROCESS+=--nochmod
 endif
 
 # templar sources and targets
@@ -62,7 +69,7 @@ templar_debug:
 # it should not depend on TEMPLAR_ALL_DEP since TEMPLAR_ALL_DEP includes it and this will create circular dependency
 $(TEMPLAR_TMPL_FILE): $(TEMPLAR_TEMPLAR_SCRIPT) $(TEMPLAR_TMPL_EXTRA_DEPS)
 	$(info doing [$@])
-	$(TEMPLAR_Q)$(TEMPLAR_TEMPLAR_SCRIPT) printmake $(TEMPLAR_TEMPLAR_SCRIPT_ARGS) > $@
+	$(TEMPLAR_Q)$(TEMPLAR_TEMPLAR_SCRIPT) printmake $(TEMPLAR_TEMPLAR_SCRIPT_ARGS_PRINT) > $@
 
 .PHONY: templar
 templar: $(TEMPLAR_ALL_MAKO_TGT)
@@ -72,4 +79,4 @@ templar: $(TEMPLAR_ALL_MAKO_TGT)
 #################
 $(TEMPLAR_ALL_MAKO_TGT): %: $(TEMPLAR_TEMPLAR_FOLDER)/%.mako $(TEMPLAR_ALL_DEP)
 	$(info doing [$@])
-	$(TEMPLAR_Q)$(TEMPLAR_TEMPLAR_SCRIPT) process --input $< --output $@
+	$(TEMPLAR_Q)$(TEMPLAR_TEMPLAR_SCRIPT) process $(TEMPLAR_TEMPLAR_SCRIPT_ARGS_PROCESS) --input $< --output $@

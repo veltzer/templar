@@ -1,6 +1,6 @@
-#include /usr/share/templar/Makefile
-TEMPLAR_TEMPLAR_SCRIPT=./templar_cmd.py
-TEMPLAR_MAKEHELPER_SCRIPT=./make_helper.py
+TEMPLAR_TEMPLAR_SCRIPT:=./templar_cmd.py
+TEMPLAR_MAKEHELPER_SCRIPT:=./make_helper.py
+TEMPLAR_CHMOD:=0
 include make/Makefile
 
 ALL:=$(TEMPLAR_ALL)
