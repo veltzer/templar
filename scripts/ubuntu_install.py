@@ -10,6 +10,7 @@ import subprocess # for check_call
 packs=[
 	# for scripts
 	'python3', # for the python scripts
+	'python3-all', # for the python scripts
 
 	# mako templating (current templating)
 	'python3-mako', # mako for python 3 (we are not really using it)

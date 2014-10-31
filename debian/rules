@@ -1,43 +1,7 @@
 #!/usr/bin/make -f
 
-.PHONY: clean
-clean:
-	./setup.py clean
-	rm -rf build.* build build-indep
-	find . -name "*.py[co]" -and -type f -delete
-	find . -name "__pycache__" -and -type d -exec rm -r {} +
+export DH_VERBOSE=1
+export PYBUILD_NAME=templar
 
-.PHONY: build-indep
-build: build-indep
-
-.PHONY: build-arch
-build-arch:
-
-.PHONY: build-indep
-build-indep: 
-	./setup.py build
-	touch $@
-
-.PHONY: install
-install:
-	./setup.py install --root debian/root
-
-.PHONY: binary-indep
-binary-indep: build install
-	dh_installchangelogs
-	dh_installdocs
-	dh_installexamples
-	dh_pysupport
-	dh_python3
-	dh_compress -X.py
-	dh_fixperms
-	dh_installdeb
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-.PHONY: binary-arch
-binary-arch:
-
-.PHONY: binary
-binary: binary-indep
+%:
+	dh $@ --with python3 --buildsystem=pybuild
