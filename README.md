@@ -7,4 +7,4 @@ Templating solution for programmers
 
 TBD
 
-	Mark Veltzer <mark.veltzer@gmail.com>, 2014-2014
+	Mark Veltzer <mark@veltzer.net>, 2014-2014
