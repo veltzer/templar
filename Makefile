@@ -1,5 +1,5 @@
-TEMPLAR_TEMPLAR_SCRIPT:=./templar_cmd.py
-TEMPLAR_MAKEHELPER_SCRIPT:=./make_helper.py
+TEMPLAR_TEMPLAR_SCRIPT:=./templar_cmd
+TEMPLAR_MAKEHELPER_SCRIPT:=./make_helper
 TEMPLAR_CHMOD:=0
 include make/Makefile
 
@@ -91,11 +91,9 @@ deb-debug:
 # we must do hard clean in the next target because debuild will take everything,
 # including results of building of other stuff, into the source package
 .PHONY: deb-build-gbp
-deb-build-gbp:
+deb-build-gbp: source-clean templar
 	$(info doing [$@])
 	$(Q)-rm -f ../$(attr.deb_pkgname)_*
-	$(Q)git clean -xdf > /dev/null
-	$(Q)make templar;rm .attr.config
 	$(Q)git-buildpackage > /tmp/git-buildpackage.log
 	$(Q)mkdir $(attr.deb_build_gbp)
 	$(Q)cp ../$(attr.deb_pkgname)_* $(attr.deb_build_gbp)
@@ -104,11 +102,9 @@ deb-build-gbp:
 # we must do hard clean in the next target because debuild will take everything,
 # including results of building of other stuff, into the source package
 .PHONY: deb-build-debuild-all
-deb-build-debuild-all:
+deb-build-debuild-all: source-clean templar
 	$(info doing [$@])
 	$(Q)-rm -f ../$(attr.deb_pkgname)_*
-	$(Q)git clean -xdf > /dev/null
-	$(Q)make templar;rm .attr.config
 	$(Q)debuild > /tmp/debuild.log
 	$(Q)mkdir $(attr.deb_build_all)
 	$(Q)cp ../$(attr.deb_pkgname)_* $(attr.deb_build_all)
@@ -117,11 +113,9 @@ deb-build-debuild-all:
 # we must do hard clean in the next target because debuild will take everything,
 # including results of building of other stuff, into the source package
 .PHONY: deb-build-debuild-source
-deb-build-debuild-source:
+deb-build-debuild-source: source-clean templar
 	$(info doing [$@])
 	$(Q)-rm -f ../$(attr.deb_pkgname)_*
-	$(Q)git clean -xdf > /dev/null
-	$(Q)make templar;rm .attr.config
 	$(Q)debuild -S > /tmp/debuild_s.log
 	$(Q)mkdir $(attr.deb_build_source)
 	$(Q)cp ../$(attr.deb_pkgname)_* $(attr.deb_build_source)

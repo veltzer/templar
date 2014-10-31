@@ -10,9 +10,9 @@ TEMPLAR_MAKEFILE:=$(lastword $(MAKEFILE_LIST))
 # the template file to be created
 TEMPLAR_TMPL_FILE:=.attr.config
 # what is the templar script?
-TEMPLAR_TEMPLAR_SCRIPT?=/usr/bin/templar_cmd.py
+TEMPLAR_TEMPLAR_SCRIPT?=/usr/bin/templar_cmd
 # what is the make helper script?
-TEMPLAR_MAKEHELPER_SCRIPT?=/usr/bin/make_helper.py
+TEMPLAR_MAKEHELPER_SCRIPT?=/usr/bin/make_helper
 # quiet or not?
 TEMPLAR_Q=@
 # folder where templar files are
