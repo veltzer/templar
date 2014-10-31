@@ -1,14 +1,23 @@
 # created by templar
-/debian/changelog
 /.attr.config
+/debian/changelog
+/debian/control
+/debian/copyright
 
 # build folders for my package
 /build.gbp
 /build.source
 /build.all
-/debian/control
-/debian/copyright
-/debian/changelog
+
+# deb package build residue
+
+/.pybuild
+/debian/files
+/debian/templar.debhelper.log
+/debian/templar.postinst.debhelper
+/debian/templar.prerm.debhelper
+/debian/templar.substvars
+/debian/templar/
 
 # python
 __pycache__
