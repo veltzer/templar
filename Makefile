@@ -98,9 +98,8 @@ deb-build-gbp:
 	$(Q)make templar;rm .attr.config
 	$(Q)git-buildpackage > /tmp/git-buildpackage.log
 	$(Q)mkdir $(attr.deb_build_gbp)
-	$(Q)mv ../$(attr.deb_pkgname)_* $(attr.deb_build_gbp)
+	$(Q)cp ../$(attr.deb_pkgname)_* $(attr.deb_build_gbp)
 	$(Q)chmod 444 $(attr.deb_build_gbp)/$(attr.deb_pkgname)_*
-	$(Q)git clean -xdf > /dev/null
 
 # we must do hard clean in the next target because debuild will take everything,
 # including results of building of other stuff, into the source package
@@ -112,9 +111,8 @@ deb-build-debuild-all:
 	$(Q)make templar;rm .attr.config
 	$(Q)debuild > /tmp/debuild.log
 	$(Q)mkdir $(attr.deb_build_all)
-	$(Q)mv ../$(attr.deb_pkgname)_* $(attr.deb_build_all)
+	$(Q)cp ../$(attr.deb_pkgname)_* $(attr.deb_build_all)
 	$(Q)chmod 444 $(attr.deb_build_all)/$(attr.deb_pkgname)_*
-	$(Q)git clean -xdf > /dev/null
 
 # we must do hard clean in the next target because debuild will take everything,
 # including results of building of other stuff, into the source package
@@ -126,9 +124,8 @@ deb-build-debuild-source:
 	$(Q)make templar;rm .attr.config
 	$(Q)debuild -S > /tmp/debuild_s.log
 	$(Q)mkdir $(attr.deb_build_source)
-	$(Q)mv ../$(attr.deb_pkgname)_* $(attr.deb_build_source)
+	$(Q)cp ../$(attr.deb_pkgname)_* $(attr.deb_build_source)
 	$(Q)chmod 444 $(attr.deb_build_source)/$(attr.deb_pkgname)_*
-	$(Q)git clean -xdf > /dev/null
 
 .PHONY: deb-install
 deb-install: deb-build-debuild-all
