@@ -46,5 +46,9 @@ distutils.core.setup(
 		('/usr/share/templar/templates', ['templates/changelog.mako']),
 		('/usr/bin', ['templar_cmd']),
 		('/usr/bin', ['make_helper']),
+		('/usr/bin', ['wrapper_css_validator']),
+		('/usr/bin', ['wrapper_noerr']),
+		('/usr/bin', ['wrapper_ok']),
+		('/usr/bin', ['wrapper_silent']),
 	],
 )
