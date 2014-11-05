@@ -64,12 +64,18 @@ class Attr(object):
 			cls.git_describe=subprocess.check_output(['git', 'describe'], stderr=subprocess.DEVNULL).decode().rstrip()
 		except:
 			cls.git_describe='no git repository'
+
 		# this is wrong for the tag since they may not be alphabetically ordered...
 		#tag=subprocess.check_output(['git', 'tag']).decode().rstrip();
-		tag=subprocess.check_output(['git', 'describe', '--abbrev=0', '--tags']).decode().rstrip()
-		if tag!='':
-			cls.git_lasttag=tag.split()[-1].rstrip()
-		else:
+		#if tag!='':
+		#	cls.git_lasttag=tag.split()[-1].rstrip()
+		#else:
+		#	cls.git_lasttag='no git tag yet'
+
+		# this is right
+		try:
+			cls.git_lasttag=subprocess.check_output(['git', 'describe', '--abbrev=0', '--tags']).decode().rstrip()
+		except:
 			cls.git_lasttag='no git tag yet'
 
 		# deb
