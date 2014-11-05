@@ -7,4 +7,4 @@ ${attr.project_long_description}
 
 ${attr.project_description}
 
-	${attr.personal_origin}, ${attr.project_year_started}-${attr.general_current_year}
+	${attr.personal_origin}, ${attr.project_copyright_years}
