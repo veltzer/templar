@@ -74,7 +74,7 @@ class Attr(object):
 
 		# this is right
 		try:
-			cls.git_lasttag=subprocess.check_output(['git', 'describe', '--abbrev=0', '--tags']).decode().rstrip()
+			cls.git_lasttag=subprocess.check_output(['git', 'describe', '--abbrev=0', '--tags'], stderr=subprocess.DEVNULL).decode().rstrip()
 		except:
 			cls.git_lasttag='no git tag yet'
 
