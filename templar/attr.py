@@ -14,23 +14,19 @@ class BaseAttr(object):
 
 	@classmethod
 	def read_full_ini(cls, filename):
-		ini_file=os.path.expanduser(filename)
-		if os.path.isfile(ini_file):
-			ini_config=configparser.ConfigParser()
-			ini_config.read(ini_file)
-			for section in ini_config.sections():
-				for k,v in ini_config.items(section):
-					setattr(cls, '{0}_{1}'.format(section, k), v)
+		ini_config=configparser.ConfigParser()
+		ini_config.read(filename)
+		for section in ini_config.sections():
+			for k,v in ini_config.items(section):
+				setattr(cls, '{0}_{1}'.format(section, k), v)
 
 	@classmethod
 	def read_ini(cls, filename, sections):
-		ini_file=os.path.expanduser(filename)
-		if os.path.isfile(ini_file):
-			ini_config=configparser.ConfigParser()
-			ini_config.read(ini_file)
-			for section in sections:
-				for k,v in ini_config.items(section):
-					setattr(cls, '{0}_{1}'.format(section, k), v)
+		ini_config=configparser.ConfigParser()
+		ini_config.read(filename)
+		for section in sections:
+			for k,v in ini_config.items(section):
+				setattr(cls, '{0}_{1}'.format(section, k), v)
 
 class Attr(BaseAttr):
 
@@ -46,8 +42,10 @@ class Attr(BaseAttr):
 		# messages
 		cls.messages_dne='THIS FILE IS AUTO GENERATED. DO NOT EDIT!!!'
 
-		# ini files
-		cls.read_full_ini('~/.details.ini')
+		# details.ini
+		ini_file=os.path.expanduser('~/.details.ini')
+		if os.path.isfile(ini_file):
+			cls.read_full_ini(ini_file)
 
 		# project
 		if os.path.isfile('project.ini'):
