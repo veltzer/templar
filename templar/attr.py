@@ -57,7 +57,7 @@ class Attr(object):
 				cls.project_copyright_years=cls.general_current_year
 			else:
 				cls.project_copyright_years='{0}-{1}'.format(cls.project_year_started, cls.general_current_year)
-		cls.project_name=os.path.basename(os.getcwd())
+		cls.current_folder=os.path.basename(os.getcwd())
 
 		if 'project_google_analytics_tracking_id' in cls.__dict__:
 			cls.project_google_analytics_snipplet='''<script type="text/javascript">
