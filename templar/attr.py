@@ -10,7 +10,7 @@ import glob # for glob
 import socket # for gethostname
 import configparser # for ConfigParser
 
-class Attr(object):
+class BaseAttr(object):
 
 	@classmethod
 	def read_full_ini(cls, filename):
@@ -32,6 +32,7 @@ class Attr(object):
 				for k,v in ini_config.items(section):
 					setattr(cls, '{0}_{1}'.format(section, k), v)
 
+class Attr(BaseAttr):
 
 	@classmethod
 	def init(cls):
