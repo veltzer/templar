@@ -4,7 +4,7 @@ Attributes for this project
 
 import datetime # for datetime
 import subprocess # for check_output, DEVNULL
-import os.path # for join, expanduser, basename
+import os.path # for join, expanduser, basename, isfile
 import os # for getcwd
 import glob # for glob
 import socket # for gethostname
@@ -14,6 +14,7 @@ class BaseAttr(object):
 
 	@classmethod
 	def read_full_ini(cls, filename):
+		assert os.path.isfile(filename)
 		ini_config=configparser.ConfigParser()
 		ini_config.read(filename)
 		for section in ini_config.sections():
@@ -22,6 +23,7 @@ class BaseAttr(object):
 
 	@classmethod
 	def read_ini(cls, filename, sections):
+		assert os.path.isfile(filename)
 		ini_config=configparser.ConfigParser()
 		ini_config.read(filename)
 		for section in sections:
