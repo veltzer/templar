@@ -1,7 +1,7 @@
 This package was debianized by ${tdefs.personal_origin} on
 Sat,  6 Oct 2001 21:53:17 +0000.
 
-It was downloaded from ${tdefs.project_download_from}
+It was downloaded from ${tdefs.project_website_download}
 
 Upstream Author: ${tdefs.personal_origin}
 

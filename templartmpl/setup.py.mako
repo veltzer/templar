@@ -3,44 +3,27 @@
 '''
 This is the installation tool. use minimal packages here.
 dont use setuptools, dont use subprocess.
-
-We really this file to be generated.
 '''
 
 import distutils.core # for setup
 
 distutils.core.setup(
-	name='templar',
+	name='${tdefs.project_name}',
 	version='${tdefs.git_lasttag}',
-	description='Templating engine for python',
-	long_description='Templating engine for python (long description)',
-	author='Mark Veltzer',
-	author_email='mark.veltzer@gmail.com',
-	maintainer='Mark Veltzer',
-	maintainer_email='mark.veltzer@gmail.com',
-	keywords=[
-		'mako',
-		'templating',
-		'python',
-	],
-	url='https://veltzer.net/templar',
-	license='LGPL',
+	description='${tdefs.project_description}',
+	long_description='${tdefs.project_long_description}',
+	author='${tdefs.personal_fullname}',
+	author_email='${tdefs.personal_email}',
+	maintainer='${tdefs.personal_fullname}',
+	maintainer_email='${tdefs.personal_email}',
+	keywords=[ ${tdefs.project_keywords} ],
+	url='${tdefs.project_website}',
+	license='${tdefs.project_license}',
 	platforms=[
 		'ALL',
 	],
 	packages=['templar'],
-	classifiers=[
-		'Development Status :: 4 - Beta',
-		'Environment :: Console',
-		'Intended Audience :: Developers',
-		'License :: OSI Approved :: LGPL',
-		'Operating System :: OS Independent',
-		'Programming Language :: Python',
-		'Programming Language :: Python :: 3',
-		'Topic :: Software Development :: Building',
-		'Topic :: Software Development :: Libraries',
-		'Topic :: Utilities',
-	],
+	classifiers=[ ${tdefs.project_classifiers} ],
 	data_files=[
 		('/usr/share/templar', ['make/Makefile']),
 		('/usr/share/templar/templates', ['templates/README.md.mako']),
