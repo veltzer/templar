@@ -31,6 +31,11 @@ endif # DO_MKDBG
 .PHONY: all
 all: $(ALL)
 
+.PHONY: clean
+clean:
+	$(info doing [$@])
+	$(Q)git clean -xdf > /dev/null
+
 # source
 
 .PHONY: source-build
@@ -42,11 +47,6 @@ source-build:
 source-install:
 	$(info doing [$@])
 	$(Q)setup.py install
-
-.PHONY: source-clean
-source-clean:
-	$(info doing [$@])
-	$(Q)git clean -xdf > /dev/null
 
 .PHONY: source-sdist
 source-sdist:
