@@ -1,6 +1,5 @@
 TEMPLAR_TEMPLAR_SCRIPT:=./templar_cmd
 TEMPLAR_MAKEHELPER_SCRIPT:=./make_helper
-TEMPLAR_CHMOD:=0
 include make/Makefile
 
 ALL:=$(TEMPLAR_ALL)
