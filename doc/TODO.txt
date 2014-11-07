@@ -1,14 +1,12 @@
 - do system for uploading to more than one series in my ppa.
 - make the changelog better - do a script that makes the changelog
 	and have the changelog be a git log for debian.
-- change the name of the config file from .attr.config to .templar.config
-- change the names of the templar variables from attr.[name] to templar.[name]
 - make sure that when we build debian packages (source or binary)
 	the log of the debuild(1) tool does not show any warnings and/or errors.
 	We already cleaned out the errors, now there are only warning from
 	the debuild tool and lintian.
 - why do we remove passwords when doing "makeprint".
-	the reason is that we don't want passwords written to the .attr.config
+	the reason is that we don't want passwords written to the .tdefs.config
 	file.
 	But we can have make(1) read the data from templar without saving it to file.
 		that would actually be better because then no file would need to be created

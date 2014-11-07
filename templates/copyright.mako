@@ -1,11 +1,11 @@
-This package was debianized by ${attr.personal_origin} on
+This package was debianized by ${tdefs.personal_origin} on
 Sat,  6 Oct 2001 21:53:17 +0000.
 
-It was downloaded from ${attr.project_download_from}
+It was downloaded from ${tdefs.project_download_from}
 
-Upstream Author: ${attr.personal_origin}
+Upstream Author: ${tdefs.personal_origin}
 
-Copyright ${attr.project_copyright_years}, ${attr.personal_origin}
+Copyright ${tdefs.project_copyright_years}, ${tdefs.personal_origin}
 
 Copyright:
 
