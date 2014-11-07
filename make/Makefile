@@ -8,7 +8,7 @@ TEMPLAR_MAKEFILE:=$(lastword $(MAKEFILE_LIST))
 # parameters #
 ##############
 # the template file to be created
-TEMPLAR_TMPL_FILE:=.attr.config
+TEMPLAR_TMPL_FILE:=.tdefs.config
 # what is the templar script?
 TEMPLAR_TEMPLAR_SCRIPT?=/usr/bin/templar_cmd
 # what is the make helper script?

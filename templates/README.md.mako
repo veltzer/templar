@@ -1,10 +1,10 @@
-${attr.project_name}
-${'=' * len(attr.project_name)}
+${tdefs.project_name}
+${'=' * len(tdefs.project_name)}
 
-version: ${attr.git_lasttag}
+version: ${tdefs.git_lasttag}
 
-${attr.project_long_description}
+${tdefs.project_long_description}
 
-${attr.project_description}
+${tdefs.project_description}
 
-	${attr.personal_origin}, ${attr.project_copyright_years}
+	${tdefs.personal_origin}, ${tdefs.project_copyright_years}

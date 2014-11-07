@@ -1,5 +1,5 @@
 # created by templar
-/.attr.config
+/.tdefs.config
 /debian/changelog
 /debian/control
 /debian/copyright

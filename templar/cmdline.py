@@ -15,7 +15,7 @@ TODO:
 ###########
 # imports #
 ###########
-import sys # for argv, getdefaultencoding, exit, path
+import sys # for argv, getdefaultencoding, exit
 import mako # for exceptions
 import mako.exceptions # for RickTraceback
 import mako.template # for Template
@@ -23,22 +23,48 @@ import mako.lookup # for TemplateLookup
 import os # for chmod, unlink, makedirs
 import os.path # for isfile, dirname, isdir
 import argparse # for ArgumentParser, ArgumentDefaultsHelpFormatter
-import templar.attr # for Attr
+import templar.tdefs # for populate, getdeps
+import pkgutil # for iter_modules
+
+###########
+# classes #
+###########
+'''
+class that looks like a dictionary but also like a namespace to allow the end users
+namespace like access (easy) and also non namespace like access.
+'''
+class D(dict):
+	def __init__(self):
+		pass
+	def __getattr__(self,name):
+		return self[name]
+	def __setattr__(self, name, val):
+		self[name]=val
 
 #############
 # functions #
 #############
-def load_and_init():
-	d={}
-	sys.path.append('.')
-	if os.path.isfile('templardefs/project.py'):
-		import templardefs.project
-		templardefs.project.Attr.init()
-		d['attr_more']=templardefs.project.Attr
-	sys.path.pop()
-	templar.attr.Attr.init()
-	d['attr']=templar.attr.Attr
+def get_mod_list():
+	for (module_loader, name, ispkg) in pkgutil.iter_modules(path=['templardefs']):
+		if ispkg:
+			continue
+		ml=module_loader.find_module(name)
+		m=ml.load_module()
+		yield m
+
+def load_and_populate():
+	d=D()
+	templar.tdefs.populate(d)
+	for m in get_mod_list():
+		m.populate(d)
 	return d
+
+def get_all_deps():
+	for d in templar.tdefs.getdeps():
+		yield d
+	for m in get_mod_list():
+		for d in m.getdeps():
+			yield d
 
 def cmdline():
 	parser=argparse.ArgumentParser(
@@ -106,8 +132,8 @@ def cmdline():
 			if output_folder!='' and not os.path.isdir(output_folder):
 				os.makedirs(output_folder)
 			file=open(args.output, 'wb')
-			clsdict=load_and_init()
-			file.write(template.render(**clsdict))
+			tdefs=load_and_populate()
+			file.write(template.render(tdefs=tdefs))
 			file.close()
 			if not args.nochmod:
 				# FIXME: only remove the w from user group and all
@@ -130,23 +156,18 @@ def cmdline():
 			sys.exit(1)
 
 	if args.subcommand=='printmake':
-		clsdict=load_and_init()
-		for name, cls in clsdict.items():
-			for k in sorted(cls.__dict__.keys()):
-				v=cls.__dict__[k]
-				if k.startswith('__') or type(v)!=str or v.find('\n')!=-1:
-					continue
-				if not args.nosec and ( k.find('password')!=-1 or k.find('secret')!=-1 ):
-					continue
-				print('{0}.{1}:={2}'.format(name, k, v))
+		tdefs=load_and_populate()
+		for k in sorted(tdefs.keys()):
+			v=tdefs[k]
+			if not args.nosec and ( k.find('password')!=-1 or k.find('secret')!=-1 ):
+				continue
+			print('{0}.{1}:={2}'.format('tdefs', k, v))
 
 	if args.subcommand=='printall':
-		clsdict=load_and_init()
-		for name, cls in clsdict.items():
-			for k in sorted(cls.__dict__.keys()):
-				v=cls.__dict__[k]
-				print('{0}.{1}={2}'.format(name, k, v))
+		tdefs=load_and_populate()
+		for k in sorted(tdefs.keys()):
+			v=tdefs[k]
+			print('{0}.{1}={2}'.format('tdefs', k, v))
 
 	if args.subcommand=='getdeps':
-		clsdict=load_and_init()
-		print(' '.join([cls.getdeps() for cls in clsdict.values()]))
+		print(' '.join(get_all_deps()))
