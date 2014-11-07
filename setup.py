@@ -4,7 +4,8 @@
 This is the installation tool. use minimal packages here.
 dont use setuptools, dont use subprocess.
 
-We really this file to be generated.
+TODO:
+- put lots of stuff from templar in here.
 '''
 
 import distutils.core # for setup
@@ -12,35 +13,31 @@ import distutils.core # for setup
 distutils.core.setup(
 	name='templar',
 	version='1.3',
-	description='Templating engine for python',
-	long_description='Templating engine for python (long description)',
+	description='Easy templating tool long description (TBD)',
+	long_description='Templating solution for programmers',
 	author='Mark Veltzer',
 	author_email='mark.veltzer@gmail.com',
 	maintainer='Mark Veltzer',
 	maintainer_email='mark.veltzer@gmail.com',
-	keywords=[
-		'mako',
-		'templating',
-		'python',
-	],
-	url='https://veltzer.net/templar',
+	keywords=[ 'mako',
+'templating',
+'python' ],
+	url='https://veltzer.github.io/templar',
 	license='LGPL',
 	platforms=[
 		'ALL',
 	],
 	packages=['templar'],
-	classifiers=[
-		'Development Status :: 4 - Beta',
-		'Environment :: Console',
-		'Intended Audience :: Developers',
-		'License :: OSI Approved :: LGPL',
-		'Operating System :: OS Independent',
-		'Programming Language :: Python',
-		'Programming Language :: Python :: 3',
-		'Topic :: Software Development :: Building',
-		'Topic :: Software Development :: Libraries',
-		'Topic :: Utilities',
-	],
+	classifiers=[ 'Development Status :: 4 - Beta',
+'Environment :: Console',
+'Intended Audience :: Developers',
+'License :: OSI Approved :: LGPL',
+'Operating System :: OS Independent',
+'Programming Language :: Python',
+'Programming Language :: Python :: 3',
+'Topic :: Software Development :: Building',
+'Topic :: Software Development :: Libraries',
+'Topic :: Utilities' ],
 	data_files=[
 		('/usr/share/templar', ['make/Makefile']),
 		('/usr/share/templar/templates', ['templates/README.md.mako']),
