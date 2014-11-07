@@ -159,6 +159,8 @@ def cmdline():
 		tdefs=load_and_populate()
 		for k in sorted(tdefs.keys()):
 			v=tdefs[k]
+			if type(v)!=str:
+				continue
 			if v.find('\n')!=-1:
 				continue
 			if not args.nosec and ( k.find('password')!=-1 or k.find('secret')!=-1 ):
