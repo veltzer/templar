@@ -14,13 +14,13 @@ TEMPLAR_TEMPLAR_SCRIPT?=/usr/bin/templar_cmd
 # what is the make helper script?
 TEMPLAR_MAKEHELPER_SCRIPT?=/usr/bin/make_helper
 # quiet or not?
-TEMPLAR_Q=@
+TEMPLAR_Q?=@
 # folder where templar files are
 TEMPLAR_TEMPLAR_FOLDER:=templartmpl
 # do we want security?
 TEMPLAR_SEC?=1
-# do we want security?
-TEMPLAR_CHMOD?=0
+# do we want chmodding of output files?
+TEMPLAR_CHMOD?=1
 
 ########
 # code #

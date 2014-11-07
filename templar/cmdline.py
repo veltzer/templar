@@ -25,6 +25,7 @@ import os.path # for isfile, dirname, isdir
 import argparse # for ArgumentParser, ArgumentDefaultsHelpFormatter
 import templar.tdefs # for populate, getdeps
 import pkgutil # for iter_modules
+import stat # for S_IMODE, S_IWRITE
 
 ###########
 # classes #
@@ -136,8 +137,14 @@ def cmdline():
 			file.write(template.render(tdefs=tdefs))
 			file.close()
 			if not args.nochmod:
-				# FIXME: only remove the w from user group and all
-				os.chmod(args.output, 0o0444)
+				# old solution which is no good because of umask
+				# and executable scripts
+				# os.chmod(args.output, 0o0444)
+				current = stat.S_IMODE(os.lstat(args.input).st_mode)
+				print(current)
+				current &= ~( stat.S_IWUSR | stat.S_IWGRP | stat.S_IWOTH )
+				print(current)
+				os.chmod(args.output, current)
 		except Exception as e:
 			if os.path.isfile(args.output):
 				os.unlink(args.output)

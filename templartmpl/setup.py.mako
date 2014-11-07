@@ -11,7 +11,7 @@ import distutils.core # for setup
 
 distutils.core.setup(
 	name='templar',
-	version='1.3',
+	version='${tdefs.git_lasttag}',
 	description='Templating engine for python',
 	long_description='Templating engine for python (long description)',
 	author='Mark Veltzer',
