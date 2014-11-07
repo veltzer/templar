@@ -140,7 +140,7 @@ def cmdline():
 				# old solution which is no good because of umask
 				# and executable scripts
 				# os.chmod(args.output, 0o0444)
-				current = stat.S_IMODE(os.lstat(args.input).st_mode)
+				current = stat.S_IMODE(os.stat(args.input).st_mode)
 				current &= ~( stat.S_IWUSR | stat.S_IWGRP | stat.S_IWOTH )
 				os.chmod(args.output, current)
 		except Exception as e:
