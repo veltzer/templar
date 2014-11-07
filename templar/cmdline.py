@@ -30,11 +30,12 @@ import templar.attr # for Attr
 #############
 def load_and_init():
 	d={}
+	sys.path.append('.')
 	if os.path.isfile('templardefs/project.py'):
-		sys.path.append('.')
 		import templardefs.project
 		templardefs.project.Attr.init()
 		d['attr_more']=templardefs.project.Attr
+	sys.path.pop()
 	templar.attr.Attr.init()
 	d['attr']=templar.attr.Attr
 	return d
@@ -104,13 +105,13 @@ def cmdline():
 			output_folder=os.path.dirname(args.output)
 			if output_folder!='' and not os.path.isdir(output_folder):
 				os.makedirs(output_folder)
-			file=open(args.output,'wb')
-			clsdict=load_and_init();
+			file=open(args.output, 'wb')
+			clsdict=load_and_init()
 			file.write(template.render(**clsdict))
 			file.close()
 			if not args.nochmod:
-				# FIXME: only remove the w from user group and all.
-				os.chmod(args.output,0o0444)
+				# FIXME: only remove the w from user group and all
+				os.chmod(args.output, 0o0444)
 		except Exception as e:
 			if os.path.isfile(args.output):
 				os.unlink(args.output)
