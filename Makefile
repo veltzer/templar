@@ -103,6 +103,7 @@ deb-build-gbp: clean templar
 .PHONY: deb-build-debuild-all
 deb-build-debuild-all: clean templar
 	$(info doing [$@])
+	$(Q)chmod +w debian/control
 	$(Q)-rm -f ../$(tdefs.deb_pkgname)_*
 	$(Q)debuild > /tmp/debuild.log
 	$(Q)mkdir $(tdefs.deb_build_all)
