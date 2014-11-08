@@ -1,5 +1,4 @@
-- binary packages do not build now for some reason.
-	see how other people package for python3.
+- upload to launchpad and see that all is well.
 
 - do system for uploading to more than one series in my ppa.
 
