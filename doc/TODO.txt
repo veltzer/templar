@@ -1,10 +1,17 @@
 - do system for uploading to more than one series in my ppa.
+
+- instead of having a stupid CREDITS, Changelog and debian changelog
+	and LICENCE.
+	create all of these intelligently using templar from git.
 - make the changelog better - do a script that makes the changelog
 	and have the changelog be a git log for debian.
 - make sure that when we build debian packages (source or binary)
 	the log of the debuild(1) tool does not show any warnings and/or errors.
 	We already cleaned out the errors, now there are only warning from
 	the debuild tool and lintian.
+	filter the output out and show the warnings or errors and stop on them.
+	this means we will run debuild or whatever from a python script instead
+	of from a shell script.
 - why do we remove passwords when doing "makeprint".
 	the reason is that we don't want passwords written to the .tdefs.config
 	file.
@@ -15,10 +22,6 @@
 	- one option is to create a fifo and have make read from that.
 	- do we really need make to read from the file? maybe all make laws should
 	be python processes and they can read the parameters directly from the py module?
-
-- make templar import all modules in templar/
-	this means that all the project can drop their templar_cmd script and templar
-	can supply that script.
 - add mako as requirement for this package.
 - when chmodding an output file in templar just removed the write, don't change all the permissions.
 - add an example .details.ini file to the package so that people will know how to write this.
