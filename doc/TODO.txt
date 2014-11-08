@@ -4,9 +4,9 @@
 	make the release_helper use that function.
 	make that function receive overrides.
 	see that all works after this change and I can upload multiple packages to ppa.
-
-- do system for uploading to more than one series in my ppa.
-
+	this will mean that I will not run the creation of the package twice (ugh!)
+- make the clean: target in the debian/rules makefile do something correct or
+	close to correct.
 - instead of having a stupid CREDITS, Changelog and debian changelog
 	and LICENCE.
 	create all of these intelligently using templar from git.
