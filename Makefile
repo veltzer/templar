@@ -97,6 +97,7 @@ deb-debug:
 .PHONY: deb-build-gbp
 deb-build-gbp: clean-hard templar
 	$(info doing [$@])
+	$(Q)chmod +w debian/control
 	$(Q)-rm -f ../$(tdefs.deb_pkgname)_*
 	$(Q)./wrapper_debuild git-buildpackage
 	$(Q)mkdir $(tdefs.deb_build_gbp)
