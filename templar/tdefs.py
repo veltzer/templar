@@ -10,7 +10,7 @@ import glob # for glob
 import socket # for gethostname
 import templar.utils # for read_full_ini_dict
 
-override_file_name='templar_override.ini'
+override_file_name='/tmp/templar_override.ini'
 override_var_name='TEMPLAR_OVERRIDE'
 
 def populate(d):
