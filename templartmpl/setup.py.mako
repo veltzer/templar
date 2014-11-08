@@ -9,7 +9,7 @@ import distutils.core # for setup
 
 distutils.core.setup(
 	name='${tdefs.project_name}',
-	version='${tdefs.git_lasttag}',
+	version='${tdefs.git_lasttag}~${tdefs.apt_codename}',
 	description='${tdefs.project_description}',
 	long_description='${tdefs.project_long_description}',
 	author='${tdefs.personal_fullname}',
