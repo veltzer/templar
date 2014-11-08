@@ -1,5 +1,5 @@
-TEMPLAR_TEMPLAR_SCRIPT:=./templar_cmd
-TEMPLAR_MAKEHELPER_SCRIPT:=./make_helper
+TEMPLAR_TEMPLAR_SCRIPT:=./bin/templar_cmd
+TEMPLAR_MAKEHELPER_SCRIPT:=./bin/make_helper
 include make/Makefile
 
 ALL:=$(TEMPLAR_ALL)
