@@ -9,7 +9,7 @@ import sys # for argv, exit
 import templar.capture_all # for capture_all
 
 seen_error=False
-for line in templar.capture_all.capture_all(sys.argv[1], sys.argv[1:]):
+for line in templar.capture_all.capture_all(sys.argv[1:]):
 	do_print=False
 	line=line.decode()
 	if line.find('warning')!=1:
