@@ -51,7 +51,7 @@ env_var='TEMPLAR_OVERRIDE'
 def create_override(series):
 	os.environ[env_var]='apt_codename={0}'.format(series)
 
-def remove_override(series):
+def remove_override():
 	del os.environ[env_var]
 
 ########
