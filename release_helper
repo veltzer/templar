@@ -18,6 +18,7 @@ TODO:
 import subprocess # for check_output, check_call, DEVNULL
 import sys # for stderr
 import templar.cmdline # for load_and_populate
+import os # for environ
 
 ##############
 # parameters #
