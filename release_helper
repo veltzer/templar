@@ -7,6 +7,7 @@ it then tags the current tree with one + the old tag.
 it then cleans and then rebuilds everything and puts the results in the output.
 
 TODO:
+- iterate all series wanted by the developer and release for all of them.
 - add integration with twitter and facebook to announce new versions.
 - try to use a better git interface (there are native python git interfaces).
 '''
