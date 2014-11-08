@@ -93,7 +93,7 @@ deb-debug:
 deb-build-gbp: clean templar
 	$(info doing [$@])
 	$(Q)-rm -f ../$(tdefs.deb_pkgname)_*
-	$(Q)wrapper_debuild git-buildpackage
+	$(Q)./wrapper_debuild git-buildpackage
 	$(Q)mkdir $(tdefs.deb_build_gbp)
 	$(Q)mv ../$(tdefs.deb_pkgname)_* $(tdefs.deb_build_gbp)
 	$(Q)chmod 444 $(tdefs.deb_build_gbp)/$(tdefs.deb_pkgname)_*
@@ -105,7 +105,7 @@ deb-build-debuild-all: clean templar
 	$(info doing [$@])
 	$(Q)chmod +w debian/control
 	$(Q)-rm -f ../$(tdefs.deb_pkgname)_*
-	$(Q)wrapper_debuild debuild
+	$(Q)./wrapper_debuild debuild
 	$(Q)mkdir $(tdefs.deb_build_all)
 	$(Q)mv ../$(tdefs.deb_pkgname)_* $(tdefs.deb_build_all)
 	$(Q)chmod 444 $(tdefs.deb_build_all)/$(tdefs.deb_pkgname)_*
@@ -116,7 +116,7 @@ deb-build-debuild-all: clean templar
 deb-build-debuild-source: clean templar
 	$(info doing [$@])
 	$(Q)-rm -f ../$(tdefs.deb_pkgname)_*
-	$(Q)wrapper_debuild debuild -S
+	$(Q)./wrapper_debuild debuild -S
 	$(Q)mkdir $(tdefs.deb_build_source)
 	$(Q)mv ../$(tdefs.deb_pkgname)_* $(tdefs.deb_build_source)
 	$(Q)chmod 444 $(tdefs.deb_build_source)/$(tdefs.deb_pkgname)_*
