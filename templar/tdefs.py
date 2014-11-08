@@ -10,6 +10,8 @@ import glob # for glob
 import socket # for gethostname
 import templar.utils # for read_full_ini_dict
 
+override_file_name='templar_override.ini'
+
 def populate(d):
 	# general # TODO: get homedir in python
 	d.general_current_year=datetime.datetime.now().year
@@ -29,8 +31,6 @@ def populate(d):
 	# project
 	if os.path.isfile('project.ini'):
 		templar.utils.read_full_ini_dict(d, 'project.ini')
-	if os.path.isfile('project_override.ini'):
-		templar.utils.read_full_ini_dict(d, 'project_override.ini')
 
 	if 'project_year_started' in d:
 		d.project_copyright_years=', '.join(map(str,range(int(d.project_year_started), datetime.datetime.now().year+1)))
@@ -98,6 +98,9 @@ ga('send', 'pageview');
 	d.apt_keyfile='public_key.gpg'
 	d.apt_apache_site_file='{0}.apt'.format(d.personal_slug)
 
+	if os.path.isfile(override_file_name):
+		templar.utils.read_full_ini_dict(d, override_file_name)
+
 def getdeps():
 	deps=[
 		__file__, # myself
@@ -108,6 +111,6 @@ def getdeps():
 		deps.append(details_file)
 	if os.path.isfile('project.ini'):
 		deps.append('project.ini')
-	if os.path.isfile('project_override.ini'):
-		deps.append('project_override.ini')
+	if os.path.isfile(override_file_name):
+		deps.append(override_file_name)
 	return deps
