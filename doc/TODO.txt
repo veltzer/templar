@@ -1,4 +1,5 @@
 - upload to launchpad and see that all is well.
+- TEMPLAR_OVERRIDE does not work to create package for trusty.
 
 - do system for uploading to more than one series in my ppa.
 
