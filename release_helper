@@ -52,7 +52,7 @@ def create_override(series):
 	os.environ[env_var]='apt_codename={0}'.format(series)
 
 def remove_override(series):
-	delete os.environ[env_var]
+	del os.environ[env_var]
 
 ########
 # code #
