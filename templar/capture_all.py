@@ -7,11 +7,13 @@ See my demos-python repository to see how this works.
 import sys # for stderr, exit
 import pty # for fork
 import os # for execv, fdopen
+import templar.which # for which
 
 def capture_all(args):
+	program=templar.which.which(args[0])
 	(pid, fd)=pty.fork()
 	if pid==0:
-		os.execv(args[0], args)
+		os.execv(program, args)
 		print('execv didnt work', sys.stderr)
 		sys.exit(1)
 	else:
