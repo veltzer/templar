@@ -1,3 +1,6 @@
+- binary packages do not build now for some reason.
+	see how other people package for python3.
+
 - do system for uploading to more than one series in my ppa.
 
 - instead of having a stupid CREDITS, Changelog and debian changelog

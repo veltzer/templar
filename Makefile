@@ -95,7 +95,7 @@ deb-debug:
 # we must do hard clean in the next target because debuild will take everything,
 # including results of building of other stuff, into the source package
 .PHONY: deb-build-gbp
-deb-build-gbp: clean templar
+deb-build-gbp: clean-hard templar
 	$(info doing [$@])
 	$(Q)-rm -f ../$(tdefs.deb_pkgname)_*
 	$(Q)./wrapper_debuild git-buildpackage
@@ -106,7 +106,7 @@ deb-build-gbp: clean templar
 # we must do hard clean in the next target because debuild will take everything,
 # including results of building of other stuff, into the source package
 .PHONY: deb-build-debuild-all
-deb-build-debuild-all: clean templar
+deb-build-debuild-all: clean-hard templar
 	$(info doing [$@])
 	$(Q)chmod +w debian/control
 	$(Q)-rm -f ../$(tdefs.deb_pkgname)_*
@@ -118,7 +118,7 @@ deb-build-debuild-all: clean templar
 # we must do hard clean in the next target because debuild will take everything,
 # including results of building of other stuff, into the source package
 .PHONY: deb-build-debuild-source
-deb-build-debuild-source: clean templar
+deb-build-debuild-source: clean-hard templar
 	$(info doing [$@])
 	$(Q)-rm -f ../$(tdefs.deb_pkgname)_*
 	$(Q)./wrapper_debuild debuild -S
