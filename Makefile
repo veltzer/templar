@@ -148,6 +148,11 @@ deb-dput: deb-build-debuild-source
 	$(info doing [$@])
 	$(Q)dput $(tdefs.launchpad_ppa) $(tdefs.deb_build_source)/$(PKG_CHANGES)
 
+.PHONY: deb-dput-light
+deb-dput-light:
+	$(info doing [$@])
+	$(Q)dput $(tdefs.launchpad_ppa) $(tdefs.deb_build_source)/$(PKG_CHANGES)
+
 .PHONY: deb-archive
 deb-archive: deb-build-debuild-all
 	$(info doing [$@])
