@@ -9,13 +9,13 @@ import distutils.core # for setup
 
 distutils.core.setup(
 	name='templar',
-	version='12',
+	version='13',
 	description='Easy templating tool long description (TBD)',
 	long_description='Templating solution for programmers',
 	author='Mark Veltzer',
-	author_email='mark@veltzer.net',
+	author_email='mark.veltzer@gmail.com',
 	maintainer='Mark Veltzer',
-	maintainer_email='mark@veltzer.net',
+	maintainer_email='mark.veltzer@gmail.com',
 	keywords=[ 'mako',
 'templating',
 'python' ],
