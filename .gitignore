@@ -3,6 +3,7 @@
 /debian/changelog
 /debian/control
 /debian/copyright
+/debian/rules
 
 # build folders for my package
 /build.gbp
