@@ -78,7 +78,7 @@ tag=str(tag)
 # tag the new tag
 do(['git','tag','--annotate','--sign','-m',tag,tag])
 # build and commit for templating files that have the version in them
-do(['make','clean'])
+do(['make','clean-hard'])
 do(['make'])
 do(['git','commit','--all','-m',tag])
 do(['git','push',])

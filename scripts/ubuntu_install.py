@@ -11,6 +11,7 @@ packs=[
 	# for scripts
 	'python3', # for the python scripts
 	'python3-all', # for the python scripts
+	'dh-python', # for packaging helpers
 
 	# mako templating (current templating)
 	'python3-mako', # mako for python 3 (we are not really using it)
