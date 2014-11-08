@@ -70,7 +70,7 @@ check_all: check_main check_semicol
 # deb building
 
 # where to build source packages?
-PKG_TIGHT:=$(tdefs.deb_pkgname)_$(tdefs.git_lasttag)
+PKG_TIGHT:=$(tdefs.deb_pkgname)_$(tdefs.git_lasttag)~$(tdefs.apt_codename)
 PKG_BASE:=$(PKG_TIGHT)_all
 PKG:=$(PKG_BASE).deb
 PKG_FULL:=$(tdefs.deb_repo)/$(PKG)
