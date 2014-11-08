@@ -83,6 +83,7 @@ do(['git','commit','--all','-m',tag])
 do(['git','push',])
 
 for series in deb_series:
+	print('starting to build for series [{0}]'.format(series), file=sys.stderr)
 	create_override(series)
 	# now run release which should be configured in your makefile to do release work
 	do(['make', 'release'])

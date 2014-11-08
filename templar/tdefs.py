@@ -5,12 +5,13 @@ Attributes for this project
 import datetime # for datetime
 import subprocess # for check_output, DEVNULL
 import os.path # for join, expanduser, basename, isfile
-import os # for getcwd
+import os # for getcwd, environ
 import glob # for glob
 import socket # for gethostname
 import templar.utils # for read_full_ini_dict
 
 override_file_name='templar_override.ini'
+override_var_name='TEMPLAR_OVERRIDE'
 
 def populate(d):
 	# general # TODO: get homedir in python
@@ -101,8 +102,8 @@ ga('send', 'pageview');
 	if os.path.isfile(override_file_name):
 		templar.utils.read_full_ini_dict(d, override_file_name)
 
-	if 'TEMPLAR_OVERRIDE' in os.environ:
-		values=os.environ['TEMPLAR_OVERRIDE'].split(';')
+	if override_var_name in os.environ:
+		values=os.environ[override_var_name].split(';')
 		for value in values:
 			k,v=value.strip().split('=')
 			d[k]=v
