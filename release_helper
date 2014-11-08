@@ -59,7 +59,7 @@ override_file_name='/tmp/templar_override.ini'
 def create_override(series):
 	with open(override_file_name, 'w') as f:
 		print('[apt]', file=f)
-		print('codename=\'{0}\''.format(series), file=f)
+		print('codename={0}'.format(series), file=f)
 
 def remove_override():
 	os.unlink(override_file_name)
