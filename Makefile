@@ -30,11 +30,6 @@ endif # DO_MKDBG
 .PHONY: all
 all: $(ALL)
 
-# this is the clean called by the debian helper, currently does nothing
-.PHONY: clean
-clean:
-	$(info doing [$@])
-
 .PHONY: clean-hard
 clean-hard:
 	$(info doing [$@])
@@ -76,6 +71,7 @@ check_all: check_main check_semicol
 
 # where to build source packages?
 PKG_TIGHT:=$(tdefs.deb_pkgname)_$(tdefs.git_lasttag)~$(tdefs.apt_codename)
+#PKG_TIGHT:=$(tdefs.deb_pkgname)_$(tdefs.git_lasttag)
 PKG_BASE:=$(PKG_TIGHT)_all
 PKG:=$(PKG_BASE).deb
 PKG_FULL:=$(tdefs.deb_repo)/$(PKG)

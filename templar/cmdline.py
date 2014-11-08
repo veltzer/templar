@@ -143,6 +143,9 @@ def cmdline():
 				current = stat.S_IMODE(os.stat(args.input).st_mode)
 				current &= ~( stat.S_IWUSR | stat.S_IWGRP | stat.S_IWOTH )
 				os.chmod(args.output, current)
+			else:
+				current = stat.S_IMODE(os.stat(args.input).st_mode)
+				os.chmod(args.output, current)
 		except Exception as e:
 			if os.path.isfile(args.output):
 				os.unlink(args.output)
