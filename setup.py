@@ -3,9 +3,6 @@
 '''
 This is the installation tool. use minimal packages here.
 dont use setuptools, dont use subprocess.
-
-TODO:
-- put lots of stuff from templar in here.
 '''
 
 import distutils.core # for setup

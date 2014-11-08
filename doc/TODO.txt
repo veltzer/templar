@@ -1,7 +1,3 @@
-- currently my package is installed on 2.7 and 3.4?!?
-	I only want it on 3!!!
-	You can see this if you do: dpkg --listfiles templar
-
 - do system for uploading to more than one series in my ppa.
 - make the changelog better - do a script that makes the changelog
 	and have the changelog be a git log for debian.
