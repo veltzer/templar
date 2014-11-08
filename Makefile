@@ -115,7 +115,7 @@ deb-build-debuild-all: clean-hard templar
 # we must do hard clean in the next target because debuild will take everything,
 # including results of building of other stuff, into the source package
 .PHONY: deb-build-debuild-source
-deb-build-debuild-source: clean-hard templar
+deb-build-debuild-source:
 	$(info doing [$@])
 	$(Q)-rm -f ../$(tdefs.deb_pkgname)_*
 	$(Q)./wrapper_debuild debuild -S

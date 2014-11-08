@@ -1,5 +1,9 @@
-- upload to launchpad and see that all is well.
-- TEMPLAR_OVERRIDE does not work to create package for trusty.
+- make the whole creation of the source package a script
+	in python that uses the variables from templar.
+	make that a function with a wrapper.
+	make the release_helper use that function.
+	make that function receive overrides.
+	see that all works after this change and I can upload multiple packages to ppa.
 
 - do system for uploading to more than one series in my ppa.
 
