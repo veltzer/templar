@@ -179,3 +179,8 @@ deb-installed-status:
 deb-installed-purge:
 	$(info doing [$@])
 	$(Q)sudo dpkg --purge $(tdefs.deb_pkgname)
+
+# this is the target activated on release
+.PHONY: release
+release: deb-dput
+	$(info doing [$@])

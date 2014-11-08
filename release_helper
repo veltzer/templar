@@ -53,7 +53,14 @@ if opt_debug:
 	print('new tag is [{0}]'.format(tag))
 tag=str(tag)
 # tag the new tag
-subprocess.check_call(['git','tag','-a','-s','-m',tag,tag], stdout=subprocess.DEVNULL)
+subprocess.check_call(['git','tag','--annotate','--sign','-m',tag,tag], stdout=subprocess.DEVNULL)
 
+# clean
 subprocess.check_call(['make','clean'])
-subprocess.check_call(['make','install'])
+
+# build and commit for templating files that have the version in them
+subprocess.check_call(['make'])
+subprocess.check_call(['git','commit','--all','-m',tag], stdout=subprocess.DEVNULL)
+
+# now run release which should be configured in your makefile to do release work
+subprocess.check_call(['make', 'release'])
