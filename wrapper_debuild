@@ -6,10 +6,10 @@ and produces copious amounts of junk as output.
 '''
 
 import sys # for argv
-import subprocess # for Popen, PIPE
+import subprocess # for Popen, PIPE, STDOUT
 
 # run the command
-pr=subprocess.Popen(sys.argv[1:], stdout=subprocess.PIPE, shell=False)
+pr=subprocess.Popen(sys.argv[1:], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=False)
 error=False
 for line in pr.stdout:
 	doPrint=False
