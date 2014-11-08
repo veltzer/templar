@@ -99,5 +99,6 @@ for series in deb_series:
 	# now run release which should be configured in your makefile to do release work
 	#do(['make', 'release'])
 	do(['make', 'deb-build-debuild-source'])
+	do(['make', 'deb-build-debuild-source'])
 	print(glob.glob('build.source/*'))
 	remove_override()
