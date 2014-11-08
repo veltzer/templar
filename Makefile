@@ -112,16 +112,10 @@ deb-build-debuild-all: clean-hard templar
 	$(Q)mv ../$(tdefs.deb_pkgname)_* $(tdefs.deb_build_all)
 	$(Q)chmod 444 $(tdefs.deb_build_all)/$(tdefs.deb_pkgname)_*
 
-# we must do hard clean in the next target because debuild will take everything,
-# including results of building of other stuff, into the source package
 .PHONY: deb-build-debuild-source
-deb-build-debuild-source: clean-hard templar
+deb-build-debuild-source:
 	$(info doing [$@])
-	$(Q)-rm -f ../$(tdefs.deb_pkgname)_*
-	$(Q)./bin/wrapper_debuild debuild -S
-	$(Q)mkdir $(tdefs.deb_build_source)
-	$(Q)mv ../$(tdefs.deb_pkgname)_* $(tdefs.deb_build_source)
-	$(Q)chmod 444 $(tdefs.deb_build_source)/$(tdefs.deb_pkgname)_*
+	$(Q)./bin/make_helper do-deb-build-debuild-source
 
 .PHONY: deb-install
 deb-install: deb-build-debuild-all

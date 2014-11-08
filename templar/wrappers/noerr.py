@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 '''
 run any command line and do not emit it's standard error or output unless there is an error
 or there was an error.
@@ -12,43 +10,20 @@ this_script.py ls -l
 in which case we get many arguments, its ok to run them without a shell and save some resources.
 '''
 
-###########
-# imports #
-###########
-import sys # for argv, exit, stderr
-import subprocess # for Popen
+import sys # for exit
+import subprocess # for Popen, PIPE
 
-##############
-# parameters #
-##############
-opt_debug=False
-
-#############
-# functions #
-#############
-def run_no_error(args):
+def run(args):
 	if len(args)==1:
 		pr=subprocess.Popen(args[0], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 	else:
-		pr=subprocess.Popen(args,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+		pr=subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 	(output,errout)=pr.communicate()
 	output=output.decode()
 	errout=errout.decode()
 	print(output, end='')
 	print(errout, end='')
 	sys.exit(0)
-
-########
-# code #
-########
-if opt_debug:
-	print(sys.argv)
-if len(sys.argv)<2:
-	print('{0}: usage: {0} [arguments...]'.format(sys.argv[0]), file=sys.stderr)
-	sys.exit(1)
-
-# run the command
-run_no_error(sys.argv[1:])
 
 '''
 This version is intersting but alas wrong. If you pass a command that generates errors
@@ -58,10 +33,10 @@ This will succeed: this_script.py 'ls nonexistant; exit 0'
 
 '''
 try:
-	if len(sys.argv)==2:
-		out=subprocess.check_output(sys.argv[1], stderr=subprocess.STDOUT, shell=True)
+	if len(args)==1:
+		out=subprocess.check_output(args[0], stderr=subprocess.STDOUT, shell=True)
 	else:
-		out=subprocess.check_output(sys.argv[1:], stderr=subprocess.STDOUT)
+		out=subprocess.check_output(args, stderr=subprocess.STDOUT)
 	print(out.decode(), end='')
 except:
 	pass
