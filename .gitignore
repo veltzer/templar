@@ -15,6 +15,7 @@
 
 # deb package build residue
 
+/build
 /.pybuild
 /debian/files
 /debian/templar.debhelper.log
