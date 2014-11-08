@@ -30,6 +30,41 @@ subparser_rmfdas=subparsers.add_parser(
 )
 subparser_rmfdas.add_argument('filenames', nargs=argparse.REMAINDER, action='store')
 
+subparser_deb_build_debuild_source=subparsers.add_parser(
+	'deb-build-debuild-source',
+	formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+)
+
+subparser_wrapper_css_validator=subparsers.add_parser(
+	'wrapper-css-validator',
+	formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+)
+subparser_wrapper_css_validator.add_argument('args', nargs=argparse.REMAINDER, action='store')
+
+subparser_wrapper_debuild=subparsers.add_parser(
+	'wrapper-debuild',
+	formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+)
+subparser_wrapper_debuild.add_argument('args', nargs=argparse.REMAINDER, action='store')
+
+subparser_wrapper_noerr=subparsers.add_parser(
+	'wrapper-noerr',
+	formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+)
+subparser_wrapper_noerr.add_argument('args', nargs=argparse.REMAINDER, action='store')
+
+subparser_wrapper_ok=subparsers.add_parser(
+	'wrapper-ok',
+	formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+)
+subparser_wrapper_ok.add_argument('args', nargs=argparse.REMAINDER, action='store')
+
+subparser_wrapper_silent=subparsers.add_parser(
+	'wrapper-silent',
+	formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+)
+subparser_wrapper_silent.add_argument('args', nargs=argparse.REMAINDER, action='store')
+
 args=parser.parse_args()
 
 if args.subcommand=='rmfdas':
@@ -38,3 +73,30 @@ if args.subcommand=='rmfdas':
 		r=os.path.splitext(os.sep.join(f.split(os.sep)[1:]))[0]
 		result.append(r)
 	print(' '.join(result), end='')
+
+if args.subcommand=='deb-build-debuild-source':
+	'''
+	we must do hard clean in the next target because debuild will take everything,
+	including results of building of other stuff, into the source package
+	$(Q)-rm -f ../$(tdefs.deb_pkgname)_*
+	$(Q)./bin/wrapper_debuild debuild -S
+	$(Q)mkdir $(tdefs.deb_build_source)
+	$(Q)mv ../$(tdefs.deb_pkgname)_* $(tdefs.deb_build_source)
+	$(Q)chmod 444 $(tdefs.deb_build_source)/$(tdefs.deb_pkgname)_*
+	'''
+	pass
+if args.subcommand=='wrapper-css-validator':
+	import templar.wrappers.css_validator
+	templar.wrappers.css_validator.run(args.args)
+if args.subcommand=='wrapper-debuild':
+	import templar.wrappers.debuild
+	templar.wrappers.debuild.run(args.args)
+if args.subcommand=='wrapper-noerr':
+	import templar.wrappers.noerr
+	templar.wrappers.noerr.run(args.args)
+if args.subcommand=='wrapper-ok':
+	import templar.wrappers.ok
+	templar.wrappers.ok.run(args.args)
+if args.subcommand=='wrapper-silent':
+	import templar.wrappers.silent
+	templar.wrappers.silent.run(args.args)
