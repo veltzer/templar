@@ -9,7 +9,8 @@
 
 clean:
 	$(info doing [$@])
-	make clean-hard templar
+	make clean-hard
+	make templar
 build:
 	$(info doing [$@])
 	./setup.py build
