@@ -8,9 +8,6 @@
 #	dh $@ --with python3 --buildsystem=pybuild
 
 clean:
-	$(info doing [$@])
-	make clean-hard
-	make templar
 build:
 	$(info doing [$@])
 	./setup.py build
