@@ -30,8 +30,13 @@ endif # DO_MKDBG
 .PHONY: all
 all: $(ALL)
 
+# this is the clean called by the debian helper, currently does nothing
 .PHONY: clean
 clean:
+	$(info doing [$@])
+
+.PHONY: clean-hard
+clean-hard:
 	$(info doing [$@])
 	$(Q)git clean -xdf > /dev/null
 
