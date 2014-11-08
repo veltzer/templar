@@ -100,5 +100,5 @@ for series in deb_series:
 	#do(['make', 'release'])
 	do(['make', 'deb-build-debuild-source'])
 	do(['make', 'deb-build-debuild-source'])
-	print(glob.glob('build.source/*'))
+	do(['make', 'deb-dput-light'])
 	remove_override()
