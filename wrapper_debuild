@@ -1,0 +1,26 @@
+#!/usr/bin/python3
+
+'''
+this is a specific wrapper written for debuild since it does not have "warnings as errors"
+and produces copious amounts of junk as output.
+'''
+
+import sys # for argv
+import subprocess # for Popen, PIPE
+
+# run the command
+pr=subprocess.Popen(sys.argv[1:], stdout=subprocess.PIPE, shell=False)
+error=False
+for line in pr.stdout:
+	doPrint=False
+	line=line.decode()
+	if line.find('warning')!=1:
+		doPrint=True
+		error=True
+	if line.startswith('W: '):
+		doPrint=True
+		error=True
+	if doPrint:
+		print(line, end='')
+if error:
+	sys.exit(1)

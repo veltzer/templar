@@ -101,6 +101,12 @@ ga('send', 'pageview');
 	if os.path.isfile(override_file_name):
 		templar.utils.read_full_ini_dict(d, override_file_name)
 
+	if 'TEMPLAR_OVERRIDE' in os.environ:
+		values=os.environ['TEMPLAR_OVERRIDE'].split(';')
+		for value in values:
+			k,v=value.strip().split('=')
+			d[k]=v
+
 def getdeps():
 	deps=[
 		__file__, # myself

@@ -17,6 +17,7 @@ TODO:
 ###########
 import subprocess # for check_output, check_call, DEVNULL
 import sys # for stderr
+import templar.cmdline # for load_and_populate
 
 ##############
 # parameters #
@@ -36,6 +37,8 @@ def get_version():
 		return int(ver)
 	except:
 		return 0
+
+'''execute a command with verbosity'''
 def do(l):
 	print('executing [{0}]...'.format(l), file=sys.stderr)
 	if opt_debug:
@@ -43,9 +46,19 @@ def do(l):
 	else:
 		subprocess.check_call(l, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
+env_var='TEMPLAR_OVERRIDE'
+def create_override(series):
+	os.environ[env_var]='apt_codename={0}'.format(series)
+
+def remove_override(series):
+	delete os.environ[env_var]
+
 ########
 # code #
 ########
+d=templar.cmdline.load_and_populate()
+deb_series=d.deb_series.split()
+
 # check that everything is committed
 if opt_check:
 	out=subprocess.check_output(['git','status','-s']).decode()
@@ -63,12 +76,14 @@ if opt_debug:
 tag=str(tag)
 # tag the new tag
 do(['git','tag','--annotate','--sign','-m',tag,tag])
-
 # build and commit for templating files that have the version in them
 do(['make','clean'])
 do(['make'])
 do(['git','commit','--all','-m',tag])
 do(['git','push',])
 
-# now run release which should be configured in your makefile to do release work
-do(['make', 'release'])
+for series in deb_series:
+	create_override(series)
+	# now run release which should be configured in your makefile to do release work
+	do(['make', 'release'])
+	remove_override()
