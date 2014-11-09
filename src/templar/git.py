@@ -2,8 +2,25 @@
 Module that will run git tasks for you
 '''
 
-import subprocess # for check_call, DEVNULL
+import sys # for stderr
+import templar.subprocess # for check_call, check_output
 
 ''' git clean -xdf > /dev/null '''
 def clean():
-	subprocess.check_call(['git', 'clean', '-xdf'], stdout=subprocess.DEVNULL)
+	templar.subprocess.check_call(['git', 'clean', '-xdf'])
+		
+''' function that checks that all is committed '''
+def check_allcommit():
+	out=templar.subprocess.check_output(['git','status','-s']).decode()
+	if out!='':
+		print('first commit everything, then call me...', file=sys.stderr)
+		sys.exit(1)
+
+def commit_all(msg):
+	templar.subprocess.check_call(['git','commit','--all','-m',msg])
+
+def push():
+	templar.subprocess.check_call(['git','push',])
+
+def tag(tag):
+	templar.subprocess.check_call(['git','tag','--annotate','--sign','-m',tag,tag])
