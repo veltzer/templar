@@ -71,5 +71,5 @@ def run(d):
 		print('starting to build for series [{0}]'.format(series), file=sys.stderr)
 		create_override(d, series)
 		templar.debuild.run(d)
-		print('results are {0}'.format(glob.glob('build.source/*'), file=sys.stderr)
+		print('results are {0}'.format(glob.glob('build.source/*')), file=sys.stderr)
 		remove_override()
