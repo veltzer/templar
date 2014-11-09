@@ -84,3 +84,8 @@ def run(d):
 		templar.debuild.run(d)
 		templar.dput.run(d)
 		remove_override(d)
+	# wrap up - bring the folder back to regular business
+	# very hard clean
+	templar.git.clean()
+	templar.fileops.touch_exists('Makefile')
+	templar.make.make('templar')
