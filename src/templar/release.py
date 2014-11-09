@@ -51,9 +51,11 @@ old_val=None
 def create_override(d, series):
 	old_val=d.apt_codename
 	d.apt_codename=series
+	create_override_env(series)
 
 def remove_override(d):
 	d.apt_codename=old_val
+	remove_override_env()
 
 def run(d):
 	# check that everything is committed
