@@ -20,3 +20,9 @@ def check_call(l):
 	else:
 		subprocess.check_call(l, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
+def check_output(l):
+	templar.debug.process(l)
+	if opt_debug:
+		return subprocess.check_output(l)
+	else:
+		return subprocess.check_output(l, stderr=subprocess.DEVNULL)
