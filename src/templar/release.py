@@ -64,6 +64,7 @@ def run(d):
 	# tag the new version
 	tag=str(int(d.git_lasttag)+1)
 	templar.git.tag(tag)
+	d.git_lasttag=tag
 	# very hard clean
 	templar.git.clean()
 	# touch the Makefile so that everything gets regenerated
