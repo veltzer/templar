@@ -28,7 +28,7 @@ TEMPLAR_CHMOD?=1
 TEMPLAR_TMPL_EXTRA_DEPS:=$(shell $(TEMPLAR_TEMPLAR_SCRIPT) getdeps)
 # the - (minus) at the begining of the next line is so that users wont see
 # an error coming out of make when the file needs to be rebuilt...
--include $(TEMPLAR_TMPL_FILE)
+#-include $(TEMPLAR_TMPL_FILE)
 
 TEMPLAR_TEMPLAR_SCRIPT_ARGS_PRINT:=
 ifeq ($(TEMPLAR_SEC), 0)
