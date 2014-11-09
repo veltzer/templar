@@ -8,6 +8,7 @@ import templar.make # for make
 import glob # for glob
 import os # for unlink, mkdir
 import templar.wrappers.debuild # for run
+import shutil # for move
 
 def run():
 	d=templar.api.load_and_populate()
@@ -17,7 +18,6 @@ def run():
 		os.unlink(f)
 	templar.wrappers.debuild.run(['debuild','-S'])
 	os.mkdir(d.deb_build_source)
-	'''
-	$(Q)mv ../$(tdefs.deb_pkgname)_* $(tdefs.deb_build_source)
-	$(Q)chmod 444 $(tdefs.deb_build_source)/$(tdefs.deb_pkgname)_*
-	'''
+	for f in glob.glob('../{0}_*'.format(d.deb_pkgname)):
+		res=shutil.move(f, d.deb_build_source)
+		os.chmod(res, 0o0444)

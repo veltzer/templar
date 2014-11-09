@@ -8,6 +8,8 @@
 #	dh $@ --with python3 --buildsystem=pybuild
 
 clean:
+	$(info doing [$@])
+	-find . -name __pycache__ -exec rm -rf {} \;
 build:
 	$(info doing [$@])
 	./setup.py build
