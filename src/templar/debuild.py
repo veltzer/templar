@@ -5,17 +5,16 @@ This module knows how to build debian packages using the debuild(1) command.
 import templar.git # for clean
 import templar.make # for make
 import glob # for glob
-import os # for unlink, mkdir
 import templar.wrappers.debuild # for run
-import shutil # for move
+import templar.fileops # for unlink, move, chmod, mkdir
 
 def run(d):
 	templar.git.clean()
 	templar.make.make('templar')
 	for f in glob.glob('../{0}_*'.format(d.deb_pkgname)):
-		os.unlink(f)
+		templar.fileops.unlink(f)
 	templar.wrappers.debuild.run(['debuild','-S'])
-	os.mkdir(d.deb_build_source)
+	templar.fileops.mkdir(d.deb_build_source)
 	for f in glob.glob('../{0}_*'.format(d.deb_pkgname)):
-		res=shutil.move(f, d.deb_build_source)
-		os.chmod(res, 0o0444)
+		res=templar.fileops.move(f, d.deb_build_source)
+		templar.fileops.chmod(res, 0o0444)
