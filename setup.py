@@ -9,7 +9,7 @@ import distutils.core # for setup
 
 distutils.core.setup(
 	name='templar',
-	#version='tdefs.git_lasttag~tdefs.apt_codename',
+	version='40~utopic',
 	description='Easy templating tool long description (TBD)',
 	long_description='Templating solution for programmers',
 	author='Mark Veltzer',
@@ -24,8 +24,14 @@ distutils.core.setup(
 	platforms=[
 		'ALL',
 	],
-	packages=['templar'],
-	package_dir = {'templar':'src/templar'},
+	packages=[
+		'templar',
+		'templar/wrappers',
+	],
+	package_dir = {
+		'templar':'src/templar',
+		'templar/wrappers':'src/templar/wrappers',
+	},
 	classifiers=[ 'Development Status :: 4 - Beta',
 'Environment :: Console',
 'Intended Audience :: Developers',
