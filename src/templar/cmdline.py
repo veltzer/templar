@@ -23,49 +23,8 @@ import mako.lookup # for TemplateLookup
 import os # for chmod, unlink, makedirs
 import os.path # for isfile, dirname, isdir
 import argparse # for ArgumentParser, ArgumentDefaultsHelpFormatter
-import templar.tdefs # for populate, getdeps
-import pkgutil # for iter_modules
+import templar.api # for load_and_populate
 import stat # for S_IMODE, S_IWRITE
-
-###########
-# classes #
-###########
-'''
-class that looks like a dictionary but also like a namespace to allow the end users
-namespace like access (easy) and also non namespace like access.
-'''
-class D(dict):
-	def __init__(self):
-		pass
-	def __getattr__(self,name):
-		return self[name]
-	def __setattr__(self, name, val):
-		self[name]=val
-
-#############
-# functions #
-#############
-def get_mod_list():
-	for (module_loader, name, ispkg) in pkgutil.iter_modules(path=['templardefs']):
-		if ispkg:
-			continue
-		ml=module_loader.find_module(name)
-		m=ml.load_module()
-		yield m
-
-def load_and_populate():
-	d=D()
-	templar.tdefs.populate(d)
-	for m in get_mod_list():
-		m.populate(d)
-	return d
-
-def get_all_deps():
-	for d in templar.tdefs.getdeps():
-		yield d
-	for m in get_mod_list():
-		for d in m.getdeps():
-			yield d
 
 def cmdline():
 	parser=argparse.ArgumentParser(
@@ -133,7 +92,7 @@ def cmdline():
 			if output_folder!='' and not os.path.isdir(output_folder):
 				os.makedirs(output_folder)
 			file=open(args.output, 'wb')
-			tdefs=load_and_populate()
+			tdefs=templar.api.load_and_populate()
 			file.write(template.render(tdefs=tdefs))
 			file.close()
 			if not args.nochmod:
@@ -164,7 +123,7 @@ def cmdline():
 			sys.exit(1)
 
 	if args.subcommand=='printmake':
-		tdefs=load_and_populate()
+		tdefs=templar.api.load_and_populate()
 		for k in sorted(tdefs.keys()):
 			v=tdefs[k]
 			if type(v)!=str:
@@ -176,10 +135,10 @@ def cmdline():
 			print('{0}.{1}:={2}'.format('tdefs', k, v))
 
 	if args.subcommand=='printall':
-		tdefs=load_and_populate()
+		tdefs=templar.api.load_and_populate()
 		for k in sorted(tdefs.keys()):
 			v=tdefs[k]
 			print('{0}.{1}={2}'.format('tdefs', k, v))
 
 	if args.subcommand=='getdeps':
-		print(' '.join(get_all_deps()))
+		print(' '.join(templar.api.get_all_deps()))

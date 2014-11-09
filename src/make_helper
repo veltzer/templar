@@ -30,8 +30,8 @@ subparser_rmfdas=subparsers.add_parser(
 )
 subparser_rmfdas.add_argument('filenames', nargs=argparse.REMAINDER, action='store')
 
-subparser_deb_build_debuild_source=subparsers.add_parser(
-	'deb-build-debuild-source',
+subparser_debuild=subparsers.add_parser(
+	'debuild',
 	formatter_class=argparse.ArgumentDefaultsHelpFormatter,
 )
 
@@ -74,17 +74,9 @@ if args.subcommand=='rmfdas':
 		result.append(r)
 	print(' '.join(result), end='')
 
-if args.subcommand=='deb-build-debuild-source':
-	'''
-	we must do hard clean in the next target because debuild will take everything,
-	including results of building of other stuff, into the source package
-	$(Q)-rm -f ../$(tdefs.deb_pkgname)_*
-	$(Q)./bin/wrapper_debuild debuild -S
-	$(Q)mkdir $(tdefs.deb_build_source)
-	$(Q)mv ../$(tdefs.deb_pkgname)_* $(tdefs.deb_build_source)
-	$(Q)chmod 444 $(tdefs.deb_build_source)/$(tdefs.deb_pkgname)_*
-	'''
-	pass
+if args.subcommand=='debuild':
+	import templar.debuild
+	templar.debuild.run()
 if args.subcommand=='wrapper-css-validator':
 	import templar.wrappers.css_validator
 	templar.wrappers.css_validator.run(args.args)
