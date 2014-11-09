@@ -1,10 +1,7 @@
-- make the whole creation of the source package a script
-	in python that uses the variables from templar.
-	make that a function with a wrapper.
-	make the release_helper use that function.
-	make that function receive overrides.
-	see that all works after this change and I can upload multiple packages to ppa.
-	this will mean that I will not run the creation of the package twice (ugh!)
+- move all stuff from the makefile to helpers in the python code.
+	reach a situation where there are not tdefs in the makefile.
+	reach a situation where the PKG macros are gone gone gone.
+	make the makefile spiffy clean.
 - make the clean: target in the debian/rules makefile do something correct or
 	close to correct.
 - instead of having a stupid CREDITS, Changelog and debian changelog
