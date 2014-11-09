@@ -1,9 +1,3 @@
-- problem in binary debian package generation:
-	I have src as a toplevel package.
-- move all stuff from the makefile to helpers in the python code.
-	reach a situation where there are not tdefs in the makefile.
-	reach a situation where the PKG macros are gone gone gone.
-	make the makefile spiffy clean.
 - make the clean: target in the debian/rules makefile do something correct or
 	close to correct.
 - instead of having a stupid CREDITS, Changelog and debian changelog
