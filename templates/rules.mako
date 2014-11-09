@@ -9,7 +9,7 @@
 
 clean:
 	$(info doing [$@])
-	-find . -name __pycache__ -exec rm -rf {} \;
+	find . -name __pycache__ -exec rm -rf {} \; ; true
 build:
 	$(info doing [$@])
 	./setup.py build

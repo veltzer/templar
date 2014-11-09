@@ -7,16 +7,14 @@ centrally debug everything that is going on.
 '''
 
 import subprocess # for check_call, DEVNULL
+import templar.debug # for process
 
 # do we want to see stdout and stderr?
-opt_debug=True
-# do we want to see the commands?
-opt_show_commands=True
+opt_debug=False
 
 '''check_call wrapper'''
 def check_call(l):
-	if opt_show_commands:
-		print('executing [{0}]...'.format(l), file=sys.stderr)
+	templar.debug.process(l)
 	if opt_debug:
 		subprocess.check_call(l)
 	else:
