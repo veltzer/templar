@@ -10,7 +10,7 @@ import subprocess # for check_call, DEVNULL
 import templar.debug # for process
 
 # do we want to see stdout and stderr?
-opt_debug=False
+opt_debug=True
 
 '''check_call wrapper'''
 def check_call(l):
