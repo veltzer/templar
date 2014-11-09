@@ -77,6 +77,6 @@ deb-release:
 	$(Q)./src/make_helper release
 
 .PHONY: deb-install
-deb-install: deb-debuild-all
+deb-install:
 	$(info doing [$@])
 	$(Q)./src/make_helper debuild-install
