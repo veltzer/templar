@@ -12,7 +12,7 @@ warning_patterns_to_ignore=set([
 def run(args):
 	seen_error=False
 	do_errors=True
-	do_always_print=False
+	do_always_print=True
 	do_print_naked=True
 	for line in templar.capture_all.capture_all(args):
 		do_print=False
