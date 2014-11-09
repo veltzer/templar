@@ -1,3 +1,5 @@
+- add manual pages created by sphinx for all the executables here.
+	Then remove the disregard to binary-without-manpage warnings at package creation.
 - make the clean: target in the debian/rules makefile do something correct or
 	close to correct.
 - instead of having a stupid CREDITS, Changelog and debian changelog
