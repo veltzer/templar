@@ -18,6 +18,8 @@ import templar.git # for check_allcommit, clean
 import templar.make # for make
 import templar.fileops # for touch_exists
 import templar.debug # for debug
+import templar.dput # for run
+import templar.debuild # for run
 
 ##############
 # parameters #
@@ -79,4 +81,5 @@ def run(d):
 		templar.debug.debug('starting to build for series [{0}]'.format(series))
 		create_override(d, series)
 		templar.debuild.run(d)
+		templar.dput.run(d)
 		remove_override(d)
