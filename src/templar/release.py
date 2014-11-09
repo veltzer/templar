@@ -70,6 +70,6 @@ def run(d):
 	for series in d.deb_series.split():
 		print('starting to build for series [{0}]'.format(series), file=sys.stderr)
 		create_override(d, series)
-		# now run release which should be configured in your makefile to do release work
 		templar.debuild.run(d)
+		print('results are {0}'.format(glob.glob('build.source/*'), file=sys.stderr)
 		remove_override()
