@@ -22,7 +22,8 @@ distutils.core.setup(
 	platforms=[
 		'ALL',
 	],
-	packages=['src/templar'],
+	packages=['templar'],
+	package_dir = {'templar':'src/templar'},
 	classifiers=[ ${tdefs.project_classifiers} ],
 	data_files=[
 		('/usr/share/templar', ['make/Makefile']),

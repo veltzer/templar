@@ -1,3 +1,5 @@
+- problem in binary debian package generation:
+	I have src as a toplevel package.
 - move all stuff from the makefile to helpers in the python code.
 	reach a situation where there are not tdefs in the makefile.
 	reach a situation where the PKG macros are gone gone gone.

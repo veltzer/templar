@@ -2,9 +2,10 @@
 centralized file operations
 '''
 
-import os # for unlink, mkdir, chmod, utime
+import os # for unlink, mkdir, chmod, utime, stat
 import shutil # for move
 import sys # for stderr
+import stat # for S_IWUSR, S_IWGRP, S_IWOTH, S_IMODE
 
 # do you want to see ops?
 opt_debug=True
@@ -33,3 +34,10 @@ def touch_exists(f):
 	if opt_debug:
 		print('touching [{0}]'.format(f), file=sys.stderr)
 	return os.utime(f, None)
+
+def chmod_pw(f):
+	if opt_debug:
+		print('chmod +w [{0}]'.format(f), file=sys.stderr)
+	current = stat.S_IMODE(os.stat(f).st_mode)
+	current |= stat.S_IWUSR | stat.S_IWGRP | stat.S_IWOTH
+	return os.chmod(f, current)
