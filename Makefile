@@ -1,5 +1,5 @@
-TEMPLAR_TEMPLAR_SCRIPT:=./bin/templar_cmd
-TEMPLAR_MAKEHELPER_SCRIPT:=./bin/make_helper
+TEMPLAR_TEMPLAR_SCRIPT:=./src/templar_cmd
+TEMPLAR_MAKEHELPER_SCRIPT:=./src/make_helper
 include make/Makefile
 
 ALL:=$(TEMPLAR_ALL)
@@ -95,7 +95,7 @@ deb-build-gbp: clean-hard templar
 	$(info doing [$@])
 	$(Q)chmod +w debian/control
 	$(Q)-rm -f ../$(tdefs.deb_pkgname)_*
-	$(Q)./bin/wrapper_debuild git-buildpackage
+	$(Q)./src/wrapper_debuild git-buildpackage
 	$(Q)mkdir $(tdefs.deb_build_gbp)
 	$(Q)mv ../$(tdefs.deb_pkgname)_* $(tdefs.deb_build_gbp)
 	$(Q)chmod 444 $(tdefs.deb_build_gbp)/$(tdefs.deb_pkgname)_*
@@ -107,15 +107,15 @@ deb-build-debuild-all: clean-hard templar
 	$(info doing [$@])
 	$(Q)chmod +w debian/control
 	$(Q)-rm -f ../$(tdefs.deb_pkgname)_*
-	$(Q)./bin/wrapper_debuild debuild
+	$(Q)./src/wrapper_debuild debuild
 	$(Q)mkdir $(tdefs.deb_build_all)
 	$(Q)mv ../$(tdefs.deb_pkgname)_* $(tdefs.deb_build_all)
 	$(Q)chmod 444 $(tdefs.deb_build_all)/$(tdefs.deb_pkgname)_*
 
-.PHONY: deb-build-debuild-source
-deb-build-debuild-source:
+.PHONY: deb-debuild
+deb-debuild:
 	$(info doing [$@])
-	$(Q)./bin/make_helper do-deb-build-debuild-source
+	$(Q)./src/make_helper debuild
 
 .PHONY: deb-install
 deb-install: deb-build-debuild-all
