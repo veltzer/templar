@@ -72,4 +72,4 @@ def run(d):
 		create_override(d, series)
 		templar.debuild.run(d)
 		print('results are {0}'.format(glob.glob('build.source/*')), file=sys.stderr)
-		remove_override()
+		remove_override(d)
