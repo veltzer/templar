@@ -117,6 +117,11 @@ deb-debuild:
 	$(info doing [$@])
 	$(Q)./src/make_helper debuild
 
+.PHONY: deb-release
+deb-release:
+	$(info doing [$@])
+	$(Q)./src/make_helper release
+
 .PHONY: deb-install
 deb-install: deb-build-debuild-all
 	$(info doing [$@])

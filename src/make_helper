@@ -12,6 +12,14 @@ clean and simple.
 import os.path # splitext
 import os # for sep
 import argparse # for ArgumentParser, ArgumentDefaultsHelpFormatter, REMAINDER
+import templar.api # for load_and_populate
+import templar.debuild # for run
+import templar.release # for run
+import templar.wrappers.css_validator # for run
+import templar.wrappers.debuild # for run
+import templar.wrappers.noerr # for run
+import templar.wrappers.ok # for run
+import templar.wrappers.silent # for run
 
 ########
 # code #
@@ -32,6 +40,11 @@ subparser_rmfdas.add_argument('filenames', nargs=argparse.REMAINDER, action='sto
 
 subparser_debuild=subparsers.add_parser(
 	'debuild',
+	formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+)
+
+subparser_debuild=subparsers.add_parser(
+	'release',
 	formatter_class=argparse.ArgumentDefaultsHelpFormatter,
 )
 
@@ -75,20 +88,14 @@ if args.subcommand=='rmfdas':
 	print(' '.join(result), end='')
 
 if args.subcommand=='debuild':
-	import templar.debuild
-	templar.debuild.run()
+	templar.debuild.run(templar.api.load_and_populate())
 if args.subcommand=='wrapper-css-validator':
-	import templar.wrappers.css_validator
 	templar.wrappers.css_validator.run(args.args)
 if args.subcommand=='wrapper-debuild':
-	import templar.wrappers.debuild
 	templar.wrappers.debuild.run(args.args)
 if args.subcommand=='wrapper-noerr':
-	import templar.wrappers.noerr
 	templar.wrappers.noerr.run(args.args)
 if args.subcommand=='wrapper-ok':
-	import templar.wrappers.ok
 	templar.wrappers.ok.run(args.args)
 if args.subcommand=='wrapper-silent':
-	import templar.wrappers.silent
 	templar.wrappers.silent.run(args.args)
