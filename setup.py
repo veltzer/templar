@@ -24,7 +24,8 @@ distutils.core.setup(
 	platforms=[
 		'ALL',
 	],
-	packages=['src/templar'],
+	packages=['templar'],
+	package_dir = {'templar':'src/templar'},
 	classifiers=[ 'Development Status :: 4 - Beta',
 'Environment :: Console',
 'Intended Audience :: Developers',

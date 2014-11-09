@@ -76,7 +76,7 @@ PKG_BASE:=$(PKG_TIGHT)_all
 PKG:=$(PKG_BASE).deb
 PKG_FULL:=$(tdefs.deb_repo)/$(PKG)
 PKG_CHANGES:=$(PKG_TIGHT)_source.changes
-PKG_LOCAL:=$(tdefs.deb_build_all)/$(PKG)
+PKG_LOCAL:=$(tdefs.deb_out_folder)/$(PKG)
 
 .PHONY: deb-debug
 deb-debug:
@@ -96,9 +96,9 @@ deb-build-gbp: clean-hard templar
 	$(Q)chmod +w debian/control
 	$(Q)-rm -f ../$(tdefs.deb_pkgname)_*
 	$(Q)./src/wrapper_debuild git-buildpackage
-	$(Q)mkdir $(tdefs.deb_build_gbp)
-	$(Q)mv ../$(tdefs.deb_pkgname)_* $(tdefs.deb_build_gbp)
-	$(Q)chmod 444 $(tdefs.deb_build_gbp)/$(tdefs.deb_pkgname)_*
+	$(Q)mkdir $(tdefs.deb_out_folder)
+	$(Q)mv ../$(tdefs.deb_pkgname)_* $(tdefs.deb_out_folder)
+	$(Q)chmod 444 $(tdefs.deb_out_folder)/$(tdefs.deb_pkgname)_*
 
 # we must do hard clean in the next target because debuild will take everything,
 # including results of building of other stuff, into the source package
@@ -108,14 +108,19 @@ deb-build-debuild-all: clean-hard templar
 	$(Q)chmod +w debian/control
 	$(Q)-rm -f ../$(tdefs.deb_pkgname)_*
 	$(Q)./src/wrapper_debuild debuild
-	$(Q)mkdir $(tdefs.deb_build_all)
-	$(Q)mv ../$(tdefs.deb_pkgname)_* $(tdefs.deb_build_all)
-	$(Q)chmod 444 $(tdefs.deb_build_all)/$(tdefs.deb_pkgname)_*
+	$(Q)mkdir $(tdefs.deb_out_folder)
+	$(Q)mv ../$(tdefs.deb_pkgname)_* $(tdefs.deb_out_folder)
+	$(Q)chmod 444 $(tdefs.deb_out_folder)/$(tdefs.deb_pkgname)_*
 
-.PHONY: deb-debuild
-deb-debuild:
+.PHONY: deb-debuild-all
+deb-debuild-all:
 	$(info doing [$@])
 	$(Q)./src/make_helper debuild
+
+.PHONY: deb-debuild-source
+deb-debuild-source:
+	$(info doing [$@])
+	$(Q)./src/make_helper debuild --source
 
 .PHONY: deb-release
 deb-release:
@@ -145,18 +150,18 @@ deb-local-all: deb-local-contents deb-local-info
 .PHONY: deb-dput
 deb-dput: deb-build-debuild-source
 	$(info doing [$@])
-	$(Q)dput $(tdefs.launchpad_ppa) $(tdefs.deb_build_source)/$(PKG_CHANGES)
+	$(Q)dput $(tdefs.launchpad_ppa) $(tdefs.deb_out_folder)/$(PKG_CHANGES)
 
 .PHONY: deb-dput-light
 deb-dput-light:
 	$(info doing [$@])
-	$(Q)dput $(tdefs.launchpad_ppa) $(tdefs.deb_build_source)/$(PKG_CHANGES)
+	$(Q)dput $(tdefs.launchpad_ppa) $(tdefs.deb_out_folder)/$(PKG_CHANGES)
 
 .PHONY: deb-archive
 deb-archive: deb-build-debuild-all
 	$(info doing [$@])
 	$(Q)-rm -f $(tdefs.deb_repo)/$(tdefs.deb_pkgname)_*
-	$(Q)cp $(tdefs.deb_build_all)/$(tdefs.deb_pkgname)_* $(tdefs.deb_repo)
+	$(Q)cp $(tdefs.deb_out_folder)/$(tdefs.deb_pkgname)_* $(tdefs.deb_repo)
 
 .PHONY: deb-archive-contents
 deb-archive-contents:

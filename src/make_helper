@@ -42,6 +42,7 @@ subparser_debuild=subparsers.add_parser(
 	'debuild',
 	formatter_class=argparse.ArgumentDefaultsHelpFormatter,
 )
+subparser_debuild.add_argument('--source', help='create only source packages', default=False, action='store_true')
 
 subparser_release=subparsers.add_parser(
 	'release',
@@ -88,7 +89,7 @@ if args.subcommand=='rmfdas':
 	print(' '.join(result), end='')
 
 if args.subcommand=='debuild':
-	templar.debuild.run(templar.api.load_and_populate())
+	templar.debuild.run(templar.api.load_and_populate(), args.source)
 if args.subcommand=='release':
 	templar.release.run(templar.api.load_and_populate())
 if args.subcommand=='wrapper-css-validator':

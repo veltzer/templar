@@ -7,10 +7,8 @@
 # ignore verride file for templar
 /templar_override.ini
 
-# build folders for my package
-/build.gbp
-/build.source
-/build.all
+# build folders for my packages
+/out
 
 # deb package build residue
 /build
