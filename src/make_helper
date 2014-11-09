@@ -89,6 +89,8 @@ if args.subcommand=='rmfdas':
 
 if args.subcommand=='debuild':
 	templar.debuild.run(templar.api.load_and_populate())
+if args.subcommand=='release':
+	templar.release.run(templar.api.load_and_populate())
 if args.subcommand=='wrapper-css-validator':
 	templar.wrappers.css_validator.run(args.args)
 if args.subcommand=='wrapper-debuild':
