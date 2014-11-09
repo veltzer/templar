@@ -8,13 +8,17 @@ import glob # for glob
 import templar.wrappers.debuild # for run
 import templar.fileops # for unlink, move, chmod, mkdir, chmod_pw
 
-def run(d, source):
+def run(d, source, gbp):
 	templar.git.clean()
 	templar.make.make('templar')
 	for f in glob.glob('../{0}_*'.format(d.deb_pkgname)):
 		templar.fileops.unlink(f)
-	templar.fileops.chmod_pw('debian/control')
-	args=['debuild']
+	if not source or gbp:
+		templar.fileops.chmod_pw('debian/control')
+	if gbp:
+		args=['git-buildpackage']
+	else:
+		args=['debuild']
 	if source:
 		args.append('-S')
 	templar.wrappers.debuild.run(args)

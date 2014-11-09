@@ -15,6 +15,7 @@ import argparse # for ArgumentParser, ArgumentDefaultsHelpFormatter, REMAINDER
 import templar.api # for load_and_populate
 import templar.debuild # for run
 import templar.release # for run
+import templar.dpkg # for install
 import templar.wrappers.css_validator # for run
 import templar.wrappers.debuild # for run
 import templar.wrappers.noerr # for run
@@ -43,6 +44,12 @@ subparser_debuild=subparsers.add_parser(
 	formatter_class=argparse.ArgumentDefaultsHelpFormatter,
 )
 subparser_debuild.add_argument('--source', help='create only source packages', default=False, action='store_true')
+subparser_debuild.add_argument('--gbp', help='use git build package', default=False, action='store_true')
+
+subparser_debuild_install=subparsers.add_parser(
+	'debuild-install',
+	formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+)
 
 subparser_release=subparsers.add_parser(
 	'release',
@@ -89,7 +96,11 @@ if args.subcommand=='rmfdas':
 	print(' '.join(result), end='')
 
 if args.subcommand=='debuild':
-	templar.debuild.run(templar.api.load_and_populate(), args.source)
+	templar.debuild.run(templar.api.load_and_populate(), args.source, args.gbp)
+if args.subcommand=='debuild-install':
+	d=templar.api.load_and_populate()
+	templar.debuild.run(d, False, False)
+	templar.dpkg.install(d)
 if args.subcommand=='release':
 	templar.release.run(templar.api.load_and_populate())
 if args.subcommand=='wrapper-css-validator':
