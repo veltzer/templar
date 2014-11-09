@@ -43,7 +43,7 @@ subparser_debuild=subparsers.add_parser(
 	formatter_class=argparse.ArgumentDefaultsHelpFormatter,
 )
 
-subparser_debuild=subparsers.add_parser(
+subparser_release=subparsers.add_parser(
 	'release',
 	formatter_class=argparse.ArgumentDefaultsHelpFormatter,
 )
