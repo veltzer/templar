@@ -81,7 +81,7 @@ def run(d):
 	for series in d.deb_series.split():
 		templar.debug.debug('starting to build for series [{0}]'.format(series))
 		create_override(d, series)
-		templar.debuild.run(d)
+		templar.debuild.run(d, False, False)
 		templar.dput.run(d)
 		remove_override(d)
 	# wrap up - bring the folder back to regular business
