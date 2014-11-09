@@ -8,8 +8,10 @@ import sys # for stderr, exit
 import pty # for fork
 import os # for execv, fdopen
 import templar.which # for which
+import templar.debug # for process
 
 def capture_all(args):
+	templar.debug.process(args)
 	program=templar.which.which(args[0])
 	(pid, fd)=pty.fork()
 	if pid==0:
