@@ -13,13 +13,11 @@ TODO:
 ###########
 # imports #
 ###########
-import subprocess # for check_call, DEVNULL
-import sys # for stderr
 import os # for environ, unlink
-import glob # for glob
 import templar.git # for check_allcommit, clean
 import templar.make # for make
 import templar.fileops # for touch_exists
+import templar.debug # for debug
 
 ##############
 # parameters #
@@ -78,8 +76,7 @@ def run(d):
 	templar.git.push()
 
 	for series in d.deb_series.split():
-		print('starting to build for series [{0}]'.format(series), file=sys.stderr)
+		templar.debug.debug('starting to build for series [{0}]'.format(series))
 		create_override(d, series)
 		templar.debuild.run(d)
-		print('results are {0}'.format(glob.glob('build.source/*')), file=sys.stderr)
 		remove_override(d)
