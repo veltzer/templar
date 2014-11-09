@@ -9,7 +9,7 @@ import distutils.core # for setup
 
 distutils.core.setup(
 	name='${tdefs.project_name}',
-	#version='tdefs.git_lasttag~tdefs.apt_codename',
+	version='${tdefs.git_lasttag}~${tdefs.apt_codename}',
 	description='${tdefs.project_description}',
 	long_description='${tdefs.project_long_description}',
 	author='${tdefs.personal_fullname}',
@@ -22,8 +22,14 @@ distutils.core.setup(
 	platforms=[
 		'ALL',
 	],
-	packages=['templar'],
-	package_dir = {'templar':'src/templar'},
+	packages=[
+		'templar',
+		'templar/wrappers',
+	],
+	package_dir = {
+		'templar':'src/templar',
+		'templar/wrappers':'src/templar/wrappers',
+	},
 	classifiers=[ ${tdefs.project_classifiers} ],
 	data_files=[
 		('/usr/share/templar', ['make/Makefile']),
