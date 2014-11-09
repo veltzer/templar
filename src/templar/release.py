@@ -19,6 +19,7 @@ import os # for environ, unlink
 import glob # for glob
 import templar.git # for check_allcommit, clean
 import templar.make # for make
+import templar.fileops # for touch_exists
 
 ##############
 # parameters #
@@ -61,10 +62,17 @@ def run(d):
 	# tag the new version
 	tag=str(int(d.git_lasttag)+1)
 	templar.git.tag(tag)
-	# build and commit for templating files that have the version in them
+	# very hard clean
 	templar.git.clean()
+	# touch the Makefile so that everything gets regenerated
+	# (esp templar stuff which may think they are up to date, they are not!
+	# since the tag has changed)
+	templar.fileops.touch_exists('Makefile')
+	# build everything
 	templar.make.make('templar')
+	# commit the files which have been changed (FIXME: only do this if there were changes, currently there are)
 	templar.git.commit_all(tag)
+	# push new version
 	templar.git.push()
 
 	for series in d.deb_series.split():

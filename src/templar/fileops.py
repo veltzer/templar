@@ -2,7 +2,7 @@
 centralized file operations
 '''
 
-import os # for unlink, mkdir, chmod
+import os # for unlink, mkdir, chmod, utime
 import shutil # for move
 import sys # for stderr
 
@@ -28,3 +28,8 @@ def move(a, b):
 	if opt_debug:
 		print('moving [{0}] to [{1}]'.format(a, b), file=sys.stderr)
 	return shutil.move(a, b)
+
+def touch_exists(f):
+	if opt_debug:
+		print('touching [{0}]'.format(f), file=sys.stderr)
+	return os.utime(f, None)
