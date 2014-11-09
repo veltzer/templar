@@ -1,5 +1,4 @@
 # created by templar
-/.tdefs.config
 /debian/changelog
 /debian/control
 /debian/copyright
@@ -14,7 +13,6 @@
 /build.all
 
 # deb package build residue
-
 /build
 /.pybuild
 /debian/files
