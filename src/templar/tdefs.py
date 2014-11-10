@@ -40,6 +40,12 @@ def make_hlp_project_keywords(d):
 		return '{0}'.format(d.project_keywords.split())
 	return hlp_project_keywords
 
+def make_hlp_project_platforms(d):
+	def hlp_project_platforms():
+		return '{0}'.format(d.project_platforms.split())
+	return hlp_project_platforms
+
+
 def make_hlp_project_classifiers(d):
 	def hlp_project_classifiers():
 		l=d.project_classifiers.split('\n')
@@ -151,6 +157,7 @@ ga('send', 'pageview');
 	d.hlp_source_under=hlp_source_under
 	d.hlp_files_under=hlp_files_under
 	d.hlp_project_keywords=make_hlp_project_keywords(d)
+	d.hlp_project_platforms=make_hlp_project_platforms(d)
 	d.hlp_project_classifiers=make_hlp_project_classifiers(d)
 	d.make_hlp_wrap=make_hlp_wrap
 
