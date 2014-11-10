@@ -7,15 +7,6 @@
 - instead of having a stupid CREDITS, Changelog and debian changelog
 	and LICENCE.
 	create all of these intelligently using templar from git.
-- make the changelog better - do a script that makes the changelog
-	and have the changelog be a git log for debian.
-- make sure that when we build debian packages (source or binary)
-	the log of the debuild(1) tool does not show any warnings and/or errors.
-	We already cleaned out the errors, now there are only warning from
-	the debuild tool and lintian.
-	filter the output out and show the warnings or errors and stop on them.
-	this means we will run debuild or whatever from a python script instead
-	of from a shell script.
 - why do we remove passwords when doing "makeprint".
 	the reason is that we don't want passwords written to the .tdefs.config
 	file.
@@ -26,6 +17,13 @@
 	- one option is to create a fifo and have make read from that.
 	- do we really need make to read from the file? maybe all make laws should
 	be python processes and they can read the parameters directly from the py module?
+	- for the time being, as long as we are using make, we really do need make to have access
+	to templar parameters.
+	- another option is to create the defs file as a temporary file in /tmp or something and
+	have make read that. We can also remove the file after we read it, or at any case of make
+	shutdown. Then the file will not leave traces of itself and there will be no chance
+	of it accidentaly getting into source package and binary packages on the web.
+	This way the file could contain passwords.
 - add mako as requirement for this package.
 - when chmodding an output file in templar just removed the write, don't change all the permissions.
 - add an example .details.ini file to the package so that people will know how to write this.
