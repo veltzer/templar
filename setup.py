@@ -44,8 +44,12 @@ distutils.core.setup(
 'Topic :: Utilities' ],
 	data_files=[
 		('/usr/share/templar', ['make/Makefile']),
-		('/usr/share/templar/templates', ['templates/README.md.mako']),
 		('/usr/share/templar/templates', ['templates/changelog.mako']),
+		('/usr/share/templar/templates', ['templates/control.mako']),
+		('/usr/share/templar/templates', ['templates/copyright.mako']),
+		('/usr/share/templar/templates', ['templates/files.mako']),
+		('/usr/share/templar/templates', ['templates/README.md.mako']),
+		('/usr/share/templar/templates', ['templates/rules.mako']),
 		('/usr/bin', ['src/templar_cmd']),
 		('/usr/bin', ['src/make_helper']),
 	],
