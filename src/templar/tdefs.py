@@ -5,13 +5,52 @@ Attributes for this project
 import datetime # for datetime
 import subprocess # for check_output, DEVNULL
 import os.path # for join, expanduser, basename, isfile
-import os # for getcwd, environ
+import os # for getcwd, environ, walk, relpath, dirname
 import glob # for glob
 import socket # for gethostname
 import templar.utils # for read_full_ini_dict
 
 override_file_name='/tmp/templar_override.ini'
 override_var_name='TEMPLAR_OVERRIDE'
+
+'''
+this function finds all the python packages under a folder and
+write the 'packages' and 'package_dir' entries for a python setup.py
+script
+'''
+def hlp_source_under(folder):
+	# walk the folder and find the __init__.py entries for packages.
+	packages=[]
+	package_dir=dict()
+	for root,dirs,files in os.walk(folder):
+		for file in files:
+			if file!='__init__.py':
+				continue
+			full=os.path.dirname(os.path.join(root, file))
+			relative=os.path.relpath(full, folder)
+			packages.append(relative)
+			package_dir[relative]=full
+	return 'packages={0},\npackage_dir={1}'.format(packages, package_dir)
+
+def hlp_files_under(pat, dest_folder):
+	return '(\'{0}\', {1})'.format(dest_folder, [ x for x in glob.glob(pat) if os.path.isfile(x)])
+
+def make_hlp_project_keywords(d):
+	def hlp_project_keywords():
+		return '{0}'.format(d.project_keywords.split())
+	return hlp_project_keywords
+
+def make_hlp_project_classifiers(d):
+	def hlp_project_classifiers():
+		l=d.project_classifiers.split('\n')
+		l=[ x.strip()[1:-1] for x in l]
+		return '{0}'.format(l)
+	return hlp_project_classifiers
+
+def make_hlp_wrap(level):
+	def hlp_wrap(t):
+		return t.replace('\n', '\n'+'\t'*level)
+	return hlp_wrap
 
 def populate(d):
 	# general # TODO: get homedir in python
@@ -107,6 +146,13 @@ ga('send', 'pageview');
 		for value in values:
 			k,v=value.strip().split('=')
 			d[k]=v
+
+	# helper functions
+	d.hlp_source_under=hlp_source_under
+	d.hlp_files_under=hlp_files_under
+	d.hlp_project_keywords=make_hlp_project_keywords(d)
+	d.hlp_project_classifiers=make_hlp_project_classifiers(d)
+	d.make_hlp_wrap=make_hlp_wrap
 
 def getdeps():
 	deps=[
