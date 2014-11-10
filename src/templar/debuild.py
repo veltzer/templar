@@ -11,6 +11,7 @@ import templar.fileops # for unlink, move, chmod, mkdir, chmod_pw
 def run(d, source, gbp):
 	templar.git.clean()
 	templar.make.make('templar')
+	templar.fileops.unlink('.tdefs.config')
 	for f in glob.glob('../{0}_*'.format(d.deb_pkgname)):
 		templar.fileops.unlink(f)
 	if not source or gbp:
