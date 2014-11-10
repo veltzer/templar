@@ -19,9 +19,7 @@ distutils.core.setup(
 	keywords=${tdefs.hlp_project_keywords()},
 	url='${tdefs.project_website}',
 	license='${tdefs.project_license}',
-	platforms=[
-		'ALL',
-	],
+	platforms=${tdefs.hlp_project_platforms()},
 	${tdefs.hlp_source_under('src') | tdefs.make_hlp_wrap(1) },
 	classifiers=${tdefs.hlp_project_classifiers()},
 	data_files=[
