@@ -2,8 +2,9 @@
 # must be done at start #
 #########################
 # this makefile's name. if you do this after including other stuff you will get
-# the names of the stuff you include
+# the names of the stuff you include later on.
 TEMPLAR_MAKEFILE:=$(lastword $(MAKEFILE_LIST))
+
 ##############
 # parameters #
 ##############
@@ -28,7 +29,7 @@ TEMPLAR_CHMOD?=1
 TEMPLAR_TMPL_EXTRA_DEPS:=$(shell $(TEMPLAR_TEMPLAR_SCRIPT) getdeps)
 # the - (minus) at the begining of the next line is so that users wont see
 # an error coming out of make when the file needs to be rebuilt...
-#-include $(TEMPLAR_TMPL_FILE)
+-include $(TEMPLAR_TMPL_FILE)
 
 TEMPLAR_TEMPLAR_SCRIPT_ARGS_PRINT:=
 ifeq ($(TEMPLAR_SEC), 0)
@@ -54,6 +55,7 @@ TEMPLAR_ALL:=$(TEMPLAR_ALL_MAKO_TGT)
 ###########
 .PHONY: templar_debug
 templar_debug:
+	$(info doing [$@])
 	$(info TEMPLAR_MAKEFILE is $(TEMPLAR_MAKEFILE))
 	$(info TEMPLAR_TMPL_FILE is $(TEMPLAR_TMPL_FILE))
 	$(info TEMPLAR_TMPL_EXTRA_DEPS is $(TEMPLAR_TMPL_EXTRA_DEPS))
@@ -74,9 +76,9 @@ $(TEMPLAR_TMPL_FILE): $(TEMPLAR_TEMPLAR_SCRIPT) $(TEMPLAR_TMPL_EXTRA_DEPS)
 .PHONY: templar
 templar: $(TEMPLAR_ALL_MAKO_TGT)
 
-#################
-# pattern rules #
-#################
+#########
+# rules #
+#########
 $(TEMPLAR_ALL_MAKO_TGT): %: $(TEMPLAR_TEMPLAR_FOLDER)/%.mako $(TEMPLAR_ALL_DEP)
 	$(info doing [$@])
 	$(TEMPLAR_Q)$(TEMPLAR_TEMPLAR_SCRIPT) process $(TEMPLAR_TEMPLAR_SCRIPT_ARGS_PROCESS) --input $< --output $@
