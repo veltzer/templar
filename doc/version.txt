@@ -1,6 +1,8 @@
-the current version appears in 3 places:
-	debian/changelog which has it.
-	git tag (which is consumed by the makefile).
-	setup.py (which shouldnt really have the version).
+the current version is the current git tag (possible with '~series'
+appended to it for ppa/launchpad/ubuntu purposes).
 
-we need to unify all of them.
+from git it is distributed to other places:
+- debian/changelog - which is very important since debian package
+	building takes the version from there
+- setup.py - I don't really know if the version there is important
+	but it is correct and taken dynamically from git non-the-less.

@@ -1,4 +1,3 @@
-'''
 all kinds of options to handle errors:
 option1: assume we know the stack frame of the error
 traceback=mako.exceptions.RichTraceback()
@@ -30,5 +29,3 @@ for (filename, lineno, function, line) in traceback.traceback:
 		print('{0}: error {1} in {2}, line {3}'.format(sys.argv[0], str(e), filename, lineno, function))
 		print('{0}'.format(line))
 sys.exit(1)
-'''
-
