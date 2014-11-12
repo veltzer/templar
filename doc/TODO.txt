@@ -22,6 +22,5 @@
 	shutdown. Then the file will not leave traces of itself and there will be no chance
 	of it accidentaly getting into source package and binary packages on the web.
 	This way the file could contain passwords.
-- add mako as requirement for this package.
-- when chmodding an output file in templar just removed the write, don't change all the permissions.
-- add an example .details.ini file to the package so that people will know how to write this.
+- add an example of ~/.personal.py file to the package so that people will know how to write this.
+	generate it automatically from my own by hiding the passwords
