@@ -8,6 +8,7 @@ import os.path # for join, basename, isfile
 import os # for getcwd, walk, relpath, dirname
 import glob # for glob
 import socket # for gethostname
+import pprint # for pformat
 
 '''
 this function finds all the python packages under a folder and
@@ -26,7 +27,8 @@ def hlp_source_under(folder):
 			relative=os.path.relpath(full, folder)
 			packages.append(relative)
 			package_dir[relative]=full
-	return 'packages={0},\npackage_dir={1}'.format(packages, package_dir)
+	# we use pprint because we want the order to always remain the same
+	return 'packages={0},\npackage_dir={1}'.format(sorted(packages), pprint.pformat(package_dir))
 
 def hlp_files_under(dest_folder, pat):
 	return '(\'{0}\', {1})'.format(dest_folder, [ x for x in glob.glob(pat) if os.path.isfile(x)])
