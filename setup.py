@@ -23,5 +23,5 @@ distutils.core.setup(
 	packages=['templar', 'templar/wrappers'],
 	package_dir={'templar': 'src/templar', 'templar/wrappers': 'src/templar/wrappers'},
 	classifiers=['Development Status :: 4 - Beta', 'Environment :: Console', 'Intended Audience :: Developers', 'License :: OSI Approved :: LGPL', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Topic :: Software Development :: Building', 'Topic :: Software Development :: Libraries', 'Topic :: Utilities'],
-	data_files=[('/usr/share/templar/make', ['make/Makefile']), ('/usr/share/templar/templartmpl', ['templates/copyright.mako', 'templates/setup.py.mako', 'templates/changelog.mako', 'templates/control.mako', 'templates/README.md.mako', 'templates/files.mako', 'templates/rules.mako']), ('/usr/share/templar/templardefs', ['defs/project.py', 'defs/tdefs.py']), ('/usr/bin', ['src/templar_cmd', 'src/make_helper'])],
+	data_files=[('/usr/share/templar/make', ['make/Makefile']), ('/usr/share/templar/templartmpl', ['templates/README.md.mako', 'templates/changelog.mako', 'templates/control.mako', 'templates/copyright.mako', 'templates/files.mako', 'templates/rules.mako', 'templates/setup.py.mako']), ('/usr/share/templar/templardefs', ['defs/project.py', 'defs/tdefs.py']), ('/usr/bin', ['src/make_helper', 'src/templar_cmd'])],
 )
