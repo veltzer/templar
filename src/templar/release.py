@@ -84,7 +84,7 @@ def run(d):
 
 	for series in d.deb_series:
 		templar.debug.debug('starting to build for series [{0}]'.format(series))
-		create_override(d, series, deb_version)
+		create_override(d, series, d.deb_version)
 		templar.debuild.run(d, True, False)
 		templar.dput.run(d)
 		remove_override(d)
