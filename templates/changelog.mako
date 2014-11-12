@@ -1,4 +1,4 @@
-${tdefs.deb_pkgname} (${tdefs.git_lasttag}~${tdefs.apt_codename}) ${tdefs.apt_codename}; urgency=${tdefs.deb_urgency}
+${tdefs.deb_pkgname} (${tdefs.deb_version}) ${tdefs.apt_codename}; urgency=${tdefs.deb_urgency}
 
   * This is a read only file. don't change it. It is auto-generated.
 

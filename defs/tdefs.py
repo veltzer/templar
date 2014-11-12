@@ -113,8 +113,12 @@ ga('send', 'pageview');
 	# this is right
 	try:
 		d.git_lasttag=subprocess.check_output(['git', 'describe', '--abbrev=0', '--tags'], stderr=subprocess.DEVNULL).decode().rstrip()
+		d.git_describe=subprocess.check_output(['git', 'describe'], stderr=subprocess.DEVNULL).decode().rstrip()
+		d.git_version='.'.join(d.git_describe.split('-'))
 	except:
 		d.git_lasttag='no git tag yet'
+		d.git_describe='no git describe yet'
+		d.git_version='no git tag yet'
 
 	# deb
 	d.deb_pkgname=os.path.basename(os.getcwd())
@@ -142,6 +146,9 @@ ga('send', 'pageview');
 	d.hlp_project_platforms=make_hlp_project_platforms(d)
 	d.hlp_project_classifiers=make_hlp_project_classifiers(d)
 	d.make_hlp_wrap=make_hlp_wrap
+
+	# composites
+	d.deb_version='{0}~{1}'.format(d.git_version, d.apt_codename)
 
 def getdeps():
 	return [
