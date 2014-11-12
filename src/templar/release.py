@@ -78,7 +78,7 @@ def run(d):
 	# push new version
 	templar.git.push()
 
-	for series in d.deb_series.split():
+	for series in d.deb_series:
 		templar.debug.debug('starting to build for series [{0}]'.format(series))
 		create_override(d, series)
 		templar.debuild.run(d, True, False)
