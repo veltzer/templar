@@ -35,4 +35,4 @@ def read_ini_cls_dict(d, filename, sections):
 			d['{0}_{1}'.format(section, k)]=v
 
 def hlp_files_under(dest_folder, pat):
-	return (dest_folder, [ x for x in glob.glob(pat) if os.path.isfile(x)])
+	return (dest_folder, sorted([ x for x in glob.glob(pat) if os.path.isfile(x)]))

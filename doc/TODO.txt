@@ -1,3 +1,6 @@
+- when reading all the defs configurations, do not just check os.path.isfile
+	since it may be a symbolic dangling link and still pass the test.
+	Check if I can read the file.
 - add manual pages created by sphinx for all the executables here.
 	Then remove the disregard to binary-without-manpage warnings at package creation.
 - make the clean: target in the debian/rules makefile do something correct or
