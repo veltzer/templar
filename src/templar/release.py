@@ -49,7 +49,7 @@ def remove_override_env():
 
 def create_override(d, apt_codename, deb_version):
 	d.old_apt_codename=d.apt_codename
-	d.apt_codename=series
+	d.apt_codename=apt_codename
 	d.old_deb_version=d.deb_version
 	d.deb_version=deb_version
 	create_override_env(series)
