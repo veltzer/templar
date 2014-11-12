@@ -4,14 +4,10 @@ Attributes for this project
 
 import datetime # for datetime
 import subprocess # for check_output, DEVNULL
-import os.path # for join, expanduser, basename, isfile
-import os # for getcwd, environ, walk, relpath, dirname
+import os.path # for join, basename, isfile
+import os # for getcwd, walk, relpath, dirname
 import glob # for glob
 import socket # for gethostname
-import templar.utils # for read_full_ini_dict
-
-override_file_name='/tmp/templar_override.ini'
-override_var_name='TEMPLAR_OVERRIDE'
 
 '''
 this function finds all the python packages under a folder and
@@ -32,7 +28,7 @@ def hlp_source_under(folder):
 			package_dir[relative]=full
 	return 'packages={0},\npackage_dir={1}'.format(packages, package_dir)
 
-def hlp_files_under(pat, dest_folder):
+def hlp_files_under(dest_folder, pat):
 	return '(\'{0}\', {1})'.format(dest_folder, [ x for x in glob.glob(pat) if os.path.isfile(x)])
 
 def make_hlp_project_keywords(d):
@@ -59,8 +55,9 @@ def make_hlp_wrap(level):
 	return hlp_wrap
 
 def populate(d):
-	# general # TODO: get homedir in python
+	# general
 	d.general_current_year=datetime.datetime.now().year
+	# TODO: get homedir in python
 	d.general_homedir='/home/mark'
 	#d.general_hostname=subprocess.check_output(['hostname']).decode().rstrip()
 	d.general_hostname=socket.gethostname()
@@ -69,15 +66,7 @@ def populate(d):
 	# messages
 	d.messages_dne='THIS FILE IS AUTO GENERATED. DO NOT EDIT!!!'
 
-	# details.ini
-	ini_file=os.path.expanduser('~/.details.ini')
-	if os.path.isfile(ini_file):
-		templar.utils.read_full_ini_dict(d, ini_file)
-
 	# project
-	if os.path.isfile('project.ini'):
-		templar.utils.read_full_ini_dict(d, 'project.ini')
-
 	if 'project_year_started' in d:
 		d.project_copyright_years=', '.join(map(str,range(int(d.project_year_started), datetime.datetime.now().year+1)))
 		if str(d.general_current_year)==d.project_year_started:
@@ -144,15 +133,6 @@ ga('send', 'pageview');
 	d.apt_keyfile='public_key.gpg'
 	d.apt_apache_site_file='{0}.apt'.format(d.personal_slug)
 
-	if os.path.isfile(override_file_name):
-		templar.utils.read_full_ini_dict(d, override_file_name)
-
-	if override_var_name in os.environ:
-		values=os.environ[override_var_name].split(';')
-		for value in values:
-			k,v=value.strip().split('=')
-			d[k]=v
-
 	# helper functions
 	d.hlp_source_under=hlp_source_under
 	d.hlp_files_under=hlp_files_under
@@ -162,15 +142,7 @@ ga('send', 'pageview');
 	d.make_hlp_wrap=make_hlp_wrap
 
 def getdeps():
-	deps=[
+	return [
 		__file__, # myself
-		'/etc/hostname', # for hostname and stuff
+		#'/etc/hostname', # for hostname and stuff
 	]
-	details_file=os.path.expanduser('~/.details.ini')
-	if os.path.isfile(details_file):
-		deps.append(details_file)
-	if os.path.isfile('project.ini'):
-		deps.append('project.ini')
-	if os.path.isfile(override_file_name):
-		deps.append(override_file_name)
-	return deps

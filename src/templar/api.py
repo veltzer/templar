@@ -6,8 +6,13 @@ to get access to all the variables.
 ###########
 # imports #
 ###########
-import templar.tdefs # for populate, getdeps
 import pkgutil # for iter_modules
+import os # for environ
+
+###########
+# globals #
+###########
+override_var_name='TEMPLAR_OVERRIDE'
 
 ###########
 # classes #
@@ -37,14 +42,19 @@ def get_mod_list():
 
 def load_and_populate():
 	d=D()
-	templar.tdefs.populate(d)
 	for m in get_mod_list():
 		m.populate(d)
+
+	# environment override
+	if override_var_name in os.environ:
+		values=os.environ[override_var_name].split(';')
+		for value in values:
+			k,v=value.strip().split('=')
+			d[k]=v
+
 	return d
 
 def get_all_deps():
-	for d in templar.tdefs.getdeps():
-		yield d
 	for m in get_mod_list():
 		for d in m.getdeps():
 			yield d
