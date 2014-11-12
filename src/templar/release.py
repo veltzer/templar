@@ -78,6 +78,7 @@ def run(d):
 	# build everything
 	templar.make.make('templar')
 	# commit the files which have been changed (FIXME: only do this if there were changes, currently there are)
+	# the tag here is just a message, not a tag
 	templar.git.commit_all(tag)
 	# push new version
 	templar.git.push(True)
