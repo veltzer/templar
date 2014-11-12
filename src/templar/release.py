@@ -42,7 +42,7 @@ def remove_override_file():
 
 env_var='TEMPLAR_OVERRIDE'
 def create_override_env(d):
-	os.environ[env_var]='apt_codename={apt_codename}; deb_version={deb_version}'.format(**d)
+	os.environ[env_var]='apt_codename={apt_codename};deb_version={deb_version}'.format(**d)
 
 def remove_override_env():
 	del os.environ[env_var]
@@ -52,7 +52,7 @@ def create_override(d, apt_codename, deb_version):
 	d.apt_codename=apt_codename
 	d.old_deb_version=d.deb_version
 	d.deb_version=deb_version
-	create_override_env(series)
+	create_override_env(d)
 
 def remove_override(d):
 	d.apt_codename=d.old_apt_codename
