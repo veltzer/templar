@@ -9,7 +9,7 @@ import distutils.core # for setup
 
 distutils.core.setup(
 	name='templar',
-	version='45~utopic',
+	version='45.4.g6072e26~utopic',
 	description='Easy templating tool long description (TBD)',
 	long_description='Templating solution for programmers',
 	author='Mark Veltzer',
