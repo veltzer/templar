@@ -2,6 +2,8 @@
 project definitions for templar
 '''
 
+import templar.utils # for hlp_files_under
+
 def populate(d):
 	# project section
 	d.project_github_username='veltzer'
@@ -22,7 +24,9 @@ def populate(d):
 		'templating',
 		'python',
 	]
-	d.project_platforms='ALL'
+	d.project_platforms=[
+		'ALL',
+	]
 	d.project_license='LGPL'
 	d.project_classifiers=[
 		'Development Status :: 4 - Beta',
@@ -36,6 +40,12 @@ def populate(d):
 		'Topic :: Software Development :: Libraries',
 		'Topic :: Utilities',
 	]
+	d.project_data_files=[
+		('/usr/share/templar/make', ['make/Makefile']),
+	]
+	d.project_data_files.extend(templar.utils.hlp_files_under('/usr/share/templar/templartmpl', 'templates/*.mako'))
+	d.project_data_files.extend(templar.utils.hlp_files_under('/usr/share/templar/templardefs', 'defs/*.py'))
+	d.project_data_files.extend(templar.utils.hlp_files_under('/usr/bin', 'src/*'))
 
 	# deb section
 	d.deb_section='python'

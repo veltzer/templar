@@ -8,7 +8,7 @@ import templar.subprocess # for check_call, check_output
 ''' git clean -xdf > /dev/null '''
 def clean():
 	templar.subprocess.check_call(['git', 'clean', '-xdf'])
-		
+
 ''' function that checks that all is committed '''
 def check_allcommit():
 	out=templar.subprocess.check_output(['git','status','-s']).decode()

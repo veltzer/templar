@@ -1,8 +1,3 @@
-- turn project.ini to python code.
-	this way I could store complex data structures in the configuration.
-	and write helper functions.
-- get to a point where the setup.py template can be used by other projects and all
-	the data for it is taken from the project.ini file.
 - add manual pages created by sphinx for all the executables here.
 	Then remove the disregard to binary-without-manpage warnings at package creation.
 - make the clean: target in the debian/rules makefile do something correct or
