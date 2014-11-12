@@ -31,13 +31,6 @@ opt_check=True
 #############
 # functions #
 #############
-env_var='TEMPLAR_OVERRIDE'
-def create_override_env(series):
-	os.environ[env_var]='apt_codename={0}'.format(series)
-
-def remove_override_env():
-	del os.environ[env_var]
-
 override_file_name='/tmp/templar_override.ini'
 def create_override_file(series):
 	with open(override_file_name, 'w') as f:
@@ -47,14 +40,23 @@ def create_override_file(series):
 def remove_override_file():
 	os.unlink(override_file_name)
 
-old_val=None
-def create_override(d, series):
-	old_val=d.apt_codename
+env_var='TEMPLAR_OVERRIDE'
+def create_override_env(d):
+	os.environ[env_var]='apt_codename={apt_codename}; deb_version={deb_version}'.format(**d)
+
+def remove_override_env():
+	del os.environ[env_var]
+
+def create_override(d, apt_codename, deb_version):
+	d.old_apt_codename=d.apt_codename
 	d.apt_codename=series
+	d.old_deb_version=d.deb_version
+	d.deb_version=deb_version
 	create_override_env(series)
 
 def remove_override(d):
-	d.apt_codename=old_val
+	d.apt_codename=d.old_apt_codename
+	d.deb_version=d.old_deb_version
 	remove_override_env()
 
 def run(d):
@@ -82,7 +84,7 @@ def run(d):
 
 	for series in d.deb_series:
 		templar.debug.debug('starting to build for series [{0}]'.format(series))
-		create_override(d, series)
+		create_override(d, series, deb_version)
 		templar.debuild.run(d, True, False)
 		templar.dput.run(d)
 		remove_override(d)
