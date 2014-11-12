@@ -19,8 +19,11 @@ def check_allcommit():
 def commit_all(msg):
 	templar.subprocess.check_call(['git','commit','--all','-m',msg])
 
-def push():
-	templar.subprocess.check_call(['git','push',])
+def push(tags):
+	args=['git','push',]
+	if tags:
+		args.append('--tags')
+	templar.subprocess.check_call(args)
 
 def tag(tag):
 	templar.subprocess.check_call(['git','tag','--annotate','--sign','-m',tag,tag])

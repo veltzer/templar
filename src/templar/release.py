@@ -76,7 +76,7 @@ def run(d):
 	# commit the files which have been changed (FIXME: only do this if there were changes, currently there are)
 	templar.git.commit_all(tag)
 	# push new version
-	templar.git.push()
+	templar.git.push(True)
 
 	for series in d.deb_series:
 		templar.debug.debug('starting to build for series [{0}]'.format(series))
