@@ -1,7 +1,7 @@
 templar
 =======
 
-version: 50~utopic
+version: 51~utopic
 
 Templating solution for programmers
 
