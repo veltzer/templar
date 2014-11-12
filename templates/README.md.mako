@@ -1,7 +1,7 @@
 ${tdefs.project_name}
 ${'=' * len(tdefs.project_name)}
 
-version: ${tdefs.deb_version}
+version: ${tdefs.git_lasttag}
 
 ${tdefs.project_long_description}
 
