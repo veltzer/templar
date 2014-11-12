@@ -1,3 +1,6 @@
+- think about the walk the release.py script is written. It is ugly and problematic. (overridees and all).
+	find a cleaner way to do it.
+	maybe its better to just wait for pdmt?
 - when reading all the defs configurations, do not just check os.path.isfile
 	since it may be a symbolic dangling link and still pass the test.
 	Check if I can read the file.
