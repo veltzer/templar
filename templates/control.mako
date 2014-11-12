@@ -11,7 +11,7 @@ Vcs-Git: ${tdefs.project_website_git}
 Vcs-Browser: ${tdefs.project_website_source}
 
 Package: ${tdefs.deb_pkgname}
-Architecture: ${tdefs.deb_architecture} 
+Architecture: ${tdefs.deb_architecture}
 Depends: ${tdefs.deb_depends}
 Description: ${tdefs.project_short_description}
  ${tdefs.project_description}
