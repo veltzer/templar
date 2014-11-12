@@ -65,6 +65,7 @@ def run(d):
 	tag=str(int(d.git_lasttag)+1)
 	templar.git.tag(tag)
 	d.git_lasttag=tag
+	d.git_version=d.git_lasttag
 	d.deb_version='{0}~{1}'.format(d.git_version, d.apt_codename)
 	# very hard clean
 	templar.git.clean()
