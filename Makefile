@@ -26,9 +26,13 @@ endif # DO_MKDBG
 #########
 # rules #
 #########
+
+# general
+
 .DEFAULT_GOAL=all
 .PHONY: all
 all: $(ALL)
+	$(info doing [$@])
 
 .PHONY: clean
 clean:
@@ -56,27 +60,27 @@ check_all: check_main check_semicol
 
 # package building
 
-.PHONY: deb-build-gbp
-deb-build-gbp:
+.PHONY: debuild-gbp
+debuild-gbp:
 	$(info doing [$@])
-	$(Q)./src/make_helper debuild --gbp
+	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) debuild --gbp
 
-.PHONY: deb-build-debuild-all
-deb-build-debuild-all:
+.PHONY: debuild
+debuild:
 	$(info doing [$@])
-	$(Q)./src/make_helper debuild
+	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) debuild
 
-.PHONY: deb-build-debuild-source
-deb-build-debuild-source:
+.PHONY: debuild-source
+debuild-source:
 	$(info doing [$@])
-	$(Q)./src/make_helper debuild --source
+	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) debuild --source
 
-.PHONY: deb-release
-deb-release:
+.PHONY: release
+release:
 	$(info doing [$@])
-	$(Q)./src/make_helper release
+	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) release
 
-.PHONY: deb-install
-deb-install:
+.PHONY: debuild-install
+debuild-install:
 	$(info doing [$@])
-	$(Q)./src/make_helper debuild-install
+	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) debuild-install
