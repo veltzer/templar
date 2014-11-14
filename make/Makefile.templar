@@ -82,3 +82,9 @@ templar: $(TEMPLAR_ALL_MAKO_TGT)
 $(TEMPLAR_ALL_MAKO_TGT): %: $(TEMPLAR_TEMPLAR_FOLDER)/%.mako $(TEMPLAR_ALL_DEP)
 	$(info doing [$@])
 	$(TEMPLAR_Q)$(TEMPLAR_TEMPLAR_SCRIPT) process $(TEMPLAR_TEMPLAR_SCRIPT_ARGS_PROCESS) --input $< --output $@
+
+###########
+# globals #
+###########
+ALL:=$(TEMPLAR_ALL)
+ALL_DEP:=$(TEMPLAR_ALL_DEP)
