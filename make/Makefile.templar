@@ -26,10 +26,17 @@ TEMPLAR_CHMOD?=1
 ########
 # code #
 ########
+DONT_INCLUDE_TARGETS:=clean
+ifneq ($(filter $(DONT_INCLUDE_TARGETS),$(MAKECMDGOALS)),)
+DO_INCLUDE:=0
+endif
+
 TEMPLAR_TMPL_EXTRA_DEPS:=$(shell $(TEMPLAR_TEMPLAR_SCRIPT) getdeps)
 # the - (minus) at the begining of the next line is so that users wont see
 # an error coming out of make when the file needs to be rebuilt...
+ifeq ($(DO_INCLUDE),1)
 -include $(TEMPLAR_TMPL_FILE)
+endif # DO_INCLUDE
 
 TEMPLAR_TEMPLAR_SCRIPT_ARGS_PRINT:=
 ifeq ($(TEMPLAR_SEC), 0)
