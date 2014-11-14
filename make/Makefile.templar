@@ -22,6 +22,8 @@ TEMPLAR_TEMPLAR_FOLDER:=templartmpl
 TEMPLAR_SEC?=1
 # do we want chmodding of output files?
 TEMPLAR_CHMOD?=1
+# do we use tdefs in the makefile?
+TEMPLAR_NEED_TDEFS_INCLUDE?=0
 
 ########
 # code #
@@ -30,7 +32,7 @@ DONT_INCLUDE_TARGETS:=clean
 ifneq ($(filter $(DONT_INCLUDE_TARGETS),$(MAKECMDGOALS)),)
 DO_INCLUDE:=0
 else
-DO_INCLUDE:=1
+DO_INCLUDE:=$(TEMPLAR_NEED_TDEFS_INCLUDE)
 endif
 
 TEMPLAR_TMPL_EXTRA_DEPS:=$(shell $(TEMPLAR_TEMPLAR_SCRIPT) getdeps)
