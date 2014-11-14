@@ -1,0 +1,26 @@
+# package building
+
+.PHONY: debuild-gbp
+debuild-gbp:
+	$(info doing [$@])
+	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) debuild --gbp
+
+.PHONY: debuild
+debuild:
+	$(info doing [$@])
+	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) debuild
+
+.PHONY: debuild-source
+debuild-source:
+	$(info doing [$@])
+	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) debuild --source
+
+.PHONY: release
+release:
+	$(info doing [$@])
+	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) release
+
+.PHONY: debuild-install
+debuild-install:
+	$(info doing [$@])
+	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) debuild-install
