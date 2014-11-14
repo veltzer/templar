@@ -4,9 +4,6 @@
 /debian/copyright
 /debian/rules
 
-# ignore verride file for templar
-/templar_override.ini
-
 # build folders for my packages
 /out
 
