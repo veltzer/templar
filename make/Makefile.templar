@@ -86,5 +86,7 @@ $(TEMPLAR_ALL_MAKO_TGT): %: $(TEMPLAR_TEMPLAR_FOLDER)/%.mako $(TEMPLAR_ALL_DEP)
 ###########
 # globals #
 ###########
-ALL:=$(TEMPLAR_ALL)
+ifneq (clean, $(MAKECMDGOALS))
+	ALL:=$(TEMPLAR_ALL)
+endif
 ALL_DEP:=$(TEMPLAR_ALL_DEP)
