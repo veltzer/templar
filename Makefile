@@ -1,10 +1,6 @@
 TEMPLAR_TEMPLAR_SCRIPT:=./src/templar_cmd
 TEMPLAR_MAKEHELPER_SCRIPT:=./src/make_helper
-include make/Makefile
-
-ALL:=$(TEMPLAR_ALL)
-ALL_DEP:=$(TEMPLAR_ALL_DEP)
-
+include make/Makefile.templar
 include make/Makefile.package_build
 include make/Makefile.toplevel
 include make/Makefile.check_py
