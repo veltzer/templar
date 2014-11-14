@@ -11,4 +11,5 @@ clean:
 .PHONY: debug
 debug:
 	$(info doing [$@])
-
+	$(info ALL is $(ALL))
+	@true
