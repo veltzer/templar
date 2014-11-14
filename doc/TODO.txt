@@ -1,3 +1,8 @@
+- stop having the debian folder at all.
+	only build the stuff there when doing debuild.
+	in the same way only trigger rebuild of README.md when
+	doing release.
+	this means that making 'make' after checkout will do nothing.
 - look at the python checks in this module.
 	write them up inside templar and allow to run them with the make_helper.
 	use them in templar.
