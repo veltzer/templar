@@ -1,4 +1,9 @@
 - stop having the debian folder at all.
+	move the last couple of files to be templates also.
+		debian
+		├── compat
+		└── source
+		    └── format
 	only build the stuff there when doing debuild.
 	in the same way only trigger rebuild of README.md when
 	doing release.
