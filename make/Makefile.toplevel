@@ -12,4 +12,3 @@ clean:
 debug:
 	$(info doing [$@])
 	$(info ALL is $(ALL))
-	@true
