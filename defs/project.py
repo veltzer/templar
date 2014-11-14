@@ -40,9 +40,8 @@ def populate(d):
 		'Topic :: Software Development :: Libraries',
 		'Topic :: Utilities',
 	]
-	d.project_data_files=[
-		('/usr/share/templar/make', ['make/Makefile']),
-	]
+	d.project_data_files=[]
+	d.project_data_files.append(templar.utils.hlp_files_under('/usr/share/templar/make', 'make/*'))
 	d.project_data_files.append(templar.utils.hlp_files_under('/usr/share/templar/templartmpl', 'templates/*.mako'))
 	d.project_data_files.append(templar.utils.hlp_files_under('/usr/share/templar/templardefs', 'defs/*.py'))
 	d.project_data_files.append(templar.utils.hlp_files_under('/usr/bin', 'src/*'))

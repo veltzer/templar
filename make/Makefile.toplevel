@@ -1,0 +1,14 @@
+.DEFAULT_GOAL=all
+.PHONY: all
+all: $(ALL)
+	$(info doing [$@])
+
+.PHONY: clean
+clean:
+	$(info doing [$@])
+	$(Q)git clean -xdf > /dev/null
+
+.PHONY: debug
+debug:
+	$(info doing [$@])
+
