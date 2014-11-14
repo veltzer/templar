@@ -3,6 +3,7 @@
 /debian/control
 /debian/copyright
 /debian/rules
+/setup.py
 
 # build folders for my packages
 /out
