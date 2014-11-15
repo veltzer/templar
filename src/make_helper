@@ -21,6 +21,7 @@ import templar.wrappers.debuild # for run
 import templar.wrappers.noerr # for run
 import templar.wrappers.ok # for run
 import templar.wrappers.silent # for run
+import templar.fileops # for touch_mkdir_many
 
 ########
 # code #
@@ -86,6 +87,12 @@ subparser_wrapper_silent=subparsers.add_parser(
 )
 subparser_wrapper_silent.add_argument('args', nargs=argparse.REMAINDER, action='store')
 
+subparser_touch_mkdir=subparsers.add_parser(
+	'touch-mkdir',
+	formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+)
+subparser_touch_mkdir.add_argument('files', nargs=argparse.REMAINDER, action='store')
+
 args=parser.parse_args()
 
 if args.subcommand=='rmfdas':
@@ -94,7 +101,6 @@ if args.subcommand=='rmfdas':
 		r=os.path.splitext(os.sep.join(f.split(os.sep)[1:]))[0]
 		result.append(r)
 	print(' '.join(result), end='')
-
 if args.subcommand=='debuild':
 	d=templar.api.load_and_populate()
 	templar.debuild.run(d, args.source, args.gbp)
@@ -114,3 +120,5 @@ if args.subcommand=='wrapper-ok':
 	templar.wrappers.ok.run(args.args)
 if args.subcommand=='wrapper-silent':
 	templar.wrappers.silent.run(args.args)
+if args.subcommand=='touch-mkdir':
+	templar.fileops.touch_mkdir_many(args.files)

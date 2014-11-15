@@ -43,8 +43,3 @@ def pkg_get_real_filename(file, filename):
 
 def pkg_get_data(file, filename):
 	return open(get_real_filename(file, filename), 'rb').read()
-
-def ensure_dir(filename):
-	folder=os.path.dirname(filename)
-	if folder!='' and not os.path.isdir(folder):
-		os.makedirs(folder)

@@ -14,7 +14,7 @@ import mako.exceptions # for RickTraceback
 import mako.template # for Template
 import mako.lookup # for TemplateLookup
 import stat # for S_IMODE, S_IWRITE
-import templar.utils # for ensure_dir
+import templar.fileops # for ensure_dir
 import sys # for getdefaultencoding
 
 ###########
@@ -92,7 +92,7 @@ def process(d, inputfile, outputfile, inputencoding=sys.getdefaultencoding(), ou
 			input_encoding=inputencoding,
 			output_encoding=outputencoding,
 		)
-		templar.utils.ensure_dir(outputfile)
+		templar.fileops.ensure_dir(outputfile)
 		f=open(outputfile, 'wb')
 		f.write(template.render(tdefs=d))
 		f.close()
