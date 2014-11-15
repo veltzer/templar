@@ -36,3 +36,9 @@ def read_ini_cls_dict(d, filename, sections):
 
 def hlp_files_under(dest_folder, pat):
 	return (dest_folder, sorted([ x for x in glob.glob(pat) if os.path.isfile(x)]))
+
+def pkg_get_real_filename(file, filename):
+	return os.path.join(os.path.dirname(file), filename)
+
+def pkg_get_data(file, filename):
+	return open(get_real_filename(file, filename), 'rb').read()
