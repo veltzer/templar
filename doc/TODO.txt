@@ -1,9 +1,3 @@
-- think about how we load stuff from the definitions in templar.
-	Since we load it with loading every module we may not get stuff
-	like package tools from python and this means we cannot load resources
-	from the package.
-	This is not good.
-	Is there some other way of loading modules that will allow us to do that?
 - stop having the debian folder at all.
 	move the last couple of files to be templates also.
 		debian
@@ -14,6 +8,12 @@
 	in the same way only trigger rebuild of README.md when
 	doing release.
 	this means that making 'make' after checkout will do nothing.
+- think about how we load stuff from the definitions in templar.
+	Since we load it with loading every module we may not get stuff
+	like package tools from python and this means we cannot load resources
+	from the package.
+	This is not good.
+	Is there some other way of loading modules that will allow us to do that?
 - look at the python checks in this module.
 	write them up inside templar and allow to run them with the make_helper.
 	use them in templar.
