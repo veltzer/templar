@@ -1,13 +1,3 @@
-- stop having the debian folder at all.
-	move the last couple of files to be templates also.
-		debian
-		├── compat
-		└── source
-		    └── format
-	only build the stuff there when doing debuild.
-	in the same way only trigger rebuild of README.md when
-	doing release.
-	this means that making 'make' after checkout will do nothing.
 - think about how we load stuff from the definitions in templar.
 	Since we load it with loading every module we may not get stuff
 	like package tools from python and this means we cannot load resources
