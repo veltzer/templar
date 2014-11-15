@@ -21,7 +21,6 @@ import templar.wrappers.debuild # for run
 import templar.wrappers.noerr # for run
 import templar.wrappers.ok # for run
 import templar.wrappers.silent # for run
-import templar.make # for make
 
 ########
 # code #
@@ -103,7 +102,6 @@ if args.subcommand=='debuild-install':
 	d=templar.api.load_and_populate()
 	templar.debuild.run(d, False, False)
 	templar.dpkg.install(d)
-	templar.make.make('templar')
 if args.subcommand=='release':
 	templar.release.run(templar.api.load_and_populate())
 if args.subcommand=='wrapper-css-validator':
