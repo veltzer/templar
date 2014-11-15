@@ -5,9 +5,9 @@ This is the installation tool. use minimal packages here.
 dont use setuptools, dont use subprocess.
 '''
 
-import distutils.core # for setup
+import setuptools # for setup
 
-distutils.core.setup(
+setuptools.setup(
 	name='${tdefs.project_name}',
 	version='${tdefs.git_lasttag}',
 	description='${tdefs.project_description}',
@@ -21,7 +21,7 @@ distutils.core.setup(
 	license='${tdefs.project_license}',
 	platforms=${tdefs.project_platforms},
 	${tdefs.hlp_source_under('src') | tdefs.make_hlp_wrap(1) },
-	#include_package_data=True,
+	include_package_data=True,
 	classifiers=${tdefs.project_classifiers},
 	data_files=${tdefs.project_data_files},
 )

@@ -14,9 +14,11 @@ packs=[
 	'dh-python', # for packaging helpers
 
 	# for installation:
+	'python-setuptools-doc', # for packaging
 	'python3-setuptools', # for packaging
 	'python-setuptools', # for packaging
-	'python-setuptools-doc', # for packaging
+	'python3-setuptools-git', # for packaging
+	'python-setuptools-git', # for packaging
 
 	# mako templating (current templating)
 	'python3-mako', # mako for python 3 (we are not really using it)
