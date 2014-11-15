@@ -22,7 +22,8 @@ def commit_all(msg):
 def push(tags):
 	args=['git','push',]
 	if tags:
-		args.append('--tags')
+		args.append('--follow-tags')
+		#args.append('--tags')
 	templar.subprocess.check_call(args)
 
 def tag(tag):
