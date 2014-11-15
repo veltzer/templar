@@ -3,15 +3,25 @@ This module knows how to build debian packages using the debuild(1) command.
 '''
 
 import templar.git # for clean
-import templar.make # for make
 import glob # for glob
 import templar.wrappers.debuild # for run
 import templar.fileops # for unlink, move, chmod, mkdir, chmod_pw
+import templar.api # for process, print_exception
+import os.path # for isdir
 
 def run(d, source, gbp):
 	templar.git.clean()
-	templar.make.make('templar')
-	#templar.fileops.unlink('.tdefs.config')
+	# debian folder should not exist
+	assert not os.path.isdir('debian')
+	# first arg is relative to current package
+	templar.api.process(d, 'templates/changelog.mako', 'debian/changelog')
+	templar.api.process(d, 'templates/compat.mako', 'debian/compat')
+	templar.api.process(d, 'templates/control.mako', 'debian/control')
+	templar.api.process(d, 'templates/copyright.mako', 'debian/copyright')
+	#templar.api.process(d, 'templates/files.mako', 'debian/files')
+	templar.api.process(d, 'templates/format.mako', 'debian/source/format')
+	templar.api.process(d, 'templates/rules.mako', 'debian/rules')
+	templar.api.process(d, 'templates/setup.py.mako', 'setup.py')
 	for f in glob.glob('../{0}_*'.format(d.deb_pkgname)):
 		templar.fileops.unlink(f)
 	if not source or gbp:
