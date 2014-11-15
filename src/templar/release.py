@@ -32,66 +32,43 @@ opt_check=True
 #############
 # functions #
 #############
-override_file_name='/tmp/templar_override.ini'
-def create_override_file(series):
-	with open(override_file_name, 'w') as f:
-		print('[apt]', file=f)
-		print('codename={0}'.format(series), file=f)
+def set_tag(d, tag):
+	d.git_lasttag=tag
+	d.git_version=d.git_lasttag
+	d.deb_version='{0}~{1}'.format(d.git_version, d.apt_codename)
 
-def remove_override_file():
-	os.unlink(override_file_name)
-
-env_var='TEMPLAR_OVERRIDE'
-def create_override_env(d):
-	os.environ[env_var]='apt_codename={apt_codename};deb_version={deb_version}'.format(**d)
-
-def remove_override_env():
-	del os.environ[env_var]
-
-def create_override(d, apt_codename, deb_version):
-	d.old_apt_codename=d.apt_codename
+def set_codename(d, apt_codename):
 	d.apt_codename=apt_codename
-	d.old_deb_version=d.deb_version
-	d.deb_version=deb_version
-	#create_override_env(d)
+	set_tag(d, d.git_lasttag)
 
-def remove_override(d):
-	d.apt_codename=d.old_apt_codename
-	d.deb_version=d.old_deb_version
-	#remove_override_env()
+def set_codename_tag(d, apt_codename, tag):
+	d.apt_codename=apt_codename
+	set_tag(d, tag)
 
 def run(d):
 	# check that everything is committed
 	templar.git.check_allcommit()
 
-	# tag the new version
+	# calculate the new tag and setup data
 	tag=str(int(d.git_lasttag)+1)
-	templar.git.tag(tag)
-	d.git_lasttag=tag
-	d.git_version=d.git_lasttag
-	d.deb_version='{0}~{1}'.format(d.git_version, d.apt_codename)
-	# very hard clean
-	templar.git.clean()
-	# touch the Makefile so that everything gets regenerated
-	# (esp templar stuff which may think they are up to date, they are not!
-	# since the tag has changed)
-	templar.fileops.touch_exists('Makefile')
+	set_tag(d, tag)
+
 	# build everything
 	templar.api.process(d, templar.utils.pkg_get_real_filename(__file__, 'templates/README.md.mako'), 'README.md')
-	# commit the files which have been changed (FIXME: only do this if there were changes, currently there are)
-	# the tag here is just a message, not a tag
-	templar.git.commit_all(tag)
+
+	# commit the README.md file which was just changed because it contains the version number.
+	# this is a little ugly since I'm not really sure if the README.md was changed.
+	# I should really check if there are changes and only then commit.
+	templar.git.commit_all('templates for tag '+tag)
+
+	# create the tag
+	templar.git.tag(tag)
+
 	# push new version
 	templar.git.push(True)
 
 	for series in d.deb_series:
 		templar.debug.debug('starting to build for series [{0}]'.format(series))
-		create_override(d, series, '{0}~{1}'.format(d.git_version, series))
+		set_codename(d, series)
 		templar.debuild.run(d, True, False)
 		templar.dput.run(d)
-		remove_override(d)
-	# wrap up - bring the folder back to regular business
-	# very hard clean
-	templar.git.clean()
-	#templar.fileops.touch_exists('Makefile')
-	#templar.make.make('templar')
