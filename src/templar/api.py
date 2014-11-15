@@ -8,12 +8,14 @@ to get access to all the variables.
 ###########
 import pkgutil # for iter_modules
 import os # for environ, chmod, unlink, makedirs, stat
-import os.path # for isfile, dirname, isdir
+import os.path # for isfile
 import mako # for exceptions
 import mako.exceptions # for RickTraceback
 import mako.template # for Template
 import mako.lookup # for TemplateLookup
 import stat # for S_IMODE, S_IWRITE
+import templar.utils # for ensure_dir
+import sys # for getdefaultencoding
 
 ###########
 # globals #
@@ -65,7 +67,7 @@ def get_all_deps():
 		for d in m.getdeps():
 			yield d
 
-def process(d, input, output, inputencoding=None, outputencoding=None, nochmod=False):
+def process(d, inputfile, outputfile, inputencoding=sys.getdefaultencoding(), outputencoding=sys.getdefaultencoding(), nochmod=False):
 	'''
 	if there is any error, remove the output to prevent having
 	bad output...
@@ -77,45 +79,51 @@ def process(d, input, output, inputencoding=None, outputencoding=None, nochmod=F
 		since we chmod the output to be unwritable which means that the
 		*open a file for writing* later would fail...
 		'''
-		if os.path.isfile(output):
-			os.unlink(output)
+		if os.path.isfile(outputfile):
+			os.unlink(outputfile)
 		mylookup=mako.lookup.TemplateLookup(
 			directories=['.'],
 			input_encoding=inputencoding,
 			output_encoding=outputencoding,
 		)
 		template=mako.template.Template(
-			filename=input,
+			filename=inputfile,
 			lookup=mylookup,
 			input_encoding=inputencoding,
 			output_encoding=outputencoding,
 		)
-		output_folder=os.path.dirname(output)
-		if output_folder!='' and not os.path.isdir(output_folder):
-			os.makedirs(output_folder)
-		file=open(output, 'wb')
-		file.write(template.render(tdefs=d))
-		file.close()
+		templar.utils.ensure_dir(outputfile)
+		f=open(outputfile, 'wb')
+		f.write(template.render(tdefs=d))
+		f.close()
 		if not nochmod:
 			# old solution which is no good because of umask
 			# and executable scripts
 			# os.chmod(output, 0o0444)
-			current = stat.S_IMODE(os.stat(input).st_mode)
+			current = stat.S_IMODE(os.stat(inputfile).st_mode)
 			current &= ~( stat.S_IWUSR | stat.S_IWGRP | stat.S_IWOTH )
-			os.chmod(output, current)
+			os.chmod(outputfile, current)
 		else:
-			current = stat.S_IMODE(os.stat(input).st_mode)
-			os.chmod(output, current)
+			current = stat.S_IMODE(os.stat(inputfile).st_mode)
+			os.chmod(outputfile, current)
 	except Exception as e:
-		if os.path.isfile(output):
-			os.unlink(output)
+		if os.path.isfile(outputfile):
+			os.unlink(outputfile)
 		raise e
 
-def print_exception(e):
+def print_full_exception():
+	print('printing full exception')
+	traceback=mako.exceptions.RichTraceback()
+	for (filename, lineno, function, line) in traceback.traceback:
+		print('File {0}, line {1}, in {2}'.format(filename, lineno, function))
+		print(line)
+	print('{0}: {1}'.format(str(traceback.error.__class__.__name__), traceback.error))
+
+def print_exception(e, inputfile):
 	found=False
 	traceback=mako.exceptions.RichTraceback()
 	for (filename, lineno, function, line) in traceback.traceback:
-		if filename==input:
+		if filename==inputfile:
 			print('{0}: error {1} in {2}, line {3}'.format(sys.argv[0], str(e), filename, lineno, function))
 			print('{0}'.format(line))
 			found=True

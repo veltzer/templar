@@ -13,6 +13,11 @@ packs=[
 	'python3-all', # for the python scripts
 	'dh-python', # for packaging helpers
 
+	# for installation:
+	'python3-setuptools', # for packaging
+	'python-setuptools', # for packaging
+	'python-setuptools-doc', # for packaging
+
 	# mako templating (current templating)
 	'python3-mako', # mako for python 3 (we are not really using it)
 	'python-mako-doc', # documentation for the template preprocessor
