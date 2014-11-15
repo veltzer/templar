@@ -45,6 +45,7 @@ def populate(d):
 	d.project_data_files.append(templar.utils.hlp_files_under('/usr/share/templar/templartmpl', 'templates/*.mako'))
 	d.project_data_files.append(templar.utils.hlp_files_under('/usr/share/templar/templardefs', 'defs/*.py'))
 	d.project_data_files.append(templar.utils.hlp_files_under('/usr/bin', 'src/*'))
+	d.project_data_files.append(templar.utils.hlp_files_under('/usr/lib/python3/dist-packages/templar/templates', 'src/templar/templates/*.mako'))
 
 	# deb section
 	d.deb_section='python'
@@ -58,8 +59,8 @@ def populate(d):
 	]
 	# these are dependencies for runtime
 	d.deb_depends='${misc:Depends}, ${python3:Depends}, python3-mako'
-	# these are dependencies for buildtime
-	d.deb_builddepends='python3-all, python3-setuptools, python-all, python3-setuptools, python3-setuptools-git, debhelper, dh-python'
+	# these are dependencies for buildtime at launchpad ppa
+	d.deb_builddepends='python3-all, python3-setuptools, python3-setuptools, debhelper, dh-python'
 	d.deb_standards_version='3.9.4'
 	d.deb_x_python_version='>= 3.4'
 	d.deb_x_python3_version='>= 3.4'
