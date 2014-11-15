@@ -15,14 +15,14 @@ def run(d, source, gbp):
 	# debian folder should not exist
 	assert not os.path.isdir('debian')
 	# first arg is relative to current package
-	templar.api.process(d, templar.utils.pkg_get_real_filename('templates/changelog.mako'), 'debian/changelog')
-	templar.api.process(d, templar.utils.pkg_get_real_filename('templates/compat.mako'), 'debian/compat')
-	templar.api.process(d, templar.utils.pkg_get_real_filename('templates/control.mako)', 'debian/control')
-	templar.api.process(d, templar.utils.pkg_get_real_filename('templates/copyright.mako'), 'debian/copyright')
-	#templar.api.process(d, templar.utils.pkg_get_real_filename('templates/files.mako'), 'debian/files')
-	templar.api.process(d, templar.utils.pkg_get_real_filename('templates/format.mako'), 'debian/source/format')
-	templar.api.process(d, templar.utils.pkg_get_real_filename('templates/rules.mako'), 'debian/rules')
-	templar.api.process(d, templar.utils.pkg_get_real_filename('templates/setup.py.mako'), 'setup.py')
+	templar.api.process(d, templar.utils.pkg_get_real_filename(__file__, 'templates/changelog.mako'), 'debian/changelog')
+	templar.api.process(d, templar.utils.pkg_get_real_filename(__file__, 'templates/compat.mako'), 'debian/compat')
+	templar.api.process(d, templar.utils.pkg_get_real_filename(__file__, 'templates/control.mako'), 'debian/control')
+	templar.api.process(d, templar.utils.pkg_get_real_filename(__file__, 'templates/copyright.mako'), 'debian/copyright')
+	#templar.api.process(d, templar.utils.pkg_get_real_filename(__file__, 'templates/files.mako'), 'debian/files')
+	templar.api.process(d, templar.utils.pkg_get_real_filename(__file__, 'templates/format.mako'), 'debian/source/format')
+	templar.api.process(d, templar.utils.pkg_get_real_filename(__file__, 'templates/rules.mako'), 'debian/rules')
+	templar.api.process(d, templar.utils.pkg_get_real_filename(__file__, 'templates/setup.py.mako'), 'setup.py')
 	for f in glob.glob('../{0}_*'.format(d.deb_pkgname)):
 		templar.fileops.unlink(f)
 	if not source or gbp:
