@@ -15,11 +15,12 @@ TODO:
 ###########
 import os # for environ, unlink
 import templar.git # for check_allcommit, clean
-import templar.make # for make
 import templar.fileops # for touch_exists
 import templar.debug # for debug
 import templar.dput # for run
 import templar.debuild # for run
+import templar.api # for process
+import templar.utils # for pkg_get_real_filename
 
 ##############
 # parameters #
@@ -52,12 +53,12 @@ def create_override(d, apt_codename, deb_version):
 	d.apt_codename=apt_codename
 	d.old_deb_version=d.deb_version
 	d.deb_version=deb_version
-	create_override_env(d)
+	#create_override_env(d)
 
 def remove_override(d):
 	d.apt_codename=d.old_apt_codename
 	d.deb_version=d.old_deb_version
-	remove_override_env()
+	#remove_override_env()
 
 def run(d):
 	# check that everything is committed
@@ -76,7 +77,7 @@ def run(d):
 	# since the tag has changed)
 	templar.fileops.touch_exists('Makefile')
 	# build everything
-	templar.make.make('templar')
+	templar.api.process(d, templar.utils.pkg_get_real_filename(__file__, 'templates/README.md.mako'), 'README.md')
 	# commit the files which have been changed (FIXME: only do this if there were changes, currently there are)
 	# the tag here is just a message, not a tag
 	templar.git.commit_all(tag)
@@ -92,5 +93,5 @@ def run(d):
 	# wrap up - bring the folder back to regular business
 	# very hard clean
 	templar.git.clean()
-	templar.fileops.touch_exists('Makefile')
-	templar.make.make('templar')
+	#templar.fileops.touch_exists('Makefile')
+	#templar.make.make('templar')

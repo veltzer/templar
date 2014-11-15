@@ -6,7 +6,7 @@ import templar.git # for clean
 import glob # for glob
 import templar.wrappers.debuild # for run
 import templar.fileops # for unlink, move, chmod, mkdir, chmod_pw
-import templar.api # for process, print_exception
+import templar.api # for process
 import templar.utils # for pkg_get_real_filename
 import os.path # for isdir
 
