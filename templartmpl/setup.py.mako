@@ -1,1 +1,0 @@
-../templates/setup.py.mako

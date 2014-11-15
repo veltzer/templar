@@ -1,1 +1,0 @@
-../../templates/rules.mako
