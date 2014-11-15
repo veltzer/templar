@@ -11,12 +11,8 @@
 # deb package build residue
 /build
 /.pybuild
-/debian/files
-/debian/templar.debhelper.log
-/debian/templar.postinst.debhelper
-/debian/templar.prerm.debhelper
-/debian/templar.substvars
-/debian/templar/
+/debian/
+/*.egg-info/
 
 # python
 __pycache__

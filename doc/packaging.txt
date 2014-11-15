@@ -1,0 +1,10 @@
+in python you have two major contenders for packaging: distutils and setuptools.
+
+- distutils comes with python and setuptools in an external module.
+- setuptools is much more feature rich.
+- I went with setuptools.
+- I also need the git plugin to setuptools since setuptools knows
+	how to query git to get the list of files which are under source control.
+
+References:
+http://stackoverflow.com/questions/6344076/differences-between-distribute-distutils-setuptools-and-distutils2
