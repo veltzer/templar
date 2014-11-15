@@ -1,3 +1,9 @@
+- think about how we load stuff from the definitions in templar.
+	Since we load it with loading every module we may not get stuff
+	like package tools from python and this means we cannot load resources
+	from the package.
+	This is not good.
+	Is there some other way of loading modules that will allow us to do that?
 - stop having the debian folder at all.
 	move the last couple of files to be templates also.
 		debian

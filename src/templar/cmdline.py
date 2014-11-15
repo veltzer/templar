@@ -16,15 +16,8 @@ TODO:
 # imports #
 ###########
 import sys # for argv, getdefaultencoding, exit
-import mako # for exceptions
-import mako.exceptions # for RickTraceback
-import mako.template # for Template
-import mako.lookup # for TemplateLookup
-import os # for chmod, unlink, makedirs
-import os.path # for isfile, dirname, isdir
 import argparse # for ArgumentParser, ArgumentDefaultsHelpFormatter
-import templar.api # for load_and_populate
-import stat # for S_IMODE, S_IWRITE
+import templar.api # for load_and_populate, process, print_exception
 
 def cmdline():
 	parser=argparse.ArgumentParser(
@@ -64,68 +57,24 @@ def cmdline():
 	args=parser.parse_args()
 
 	if args.subcommand=='process':
-		'''
-		if there is any error, remove the output to prevent having
-		bad output...
-		'''
+		d=templar.api.load_and_populate()
 		try:
-			'''
-			We really need the unlink, even though we have *open a file
-			for writing* later on which is supposed to truncate the file to 0
-			since we chmod the output to be unwritable which means that the
-			*open a file for writing* later would fail...
-			'''
-			if os.path.isfile(args.output):
-				os.unlink(args.output)
-			mylookup=mako.lookup.TemplateLookup(
-				directories=['.'],
-				input_encoding=args.inputencoding,
-				output_encoding=args.outputencoding,
+			templar.api.process(
+				d,
+				args.input,
+				args.output,
+				args.inputencoding,
+				args.outputencoding,
+				args.nochmod,
 			)
-			template=mako.template.Template(
-				filename=args.input,
-				lookup=mylookup,
-				input_encoding=args.inputencoding,
-				output_encoding=args.outputencoding,
-			)
-			output_folder=os.path.dirname(args.output)
-			if output_folder!='' and not os.path.isdir(output_folder):
-				os.makedirs(output_folder)
-			file=open(args.output, 'wb')
-			tdefs=templar.api.load_and_populate()
-			file.write(template.render(tdefs=tdefs))
-			file.close()
-			if not args.nochmod:
-				# old solution which is no good because of umask
-				# and executable scripts
-				# os.chmod(args.output, 0o0444)
-				current = stat.S_IMODE(os.stat(args.input).st_mode)
-				current &= ~( stat.S_IWUSR | stat.S_IWGRP | stat.S_IWOTH )
-				os.chmod(args.output, current)
-			else:
-				current = stat.S_IMODE(os.stat(args.input).st_mode)
-				os.chmod(args.output, current)
 		except Exception as e:
-			if os.path.isfile(args.output):
-				os.unlink(args.output)
-			found=False
-			traceback=mako.exceptions.RichTraceback()
-			for (filename, lineno, function, line) in traceback.traceback:
-				if filename==args.input:
-					print('{0}: error {1} in {2}, line {3}'.format(sys.argv[0], str(e), filename, lineno, function))
-					print('{0}'.format(line))
-					found=True
-			if not found:
-				for (filename, lineno, function, line) in traceback.traceback:
-					print('File {0}, line {1}, in {2}'.format(filename, lineno, function))
-					print(line)
-				print('{0}: {1}'.format(str(traceback.error.__class__.__name__), traceback.error))
+			print_exception(e)
 			sys.exit(1)
 
 	if args.subcommand=='printmake':
-		tdefs=templar.api.load_and_populate()
-		for k in sorted(tdefs.keys()):
-			v=tdefs[k]
+		d=templar.api.load_and_populate()
+		for k in sorted(d.keys()):
+			v=d[k]
 			if type(v)!=str:
 				continue
 			if v.find('\n')!=-1:
@@ -135,9 +84,9 @@ def cmdline():
 			print('{0}.{1}:={2}'.format('tdefs', k, v))
 
 	if args.subcommand=='printall':
-		tdefs=templar.api.load_and_populate()
-		for k in sorted(tdefs.keys()):
-			v=tdefs[k]
+		d=templar.api.load_and_populate()
+		for k in sorted(d.keys()):
+			v=d[k]
 			print('{0}.{1}={2}'.format('tdefs', k, v))
 
 	if args.subcommand=='getdeps':
