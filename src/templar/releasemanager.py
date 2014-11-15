@@ -85,6 +85,6 @@ class ReleaseManager:
 		if(self.p_face):
 			self.doFace()
 
-if __name__=='__main__':
+def release():
 	rm=ReleaseManager()
 	rm.release()

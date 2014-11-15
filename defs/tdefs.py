@@ -82,10 +82,10 @@ def populate(d):
 (function(i,s,o,g,r,a,m){{i['GoogleAnalyticsObject=r;i[r]=i[r]||function(){{
 (i[r].q=i[r].q||[]).push(arguments)}},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-}})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+}})(window,document,'script','//www.google-analytics.com/analytics.js','ga')
 
-ga('create', '{0}', 'auto');
-ga('send', 'pageview');
+ga('create', '{0}', 'auto')
+ga('send', 'pageview')
 
 </script>'''.format(d.project_google_analytics_tracking_id)
 
@@ -104,7 +104,7 @@ ga('send', 'pageview');
 		d.git_describe='no git repository'
 
 	# this is wrong for the tag since they may not be alphabetically ordered...
-	#tag=subprocess.check_output(['git', 'tag']).decode().rstrip();
+	#tag=subprocess.check_output(['git', 'tag']).decode().rstrip()
 	#if tag!='':
 	#	d.git_lasttag=tag.split()[-1].rstrip()
 	#else:
