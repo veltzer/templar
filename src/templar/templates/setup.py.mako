@@ -21,7 +21,7 @@ distutils.core.setup(
 	license='${tdefs.project_license}',
 	platforms=${tdefs.project_platforms},
 	${tdefs.hlp_source_under('src') | tdefs.make_hlp_wrap(1) },
-	include_package_data=True,
+	#include_package_data=True,
 	classifiers=${tdefs.project_classifiers},
 	data_files=${tdefs.project_data_files},
 )

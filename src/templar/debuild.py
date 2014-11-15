@@ -34,6 +34,7 @@ def run(d, source, gbp):
 	if source:
 		args.append('-S')
 	templar.wrappers.debuild.run(args)
+	templar.git.clean()
 	templar.fileops.mkdir(d.deb_out_folder)
 	for f in glob.glob('../{0}_*'.format(d.deb_pkgname)):
 		res=templar.fileops.move(f, d.deb_out_folder)
