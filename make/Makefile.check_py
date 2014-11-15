@@ -3,11 +3,11 @@
 .PHONY: check_py_main
 check_py_main:
 	$(info doing [$@])
-	$(Q)-git grep __main -- "*.py"
+	$(Q)make_helper wrapper-ok git grep __main -- "*.py"
 .PHONY: check_py_semicol
 check_py_semicol:
 	$(info doing [$@])
-	$(Q)-git grep ";$$" -- "*.py"
+	$(Q)make_helper wrapper-ok git grep ";$$" -- "*.py"
 
 .PHONY: check_py_all
 check_py_all: check_py_main check_py_semicol
