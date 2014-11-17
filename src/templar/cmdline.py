@@ -68,7 +68,7 @@ def cmdline():
 				args.nochmod,
 			)
 		except Exception as e:
-			print_exception(e, args.input)
+			templar.api.print_exception(e, args.input)
 			sys.exit(1)
 
 	if args.subcommand=='printmake':
