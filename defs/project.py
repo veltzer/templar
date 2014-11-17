@@ -48,6 +48,7 @@ def populate(d):
 	d.project_data_files.append(templar.utils.hlp_files_under('/usr/lib/python3/dist-packages/templar/templates', 'src/templar/templates/*.mako'))
 
 	# deb section
+	d.deb_package=True
 	d.deb_section='python'
 	d.deb_priority='optional'
 	d.deb_architecture='all'
