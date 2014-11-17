@@ -67,6 +67,9 @@ def run(d):
 	# push new version
 	templar.git.push(True)
 
+	if not d.deb_package:
+		return
+
 	for series in d.deb_series:
 		templar.debug.debug('starting to build for series [{0}]'.format(series))
 		set_codename(d, series)
