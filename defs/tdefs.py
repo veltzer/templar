@@ -117,9 +117,9 @@ ga('send', 'pageview')
 		d.git_describe=subprocess.check_output(['git', 'describe'], stderr=subprocess.DEVNULL).decode().rstrip()
 		d.git_version='.'.join(d.git_describe.split('-'))
 	except:
-		d.git_lasttag='no git tag yet'
-		d.git_describe='no git describe yet'
-		d.git_version='no git tag yet'
+		d.git_lasttag='0'
+		d.git_describe='0'
+		d.git_version='0'
 
 	# deb
 	d.deb_pkgname=os.path.basename(os.getcwd())
