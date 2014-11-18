@@ -19,7 +19,7 @@ opt_debug=False
 
 '''check_call wrapper'''
 def check_call(l):
-	templar.debug.process(l)
+	templar.debug.process(l, 'check_call')
 	if opt_debug:
 		subprocess.check_call(l)
 	else:
@@ -27,7 +27,7 @@ def check_call(l):
 
 '''check_output wrapper'''
 def check_output(l):
-	templar.debug.process(l)
+	templar.debug.process(l, 'check_output')
 	if opt_debug:
 		return subprocess.check_output(l)
 	else:
