@@ -8,6 +8,10 @@ import templar.capture_all # for capture_all
 warning_patterns_to_ignore=set([
 	'binary-without-manpage',
 ])
+error_patterns_to_ignore=set([
+	'source-contains-unsafe-symlink',
+	'missing-dep-for-interpreter',
+])
 
 def run(args):
 	seen_error=False
@@ -22,6 +26,13 @@ def run(args):
 		if line.find('error')!=-1:
 			do_print=True
 			seen_error=True
+		if line.startswith('E: '):
+			for pat in error_patterns_to_ignore:
+				if line.find(pat)!=-1:
+					break
+			else:
+				do_print=True
+				seen_error=True
 		if line.startswith('W: '):
 			for pat in warning_patterns_to_ignore:
 				if line.find(pat)!=-1:
