@@ -57,7 +57,8 @@ def populate(d):
 	d.deb_series=[
 		'utopic',
 		'trusty',
-		'raring',
+		# raring does not accept new uploads
+		#'raring',
 	]
 	# these are dependencies for runtime
 	d.deb_depends='${misc:Depends}, ${python3:Depends}, python3-mako'
