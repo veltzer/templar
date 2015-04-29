@@ -1,7 +1,7 @@
 templar
 =======
 
-version: 69
+version: 70
 
 Templating solution for programmers
 
