@@ -123,8 +123,8 @@ ga('send', 'pageview')
 
 	# deb
 	d.deb_pkgname=os.path.basename(os.getcwd())
-	d.deb_date='Wed Apr 29 23:27:08 IDT 2015'
-	#'Fri, 21 Jun 2013 09:14:32 +0300'
+	# create this with 'date -R'
+	d.deb_date='Wed, 29 Apr 2015 23:28:29 +0300'
 
 	# apt
 	d.apt_protocol='https'
