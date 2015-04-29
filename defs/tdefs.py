@@ -130,7 +130,7 @@ ga('send', 'pageview')
 	d.apt_protocol='https'
 	d.apt_codename=subprocess.check_output(['lsb_release','--codename', '--short']).decode().rstrip()
 	d.apt_arch=subprocess.check_output('dpkg-architecture | grep -e ^DEB_BUILD_ARCH= | cut -d = -f 2', shell=True).decode().rstrip()
-	d.apt_archs='i386 {0} source'.format(d.apt_arch)
+	d.apt_archs='{0} source'.format(d.apt_arch)
 	d.apt_component='main'
 	d.apt_folder='apt'
 	d.apt_service_dir=os.path.join(d.general_homedir, 'public_html/public', d.apt_folder)
