@@ -6,6 +6,7 @@
 /.pybuild
 /debian/
 /*.egg-info/
+/setup.py
 
 # python
 __pycache__
