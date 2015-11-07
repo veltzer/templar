@@ -57,8 +57,8 @@ def populate(d):
 	d.deb_series=[
 		'wily',
 		'vivid',
-		'utopic',
 		'trusty',
+		#'utopic', end of life
 		# saucy does not accept new uploads
 		#'saucy',
 		# raring does not accept new uploads
