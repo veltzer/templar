@@ -55,10 +55,10 @@ def populate(d):
 	d.deb_pkgname='templar'
 	# to which series to publish the package?
 	d.deb_series=[
+		'wily',
+		'vivid',
 		'utopic',
 		'trusty',
-		'vivid',
-		'wily',
 		# saucy does not accept new uploads
 		#'saucy',
 		# raring does not accept new uploads
