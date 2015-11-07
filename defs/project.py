@@ -58,6 +58,7 @@ def populate(d):
 		'utopic',
 		'trusty',
 		'vivid',
+		'wily',
 		# saucy does not accept new uploads
 		#'saucy',
 		# raring does not accept new uploads
