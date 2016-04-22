@@ -23,6 +23,9 @@ packs=[
 	# mako templating (current templating)
 	'python3-mako', # mako for python 3 (we are not really using it)
 	'python-mako-doc', # documentation for the template preprocessor
+	
+	# debian tools
+	'devscripts', # for debuild(1)
 ]
 
 args=[
