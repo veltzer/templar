@@ -1,1 +1,1 @@
-/usr/lib/python3/dist-packages/templar/templates/README.md.mako
+../src/templar/templates/README.md.mako
