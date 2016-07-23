@@ -2,6 +2,8 @@
 .PHONY: all
 all: $(ALL)
 	$(info doing [$@])
+#this is to avoid 'make: Nothing to be done for 'all'.' message
+#@true
 
 .PHONY: clean
 clean:
@@ -12,4 +14,3 @@ clean:
 debug:
 	$(info doing [$@])
 	$(info ALL is $(ALL))
-	@true
