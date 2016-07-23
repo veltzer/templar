@@ -55,6 +55,8 @@ endif
 # templar sources and targets
 TEMPLAR_ALL_MAKO_SRC:=$(shell find $(TEMPLAR_TEMPLAR_FOLDER) \( -type f -or -type l \) -and -name "*.mako" 2> /dev/null)
 TEMPLAR_ALL_MAKO_TGT:=$(shell $(TEMPLAR_MAKEHELPER_SCRIPT) rmfdas $(TEMPLAR_ALL_MAKO_SRC))
+TEMPLAR_ALL_COPY_SRC:=$(shell find $(TEMPLAR_TEMPLAR_FOLDER) \( -type f -or -type l \) -and -not -name "*.mako" 2> /dev/null)
+TEMPLAR_ALL_COPY_TGT:=$(shell $(TEMPLAR_MAKEHELPER_SCRIPT) rmfd $(TEMPLAR_ALL_COPY_SRC))
 
 # MAKEFILE_LIST includes included makefiles like TEMPLAR_TMPL_FILE above...
 TEMPLAR_ALL_DEP:=$(MAKEFILE_LIST) $(TEMPLAR_TMPL_EXTRA_DEPS)
@@ -93,6 +95,10 @@ templar: $(TEMPLAR_ALL_MAKO_TGT)
 $(TEMPLAR_ALL_MAKO_TGT): %: $(TEMPLAR_TEMPLAR_FOLDER)/%.mako $(TEMPLAR_ALL_DEP)
 	$(info doing [$@])
 	$(TEMPLAR_Q)$(TEMPLAR_TEMPLAR_SCRIPT) process $(TEMPLAR_TEMPLAR_SCRIPT_ARGS_PROCESS) --input $< --output $@
+$(TEMPLAR_ALL_COPY_TGT): %: $(TEMPLAR_TEMPLAR_FOLDER)/% $(TEMPLAR_ALL_DEP)
+	$(info doing [$@])
+	$(TEMPLAR_Q)mkdir -p $(dir $@)
+	$(TEMPLAR_Q)cp $< $@
 
 ###########
 # globals #

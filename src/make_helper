@@ -40,6 +40,12 @@ subparser_rmfdas=subparsers.add_parser(
 )
 subparser_rmfdas.add_argument('filenames', nargs=argparse.REMAINDER, action='store')
 
+subparser_rmfd=subparsers.add_parser(
+	'rmfd',
+	formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+)
+subparser_rmfd.add_argument('filenames', nargs=argparse.REMAINDER, action='store')
+
 subparser_debuild=subparsers.add_parser(
 	'debuild',
 	formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -99,6 +105,12 @@ if args.subcommand=='rmfdas':
 	result=[]
 	for f in args.filenames:
 		r=os.path.splitext(os.sep.join(f.split(os.sep)[1:]))[0]
+		result.append(r)
+	print(' '.join(result), end='')
+if args.subcommand=='rmfd':
+	result=[]
+	for f in args.filenames:
+		r=os.sep.join(f.split(os.sep)[1:])
 		result.append(r)
 	print(' '.join(result), end='')
 if args.subcommand=='debuild':
