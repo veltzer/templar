@@ -1,0 +1,1 @@
+to see some debugging turn on to 'True' the variables in src/templar/debug.py
