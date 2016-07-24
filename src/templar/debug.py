@@ -6,7 +6,7 @@ import sys # for stderr
 
 # do you want to see the commands?
 opt_show_commands=False
-opt_show_message=False
+opt_show_messages=False
 
 def process(l, tag):
 	if opt_show_commands:
