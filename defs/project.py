@@ -12,8 +12,8 @@ def populate(d):
 	d.project_website_source='https://github.com/{project_github_username}/{project_name}'.format(**d)
 	d.project_website_git='git://github.com/{project_github_username}/{project_name}.git'.format(**d)
 	d.project_website_download='https://launchpad.net/~mark-veltzer/+archive/ubuntu/ppa'
-	d.project_paypal_donate_button_id='XKSSBRVJM7HHA'
-	d.project_google_analytics_tracking_id='UA-56436979-1'
+	d.project_paypal_donate_button_id='YSQSL83L4GK4Q'
+	d.project_google_analytics_tracking_id='UA-81412152-1'
 
 	d.project_short_description='Easy templating tool'
 	d.project_description='Easy templating tool long description (TBD)'
