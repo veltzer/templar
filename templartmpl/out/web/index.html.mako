@@ -14,10 +14,10 @@
 		<p>current version is ${tdefs.git_lasttag}</p>
 
 		<p>
-		${tdefs.project_name} is a templating system for building projects in any language.
+		<b>${tdefs.project_name}</b> is a templating system for building projects in any language.
 		The idea is that when writing a project you want to compile files (javascript, python, html, etc)
 		from various bits and pieces of information which you have in all kinds of files.
-		${tdefs.project_name} will let you do that easily and combine this process into your build system.
+		<b>${tdefs.project_name}</b> will let you do that easily and combine this process into your build system.
 		</p>
 		<p>
 			I would appreciate donations so that I could use my time to work on <b>${tdefs.project_name}</b> more.
