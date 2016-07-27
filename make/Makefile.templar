@@ -89,6 +89,11 @@ $(TEMPLAR_TMPL_FILE): $(TEMPLAR_TEMPLAR_SCRIPT) $(TEMPLAR_TMPL_EXTRA_DEPS)
 .PHONY: templar
 templar: $(TEMPLAR_ALL_MAKO_TGT)
 
+.PHONY: gh-pages
+gh-pages: $(ALL) $(ALL_DEPS)
+	$(info doing [$@])
+	$(Q)node_modules/gh-pages/bin/gh-pages --dist out/web
+
 #########
 # rules #
 #########

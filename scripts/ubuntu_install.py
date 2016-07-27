@@ -36,3 +36,9 @@ args=[
 ]
 args.extend(packs)
 subprocess.check_call(args)
+
+print('installing node packages...')
+subprocess.check_call([
+	'npm',
+	'install',
+], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
