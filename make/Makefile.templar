@@ -92,7 +92,7 @@ templar: $(TEMPLAR_ALL_MAKO_TGT)
 .PHONY: gh-pages
 gh-pages: $(ALL) $(ALL_DEPS)
 	$(info doing [$@])
-	$(Q)node_modules/gh-pages/bin/gh-pages --dist out/web
+	$(Q)node_modules/gh-pages/bin/gh-pages --dist out/web 2> /dev/null
 
 #########
 # rules #
