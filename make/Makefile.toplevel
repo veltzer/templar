@@ -8,7 +8,7 @@ all: $(ALL)
 .PHONY: clean
 clean:
 	$(info doing [$@])
-	$(Q)git clean -xdf > /dev/null
+	$(Q)git clean -ffqxd
 
 .PHONY: debug
 debug:
