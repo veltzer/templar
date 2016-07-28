@@ -9,7 +9,8 @@
   "dependencies": {
   },
   "devDependencies": {
-    "gh-pages": "^0.11.0"
+    "gh-pages": "^0.11.0",
+    "htmlhint": "^0.9.13"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
