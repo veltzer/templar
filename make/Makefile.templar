@@ -24,6 +24,10 @@ TEMPLAR_SEC?=1
 TEMPLAR_CHMOD?=1
 # do we use tdefs in the makefile?
 TEMPLAR_NEED_TDEFS_INCLUDE?=0
+# what folder to export to gh-pages?
+TEMPLAR_GHPAGES_FOLDER?=out/web
+# what branch to export to?
+TEMPLAR_GHPAGES_BRANCH?=gh-pages
 
 ########
 # code #
@@ -92,7 +96,7 @@ templar: $(TEMPLAR_ALL_MAKO_TGT)
 .PHONY: gh-pages
 gh-pages: $(ALL) $(ALL_DEPS)
 	$(info doing [$@])
-	$(Q)node_modules/gh-pages/bin/gh-pages --dist out/web 2> /dev/null
+	$(Q)node_modules/gh-pages/bin/gh-pages --dist $(TEMPLAR_GHPAGES_FOLDER) --branch $(TEMPLAR_GHPAGES_BRANCH) 2> /dev/null
 
 #########
 # rules #
