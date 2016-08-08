@@ -59,7 +59,8 @@ def run(d):
 	# commit the README.md file which was just changed because it contains the version number.
 	# this is a little ugly since I'm not really sure if the README.md was changed.
 	# I should really check if there are changes and only then commit.
-	templar.git.commit_all('release '+tag)
+	if not templar.git.is_allcommit():
+		templar.git.commit_all('release '+tag)
 
 	# create the tag
 	templar.git.tag(tag)
