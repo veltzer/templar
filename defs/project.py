@@ -58,11 +58,12 @@ def populate(d):
 		'xenial',
 		'wily',
 		'vivid',
+		# end of life
+		#'utopic',
 		'trusty',
-		#'utopic', end of life
-		# saucy does not accept new uploads
+		# does not accept new uploads
 		#'saucy',
-		# raring does not accept new uploads
+		# does not accept new uploads
 		#'raring',
 	]
 	# these are dependencies for runtime
