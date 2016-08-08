@@ -9,10 +9,14 @@ import templar.subprocess # for check_call, check_output
 def clean():
 	templar.subprocess.check_call(['git', 'clean', '-xdf'])
 
+''' function that reports if all is comitted '''
+def is_allcommit():
+	out=templar.subprocess.check_output(['git','status','-s']).decode()
+	return out==''
+
 ''' function that checks that all is committed '''
 def check_allcommit():
-	out=templar.subprocess.check_output(['git','status','-s']).decode()
-	if out!='':
+	if not is_allcommit():
 		print('first commit everything, then call me...', file=sys.stderr)
 		sys.exit(1)
 
