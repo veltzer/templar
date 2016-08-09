@@ -1,0 +1,24 @@
+---
+packages:
+  - name: python3
+    reason: for the python scripts
+  - name: python3-all
+    reason: for the python scripts
+  - name: dh-python
+    reason: for packaging helpers
+  - name: python-setuptools-doc
+    reason: for packaging
+  - name: python3-setuptools
+    reason: for packaging
+  - name: python-setuptools
+    reason: for packaging
+  - name: python3-setuptools-git
+    reason: for packaging
+  - name: python-setuptools-git
+    reason: for packaging
+  - name: python3-mako
+    reason: mako for python 3 (we are not really using it)
+  - name: python-mako-doc
+    reason: documentation for the template preprocessor
+  - name: devscripts
+    reason: for debuild(1)
