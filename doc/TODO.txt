@@ -1,3 +1,5 @@
+- install, as part of templar, the vim script vim/templar.vim as
+	/usr/share/vim-scripts/plugin/templar.vim
 - fix the check_call that we use everywhere to collect the output
 	of the tools we are running and print out that output
 	in case of error.
