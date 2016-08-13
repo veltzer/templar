@@ -1,5 +1,11 @@
 - install, as part of templar, the vim script vim/templar.vim as
 	/usr/share/vim-scripts/plugin/templar.vim
+- make git grep avoid searching through templar generated
+	files in a templar based project.
+	This could be done with:
+	- finding an "exclude these files" feature of git grep
+	- writing a wrapper around git grep.
+	- finding a config file to tell git grep which files not to grep.
 - fix the check_call that we use everywhere to collect the output
 	of the tools we are running and print out that output
 	in case of error.
