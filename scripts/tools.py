@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 '''
 this script will install all the required packages that you need on
 ubuntu to compile and work with this package.
@@ -42,6 +40,3 @@ def install_node():
 		'npm',
 		'install',
 	], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-install_apt()
-install_node()
