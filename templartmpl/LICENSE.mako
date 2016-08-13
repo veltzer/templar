@@ -1,0 +1,1 @@
+../src/templar/templates/LICENSE.GPL3.mako
