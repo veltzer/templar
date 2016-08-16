@@ -81,7 +81,7 @@ def install_apt():
     # if the file is not there it is NOT an error
     if not os.path.isfile(APT_FILE):
         return
-    msg('installing from {0}...'.format(APT_FILE))
+    msg('installing from [{0}]...'.format(APT_FILE))
     with open(APT_FILE, 'r') as stream:
         o=yaml.load(stream)
     packs=[ x['name'] for x in o['packages'] ]
@@ -99,7 +99,7 @@ def install_node():
     # if the file is not there it is NOT an error
     if not os.path.isfile(NODE_FILE):
         return
-    msg('installing from {0}...'.format(NODE_FILE))
+    msg('installing from [{0}]...'.format(NODE_FILE))
     subprocess.check_call([
         'npm',
         'install',
