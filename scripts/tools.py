@@ -205,8 +205,24 @@ def install_packs():
     except:
         print('error in apt')
 
+def install_ubuntu():
+    if os.path.isfile('ubuntu.json'):
+        msg('installing packages...')
+        with open('ubuntu.json') as f:
+            d=json.load(f)
+        packs=[p['name'] for p in d['packages']]
+        debug(packs)
+        args=['sudo','apt-get','install','--assume-yes']
+        args.extend(packs)
+        subprocess.check_call(
+            args,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+
 ########
 # code #
 ########
 install_apt()
 install_node()
+install_ubuntu()
