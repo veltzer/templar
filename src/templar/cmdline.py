@@ -44,15 +44,11 @@ def cmdline():
     )
     subparser_print.add_argument('--nosec', help='dont do security', default=False, action='store_true')
 
-    subparser_print=subparsers.add_parser(
-        'printall',
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-
-    subparser_print=subparsers.add_parser(
-        'getdeps',
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
+    for x in ['printall','getdeps','install_deps','git_config']:
+        subparser_print=subparsers.add_parser(
+            x,
+            formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        )
 
     args=parser.parse_args()
 
