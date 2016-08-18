@@ -20,82 +20,82 @@ import argparse # for ArgumentParser, ArgumentDefaultsHelpFormatter
 import templar.api # for load_and_populate, process, print_exception
 
 def cmdline():
-	parser=argparse.ArgumentParser(
-		formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-	)
-	subparsers=parser.add_subparsers(
-		title='subcommands',
-		dest='subcommand',
-	)
+    parser=argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    subparsers=parser.add_subparsers(
+        title='subcommands',
+        dest='subcommand',
+    )
 
-	subparser_process=subparsers.add_parser(
-		'process',
-		formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-	)
-	subparser_process.add_argument('--input', help='input file')
-	subparser_process.add_argument('--inputencoding', help='specify input encoding', default=sys.getdefaultencoding())
-	subparser_process.add_argument('--output', help='output file')
-	subparser_process.add_argument('--outputencoding', help='specify output encoding', default=sys.getdefaultencoding())
-	subparser_process.add_argument('--nochmod', help='dont chmod the output to readonly', default=False, action='store_true')
+    subparser_process=subparsers.add_parser(
+        'process',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    subparser_process.add_argument('--input', help='input file')
+    subparser_process.add_argument('--inputencoding', help='specify input encoding', default=sys.getdefaultencoding())
+    subparser_process.add_argument('--output', help='output file')
+    subparser_process.add_argument('--outputencoding', help='specify output encoding', default=sys.getdefaultencoding())
+    subparser_process.add_argument('--nochmod', help='dont chmod the output to readonly', default=False, action='store_true')
 
-	subparser_print=subparsers.add_parser(
-		'printmake',
-		formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-	)
-	subparser_print.add_argument('--nosec', help='dont do security', default=False, action='store_true')
+    subparser_print=subparsers.add_parser(
+        'printmake',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    subparser_print.add_argument('--nosec', help='dont do security', default=False, action='store_true')
 
-	subparser_print=subparsers.add_parser(
-		'printall',
-		formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-	)
+    subparser_print=subparsers.add_parser(
+        'printall',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
 
-	subparser_print=subparsers.add_parser(
-		'getdeps',
-		formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-	)
+    subparser_print=subparsers.add_parser(
+        'getdeps',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
 
-	args=parser.parse_args()
+    args=parser.parse_args()
 
-	if args.subcommand=='process':
-		d=templar.api.load_and_populate()
-		try:
-			templar.api.process(
-				d,
-				args.input,
-				args.output,
-				args.inputencoding,
-				args.outputencoding,
-				args.nochmod,
-			)
-		except Exception as e:
-			templar.api.print_exception(e, args.input)
-			sys.exit(1)
+    if args.subcommand=='process':
+        d=templar.api.load_and_populate()
+        try:
+            templar.api.process(
+                d,
+                args.input,
+                args.output,
+                args.inputencoding,
+                args.outputencoding,
+                args.nochmod,
+            )
+        except Exception as e:
+            templar.api.print_exception(e, args.input)
+            sys.exit(1)
 
-	if args.subcommand=='printmake':
-		d=templar.api.load_and_populate()
-		for k in sorted(d.keys()):
-			v=d[k]
-			if type(v)!=str:
-				continue
-			if v.find('\n')!=-1:
-				continue
-			if not args.nosec and ( k.find('password')!=-1 or k.find('secret')!=-1 ):
-				continue
-			print('{0}.{1}:={2}'.format('tdefs', k, v))
+    if args.subcommand=='printmake':
+        d=templar.api.load_and_populate()
+        for k in sorted(d.keys()):
+            v=d[k]
+            if type(v)!=str:
+                continue
+            if v.find('\n')!=-1:
+                continue
+            if not args.nosec and ( k.find('password')!=-1 or k.find('secret')!=-1 ):
+                continue
+            print('{0}.{1}:={2}'.format('tdefs', k, v))
 
-	if args.subcommand=='printall':
-		d=templar.api.load_and_populate()
-		for k in sorted(d.keys()):
-			v=d[k]
-			print('{0}.{1}={2}'.format('tdefs', k, v))
+    if args.subcommand=='printall':
+        d=templar.api.load_and_populate()
+        for k in sorted(d.keys()):
+            v=d[k]
+            print('{0}.{1}={2}'.format('tdefs', k, v))
 
-        if args.subcommand=='install_deps':
-		d=templar.api.load_and_populate()
-                templar.api.install_deps()
+    if args.subcommand=='install_deps':
+        d=templar.api.load_and_populate()
+        templar.api.install_deps()
 
-        if args.subcommand=='git_config':
-		d=templar.api.load_and_populate()
-                templar.api.git_config()
+    if args.subcommand=='git_config':
+        d=templar.api.load_and_populate()
+        templar.api.git_config()
 
-	if args.subcommand=='getdeps':
-		print(' '.join(templar.api.get_all_deps()))
+    if args.subcommand=='getdeps':
+        print(' '.join(templar.api.get_all_deps()))
