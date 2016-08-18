@@ -11,11 +11,16 @@ ubuntu to compile and work with this package.
 import subprocess # for check_call, DEVNULL, check_output
 import yaml # for load
 import os.path # for isfile
-import os # for system
+import os # for system, cwd, mkdir, chmod, listdir
+import sys # for path
+import shutil # for rmtree
+import urllib.request # for urlretrieve
 
 ##############
 # parameters #
 ##############
+# in what folder do we install tools?
+tools='tools'
 # do you want to debug this script?
 opt_debug=False
 # do you want to show progress?
@@ -220,9 +225,86 @@ def install_ubuntu():
             stderr=subprocess.DEVNULL,
         )
 
+def install_closure():
+	print('installing tool [{0}]'.format('closure'))
+	if not os.path.isdir(tools):
+		os.mkdir(tools)
+	#jar_name='compiler.jar'
+	jar_name='closure-compiler-v20160713'
+	os.system('wget -qO- https://dl.google.com/closure-compiler/compiler-latest.zip | (cd tools; bsdtar -xf- {jar_name}.jar)'.format(jar_name=jar_name))
+	os.chmod('tools/{jar_name}.jar'.format(jar_name=jar_name), 0o0775)
+
+def install_jsmin():
+	print('installing tool [{0}]'.format('jsmin'))
+	if not os.path.isdir(tools):
+		os.mkdir(tools)
+	os.system('wget -qO- https://raw.githubusercontent.com/douglascrockford/JSMin/master/jsmin.c | (cd tools; gcc -x c -O2 - -o jsmin)')
+
+def install_jsl():
+	print('installing tool [{0}]'.format('jsl'))
+	if not os.path.isdir(tools):
+		os.mkdir(tools)
+	#os.system('wget -qO- http://www.javascriptlint.com/download/jsl-0.3.0-src.tar.gz | (cd tools; tar zxf -)')
+	#os.system('cd tools; python setup.py build')
+	os.system('cd tools; svn -q co https://javascriptlint.svn.sourceforge.net/svnroot/javascriptlint/trunk jsl')
+	os.system('cd tools/jsl; python setup.py build > /dev/null')
+
+def rm_tools():
+    if os.path.isdir(tools):
+            shutil.rmtree(tools)
+
+tp='out/web/thirdparty'
+def install_tp():
+    sys.path.append(os.getcwd())
+    import templardefs.jschess
+    if os.path.isdir(tp):
+            shutil.rmtree(tp)
+    os.mkdir(tp)
+
+    for dep in templardefs.jschess.deps:
+            print('getting javascript library [{0}]'.format(dep.name))
+            if dep.downloadUrl:
+                    debug(dep.downloadUrl, dep.myFile)
+                    urllib.request.urlretrieve(dep.downloadUrl, filename=dep.myFile)
+            if dep.downloadUrlDebug:
+                    debug(dep.downloadUrlDebug, dep.myFileDebug)
+                    urllib.request.urlretrieve(dep.downloadUrlDebug, filename=dep.myFileDebug)
+            if dep.downloadCss:
+                    debug(dep.downloadCss, dep.css)
+                    urllib.request.urlretrieve(dep.downloadCss, filename=dep.css)
+            if dep.closure:
+                    debug('doing closure')
+                    subprocess.check_call([
+                            'tools/closure-compiler-v20160713.jar',
+                            dep.myFileDebug,
+                            '--js_output_file',
+                            dep.myFile,
+                    ], stderr=subprocess.DEVNULL)
+            if dep.jsmin:
+                    debug('doing jsmin')
+                    subprocess.check_call([
+                            'tools/jsmin',
+                            ],
+                            stdout=open(dep.myFile, 'w'),
+                            stdin=open(dep.myFileDebug),
+                    )
+
+    # chmod all files
+    for f in os.listdir(tp):
+            debug('considering [{0}]'.format(f))
+            full=os.path.join(tp, f)
+            if os.path.isfile(full):
+                    debug('chmodding [{0}]'.format(full))
+                    os.chmod(full, 0o0444)
+
 ########
 # code #
 ########
 install_apt()
 install_node()
 install_ubuntu()
+# individual tools
+install_closure()
+install_jsmin()
+install_jsl()
+install_tp()
