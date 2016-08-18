@@ -87,11 +87,11 @@ def cmdline():
 
     if args.subcommand=='install_deps':
         d=templar.api.load_and_populate()
-        templar.api.install_deps()
+        templar.api.install_deps(d)
 
     if args.subcommand=='git_config':
         d=templar.api.load_and_populate()
-        templar.api.git_config()
+        templar.api.git_config(d)
 
     if args.subcommand=='getdeps':
         print(' '.join(templar.api.get_all_deps()))
