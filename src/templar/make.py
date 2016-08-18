@@ -6,4 +6,4 @@ import templar.subprocess # for check_call
 
 ''' make [foo] '''
 def make(target):
-	templar.subprocess.check_call(['make', target])
+    templar.subprocess.check_call(['make', target])

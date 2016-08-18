@@ -11,10 +11,10 @@ import sys # for exit
 import subprocess # for Popen, PIPE
 
 def run(args):
-	pr=subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-	(output,errout)=pr.communicate()
-	status=pr.returncode
-	if status:
-		print(output.decode(), end='')
-		print(errout.decode(), end='')
-		sys.exit(status)
+    pr=subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    (output,errout)=pr.communicate()
+    status=pr.returncode
+    if status:
+        print(output.decode(), end='')
+        print(errout.decode(), end='')
+        sys.exit(status)

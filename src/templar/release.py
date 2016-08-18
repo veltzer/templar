@@ -33,46 +33,46 @@ opt_check=True
 # functions #
 #############
 def set_tag(d, tag):
-	d.git_lasttag=tag
-	d.git_version=d.git_lasttag
-	d.deb_version='{0}~{1}'.format(d.git_version, d.apt_codename)
+    d.git_lasttag=tag
+    d.git_version=d.git_lasttag
+    d.deb_version='{0}~{1}'.format(d.git_version, d.apt_codename)
 
 def set_codename(d, apt_codename):
-	d.apt_codename=apt_codename
-	set_tag(d, d.git_lasttag)
+    d.apt_codename=apt_codename
+    set_tag(d, d.git_lasttag)
 
 def set_codename_tag(d, apt_codename, tag):
-	d.apt_codename=apt_codename
-	set_tag(d, tag)
+    d.apt_codename=apt_codename
+    set_tag(d, tag)
 
 def run(d):
-	# check that everything is committed
-	templar.git.check_allcommit()
+    # check that everything is committed
+    templar.git.check_allcommit()
 
-	# calculate the new tag and setup data
-	tag=str(int(d.git_lasttag)+1)
-	set_tag(d, tag)
+    # calculate the new tag and setup data
+    tag=str(int(d.git_lasttag)+1)
+    set_tag(d, tag)
 
-	# build everything
-	templar.api.process(d, templar.utils.pkg_get_real_filename(__file__, 'templates/README.md.mako'), 'README.md')
+    # build everything
+    templar.api.process(d, templar.utils.pkg_get_real_filename(__file__, 'templates/README.md.mako'), 'README.md')
 
-	# commit the README.md file which was just changed because it contains the version number.
-	# this is a little ugly since I'm not really sure if the README.md was changed.
-	# I should really check if there are changes and only then commit.
-	if not templar.git.is_allcommit():
-		templar.git.commit_all('release '+tag)
+    # commit the README.md file which was just changed because it contains the version number.
+    # this is a little ugly since I'm not really sure if the README.md was changed.
+    # I should really check if there are changes and only then commit.
+    if not templar.git.is_allcommit():
+        templar.git.commit_all('release '+tag)
 
-	# create the tag
-	templar.git.tag(tag)
+    # create the tag
+    templar.git.tag(tag)
 
-	# push new version
-	templar.git.push(True)
+    # push new version
+    templar.git.push(True)
 
-	if not d.deb_package:
-		return
+    if not d.deb_package:
+        return
 
-	for series in d.deb_series:
-		templar.debug.debug('starting to build for series [{0}]'.format(series))
-		set_codename(d, series)
-		templar.debuild.run(d, True, False)
-		templar.dput.run(d)
+    for series in d.deb_series:
+        templar.debug.debug('starting to build for series [{0}]'.format(series))
+        set_codename(d, series)
+        templar.debuild.run(d, True, False)
+        templar.dput.run(d)

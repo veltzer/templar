@@ -14,16 +14,16 @@ import sys # for exit
 import subprocess # for Popen, PIPE
 
 def run(args):
-	if len(args)==1:
-		pr=subprocess.Popen(args[0], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-	else:
-		pr=subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-	(output,errout)=pr.communicate()
-	output=output.decode()
-	errout=errout.decode()
-	print(output, end='')
-	print(errout, end='')
-	sys.exit(0)
+    if len(args)==1:
+        pr=subprocess.Popen(args[0], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    else:
+        pr=subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    (output,errout)=pr.communicate()
+    output=output.decode()
+    errout=errout.decode()
+    print(output, end='')
+    print(errout, end='')
+    sys.exit(0)
 
 '''
 This version is intersting but alas wrong. If you pass a command that generates errors
@@ -33,11 +33,11 @@ This will succeed: this_script.py 'ls nonexistant; exit 0'
 
 '''
 try:
-	if len(args)==1:
-		out=subprocess.check_output(args[0], stderr=subprocess.STDOUT, shell=True)
-	else:
-		out=subprocess.check_output(args, stderr=subprocess.STDOUT)
-	print(out.decode(), end='')
+    if len(args)==1:
+        out=subprocess.check_output(args[0], stderr=subprocess.STDOUT, shell=True)
+    else:
+        out=subprocess.check_output(args, stderr=subprocess.STDOUT)
+    print(out.decode(), end='')
 except:
-	pass
+    pass
 '''
