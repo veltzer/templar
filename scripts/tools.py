@@ -54,13 +54,17 @@ def debug(s):
     if do_debug:
         print(s)
 
+hide=False
 def check_call_print(args):
-    p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    res_out, res_err = p.communicate()
-    if p.returncode:
-        print(res_out.decode(), file=sys.stderr)
-        print(res_err.decode(), file=sys.stderr)
-        sys.exit(p.returncode)
+    if hide:
+        p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        res_out, res_err = p.communicate()
+        if p.returncode:
+            print(res_out.decode(), file=sys.stderr)
+            print(res_err.decode(), file=sys.stderr)
+            sys.exit(p.returncode)
+    else:
+        p = subprocess.check_call(args)
 
 # the lines we are interested in look like this:
 # pub   4096R/EFE21092 2012-05-11
@@ -305,4 +309,4 @@ install_ubuntu()
 install_closure()
 install_jsmin()
 install_jsl()
-install_tp()
+#install_tp()
