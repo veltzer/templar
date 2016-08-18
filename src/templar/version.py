@@ -1,4 +1,7 @@
-#!/usr/bin/python3
+'''
+This module will handle tasks related to python versions
+for you
+'''
 
 import sys # for version_info, exit, stderr
 

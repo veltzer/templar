@@ -89,5 +89,13 @@ def cmdline():
 			v=d[k]
 			print('{0}.{1}={2}'.format('tdefs', k, v))
 
+        if args.subcommand=='install_deps':
+		d=templar.api.load_and_populate()
+                templar.api.install_deps()
+
+        if args.subcommand=='git_config':
+		d=templar.api.load_and_populate()
+                templar.api.git_config()
+
 	if args.subcommand=='getdeps':
 		print(' '.join(templar.api.get_all_deps()))

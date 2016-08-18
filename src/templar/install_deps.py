@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 '''
 this script will install all the required packages that you need on
 ubuntu to compile and work with this package.
@@ -301,14 +299,12 @@ def install_tp():
                     debug('chmodding [{0}]'.format(full))
                     os.chmod(full, 0o0444)
 
-########
-# code #
-########
-install_apt()
-install_node()
-install_ubuntu()
-# individual tools
-install_closure()
-install_jsmin()
-install_jsl()
-install_tp()
+def install_deps(d):
+    install_apt()
+    install_node()
+    install_ubuntu()
+    # individual tools
+    install_closure()
+    install_jsmin()
+    install_jsl()
+    install_tp()

@@ -1,5 +1,8 @@
 '''
 Module that will run git tasks for you
+
+TODO:
+- implement this better with GitPython (a python module to interact with git for you).
 '''
 
 import sys # for stderr
@@ -32,3 +35,16 @@ def push(tags):
 
 def tag(tag):
 	templar.subprocess.check_call(['git','tag','--annotate','--sign','-m',tag,tag])
+
+def git_config(d):
+        print('config is ', d['personal_key'])
+        print('config is ', d['core_editor'])
+        print('config is ', d['personal_fullname'])
+        print('config is ', d['personal_email'])
+    '''
+#!/bin/sh
+git config --local user.signingkey 73C128F9
+git config --local core.editor vim
+git config --local user.name "Mark Veltzer"
+git config --local user.email "mark.veltzer@gmail.com"
+'''

@@ -7,7 +7,7 @@ import os
 import sys
 import tweepy
 
-import versioncheck
+import version
 
 class ReleaseManager:
 	def __init__(self):
