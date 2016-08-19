@@ -218,7 +218,7 @@ install_ubuntu_file='ubuntu.json'
 def install_ubuntu():
     if not os.path.isfile(install_ubuntu_file):
         return
-    msg('installing packages from [{0}]...', install_ubuntu_file)
+    msg('installing packages from [{0}]...'.format(install_ubuntu_file))
     with open(install_ubuntu_file) as f:
         d=json.load(f)
     packs=[p['name'] for p in d['packages']]
@@ -231,7 +231,7 @@ install_pip_file='requirements.txt'
 def install_pip():
     if not os.path.isfile(install_pip_file):
         return
-    msg('installing packages from [{0}]...', install_pip_file)
+    msg('installing packages from [{0}]...'.format(install_pip_file))
     args=['pip','install','-r', install_pip_file]
     check_call_print(args)
 
