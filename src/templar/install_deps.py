@@ -214,16 +214,26 @@ def install_packs():
     except:
         print('error in apt')
 
+install_ubuntu_file='ubuntu.json'
 def install_ubuntu():
-    if os.path.isfile('ubuntu.json'):
-        msg('installing packages...')
-        with open('ubuntu.json') as f:
-            d=json.load(f)
-        packs=[p['name'] for p in d['packages']]
-        debug(packs)
-        args=['sudo','apt-get','install','--assume-yes']
-        args.extend(packs)
-        check_call_print(args)
+    if not os.path.isfile(install_ubuntu_file):
+        return
+    msg('installing packages from [{0}]...', install_ubuntu_file)
+    with open(install_ubuntu_file) as f:
+        d=json.load(f)
+    packs=[p['name'] for p in d['packages']]
+    debug(packs)
+    args=['sudo','apt-get','install','--assume-yes']
+    args.extend(packs)
+    check_call_print(args)
+
+install_pip_file='requirements.txt'
+def install_pip():
+    if not os.path.isfile(install_pip_file):
+        return
+    msg('installing packages from [{0}]...', install_pip_file)
+    args=['pip','install','-r', install_pip_file]
+    check_call_print(args)
 
 def install_closure():
     print('installing tool [{0}]'.format('closure'))
@@ -303,6 +313,7 @@ def install_deps(d):
     install_apt()
     install_node()
     install_ubuntu()
+    install_pip()
     # individual tools
     install_closure()
     install_jsmin()
