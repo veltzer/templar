@@ -232,7 +232,7 @@ def install_pip():
     if not os.path.isfile(install_pip_file):
         return
     msg('installing packages from [{0}]...'.format(install_pip_file))
-    args=['pip','install','-r', '--user', install_pip_file]
+    args=['pip','install','--user','-r',install_pip_file]
     check_call_print(args)
 
 install_pip3_file='requirements3.txt'
@@ -240,7 +240,7 @@ def install_pip3():
     if not os.path.isfile(install_pip3_file):
         return
     msg('installing packages from [{0}]...'.format(install_pip3_file))
-    args=['pip3','install','-r', '--user', install_pip3_file]
+    args=['pip3','install','--user','-r',install_pip3_file]
     check_call_print(args)
 
 def install_closure():
