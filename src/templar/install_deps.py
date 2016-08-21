@@ -232,7 +232,15 @@ def install_pip():
     if not os.path.isfile(install_pip_file):
         return
     msg('installing packages from [{0}]...'.format(install_pip_file))
-    args=['pip','install','-r', install_pip_file]
+    args=['pip','install','-r', '--user', install_pip_file]
+    check_call_print(args)
+
+install_pip3_file='requirements3.txt'
+def install_pip3():
+    if not os.path.isfile(install_pip3_file):
+        return
+    msg('installing packages from [{0}]...'.format(install_pip3_file))
+    args=['pip3','install','-r', '--user', install_pip3_file]
     check_call_print(args)
 
 def install_closure():
@@ -314,8 +322,14 @@ def install_deps(d):
     install_node()
     install_ubuntu()
     install_pip()
-    # individual tools
-    install_closure()
-    install_jsmin()
-    install_jsl()
+    install_pip3()
+    # weird, to fix
     install_tp()
+    # individual tools
+    if 'tools_deps' in d:
+        if 'closure' in d.tools_deps:
+            install_closure()
+        if 'jsmin' in d.tools_deps:
+            install_jsmin()
+        if 'jsl' in d.tools_deps:
+            install_jsl()
