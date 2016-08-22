@@ -1,8 +1,9 @@
 .DEFAULT_GOAL=all
 .PHONY: all
 all: $(ALL)
-	$(info doing [$@])
+	@true
 #this is to avoid 'make: Nothing to be done for 'all'.' message
+#$(info doing [$@])
 #@true
 
 .PHONY: clean
