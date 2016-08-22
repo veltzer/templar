@@ -326,10 +326,10 @@ def install_deps(d):
     # weird, to fix
     install_tp()
     # individual tools
-    if 'tools_deps' in d:
-        if 'closure' in d.tools_deps:
+    if 'tools' in d:
+        if 'closure' in d.tools:
             install_closure()
-        if 'jsmin' in d.tools_deps:
+        if 'jsmin' in d.tools:
             install_jsmin()
-        if 'jsl' in d.tools_deps:
+        if 'jsl' in d.tools:
             install_jsl()
