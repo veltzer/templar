@@ -318,9 +318,9 @@ def install_tp():
             os.chmod(full, 0o0444)
 
 tools={
-    install_closure.__name__: install_closure,
-    install_jsmin.__name__: install_jsmin,
-    install_jsl.__name__: install_jsl,
+    'closure': install_closure,
+    'jsmin': install_jsmin,
+    'jsl': install_jsl,
 }
 
 def install_deps(d):
