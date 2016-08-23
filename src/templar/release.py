@@ -97,7 +97,7 @@ def run(d):
 ########
 # code #
 ########
-FOLDER=os.path.expanduser('~/.dput')
+FOLDER=os.path.expanduser('~/.templar')
 FOLDER_SRC=os.path.join(FOLDER, 'source')
 FOLDER_DEB=os.path.join(FOLDER, 'deb')
 if not os.path.isdir(FOLDER):
