@@ -1,3 +1,5 @@
+- add this as a standard checker for python files:
+	git --no-pager grep $'\t' -- "*.py"
 - install, as part of templar, the vim script vim/templar.vim as
 	/usr/share/vim-scripts/plugin/templar.vim
 - make git grep avoid searching through templar generated
