@@ -13,7 +13,9 @@ TODO:
 ###########
 # imports #
 ###########
-import os # for environ, unlink
+import os # for environ, unlink, mkdir
+import os.path # for expanduser, isdir
+import shutil # for copy
 import templar.git # for check_allcommit, clean
 import templar.fileops # for touch_exists
 import templar.debug # for debug
@@ -28,6 +30,8 @@ import templar.utils # for pkg_get_real_filename
 # do you want to check if everything is commited ? Answer True to this
 # unless you are doing development on this script...
 opt_check=True
+# upload packages using dput to launchpad?
+opt_upload=False
 
 #############
 # functions #
@@ -45,9 +49,15 @@ def set_codename_tag(d, apt_codename, tag):
     d.apt_codename=apt_codename
     set_tag(d, tag)
 
+def copy_results():
+    for f in os.listdir(d.deb_out_folder):
+        curr=os.path.join(d.deb_out_folder, f)
+        shutil.copy(curr, FOLDER)
+
 def run(d):
     # check that everything is committed
-    templar.git.check_allcommit()
+    if opt_check:
+        templar.git.check_allcommit()
 
     # calculate the new tag and setup data
     tag=str(int(d.git_lasttag)+1)
@@ -71,12 +81,23 @@ def run(d):
     if not d.deb_package:
         return
 
-    for series in d.deb_series:
-        templar.debug.debug('starting to build sources for series [{0}]'.format(series))
-        set_codename(d, series)
-        templar.debuild.run(d)
-        templar.dput.run(d)
+    if opt_upload:
+        for series in d.deb_series:
+            templar.debug.debug('starting to build sources for series [{0}]'.format(series))
+            set_codename(d, series)
+            templar.debuild.run(d)
+            templar.dput.run(d)
+            copy_results()
     for series in d.deb_series:
         templar.debug.debug('starting to build binaries for series [{0}]'.format(series))
         set_codename(d, series)
         templar.debuild.run(d, source=False)
+        copy_results()
+
+########
+# code #
+########
+FOLDER=os.path.expanduser('~/.dput')
+if not os.path.isdir(FOLDER):
+    os.mkdir(FOLDER)
+do_dput=False
