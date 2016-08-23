@@ -7,6 +7,7 @@ import templar.capture_all # for capture_all
 
 warning_patterns_to_ignore=set([
     'binary-without-manpage',
+    'extra-license-file',
 ])
 error_patterns_to_ignore=set([
     'source-contains-unsafe-symlink',
