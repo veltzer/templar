@@ -317,7 +317,7 @@ def install_tp():
             debug('chmodding [{0}]'.format(full))
             os.chmod(full, 0o0444)
 
-tools={
+tool_funcs={
     'closure': install_closure,
     'jsmin': install_jsmin,
     'jsl': install_jsl,
@@ -333,5 +333,5 @@ def install_deps(d):
     install_tp()
     # individual tools
     if 'tools' in d:
-        for t in d.tools:
-            tools[t].__call__()
+        for t in d.tool_funcs:
+            tool_funcs[t].__call__()
