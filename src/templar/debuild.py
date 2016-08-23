@@ -23,6 +23,7 @@ def run(d, source=True, gbp=False):
     templar.api.process(d, templar.utils.pkg_get_real_filename(__file__, 'templates/format.mako'), 'debian/source/format')
     templar.api.process(d, templar.utils.pkg_get_real_filename(__file__, 'templates/rules.mako'), 'debian/rules')
     templar.api.process(d, templar.utils.pkg_get_real_filename(__file__, 'templates/setup.py.mako'), 'setup.py')
+    templar.api.process(d, templar.utils.pkg_get_real_filename(__file__, 'templates/lintian-overrides.mako'), 'debian/{0}.lintian-overrides'.format(d.deb_pkgname))
     for f in glob.glob('../{0}_*'.format(d.deb_pkgname)):
         templar.fileops.unlink(f)
     if not source or gbp:
