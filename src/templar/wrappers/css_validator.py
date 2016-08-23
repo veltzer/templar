@@ -21,5 +21,5 @@ def run(args):
             doPrint=False
         if doPrint:
             print(line, end='')
-    if error:
+    if error or pr.returncode:
         sys.exit(1)
