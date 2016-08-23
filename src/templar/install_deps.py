@@ -333,5 +333,5 @@ def install_deps(d):
     install_tp()
     # individual tools
     if 'tools' in d:
-        for t in d.tool_funcs:
+        for t in d.tools:
             tool_funcs[t].__call__()
