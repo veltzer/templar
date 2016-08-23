@@ -9,6 +9,8 @@ file of your generated package and it takes care of the rest.
 import templar.subprocess # for check_call
 import os.path # for join
 
+do_dput=True
+
 def run(d):
     if do_dput:
         templar.subprocess.check_call([

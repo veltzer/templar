@@ -100,4 +100,3 @@ def run(d):
 FOLDER=os.path.expanduser('~/.dput')
 if not os.path.isdir(FOLDER):
     os.mkdir(FOLDER)
-do_dput=False
