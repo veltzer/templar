@@ -7,7 +7,13 @@ file of your generated package and it takes care of the rest.
 '''
 
 import templar.subprocess # for check_call
-import os.path # for join
+import os.path # for join, expanduser
+import shutil # for copy
+import os # for mkdir
+
+FOLDER=os.path.expanduser('~/.dput')
+if not os.path.isdir(FOLDER):
+    os.mkdir(FOLDER)
 
 def run(d):
     templar.subprocess.check_call([
@@ -16,3 +22,6 @@ def run(d):
         d.launchpad_ppa,
         os.path.join(d.deb_out_folder, '{0}_{1}_source.changes'.format(d.deb_pkgname, d.deb_version)),
     ])
+    for f in os.listdir(d.deb_out_folder):
+        curr=os.path.join(d.deb_out_folder, f)
+        shutil.copy(curr, FOLDER)
