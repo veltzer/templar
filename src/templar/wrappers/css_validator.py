@@ -5,14 +5,17 @@ css validator does NOT return a good error code (0 always).
 '''
 
 import sys # for exit
-import subprocess # for Popen, PIPE
+import subprocess # for check_output
 
 def run(args):
     # run the command
-    pr=subprocess.Popen(args, stdout=subprocess.PIPE, shell=False)
+    try:
+        out=subprocess.check_output(args)
+    except:
+        sys.exit(7)
     doPrint=False
     error=False
-    for line in pr.stdout:
+    for line in out.split('\n'):
         line=line.decode()
         if line.startswith('Sorry'):
             doPrint=True
@@ -20,6 +23,6 @@ def run(args):
         if line.startswith('Valid'):
             doPrint=False
         if doPrint:
-            print(line, end='')
-    if error or pr.returncode:
+            print(line)
+    if error:
         sys.exit(1)
