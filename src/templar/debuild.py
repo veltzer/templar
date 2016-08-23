@@ -10,7 +10,7 @@ import templar.api # for process
 import templar.utils # for pkg_get_real_filename
 import os.path # for isdir
 
-def run(d, source, gbp):
+def run(d, source=True, gbp=False):
     templar.git.clean()
     # debian folder should not exist
     assert not os.path.isdir('debian')

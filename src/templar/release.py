@@ -72,7 +72,11 @@ def run(d):
         return
 
     for series in d.deb_series:
-        templar.debug.debug('starting to build for series [{0}]'.format(series))
+        templar.debug.debug('starting to build sources for series [{0}]'.format(series))
         set_codename(d, series)
-        templar.debuild.run(d, True, False)
+        templar.debuild.run(d)
         templar.dput.run(d)
+    for series in d.deb_series:
+        templar.debug.debug('starting to build binaries for series [{0}]'.format(series))
+        set_codename(d, series)
+        templar.debuild.run(d, source=False)
