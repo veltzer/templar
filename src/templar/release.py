@@ -49,7 +49,7 @@ def set_codename_tag(d, apt_codename, tag):
     d.apt_codename=apt_codename
     set_tag(d, tag)
 
-def copy_results():
+def copy_results(d):
     for f in os.listdir(d.deb_out_folder):
         curr=os.path.join(d.deb_out_folder, f)
         shutil.copy(curr, FOLDER)
@@ -87,12 +87,12 @@ def run(d):
             set_codename(d, series)
             templar.debuild.run(d)
             templar.dput.run(d)
-            copy_results()
+            copy_results(d)
     for series in d.deb_series:
         templar.debug.debug('starting to build binaries for series [{0}]'.format(series))
         set_codename(d, series)
         templar.debuild.run(d, source=False)
-        copy_results()
+        copy_results(d)
 
 ########
 # code #
