@@ -128,26 +128,26 @@ def do_start():
 
 def do_ppas():
     for ppa in opt_ppas:
+        if opt_progress:
+            print('processing ppa [{0}]...'.format(ppa))
+        # cinelerra-ppa-ppa-trusty.list
+        short_ppa=ppa[4:]
+        parts=short_ppa.split('/')
+        filename='/etc/apt/sources.list.d/{0}-{1}-{2}.list'.format(parts[0], parts[1], codename)
+        if opt_debug:
+            print('filename is [{0}]'.format(filename))
+        if os.path.isfile(filename):
             if opt_progress:
-                    print('processing ppa [{0}]...'.format(ppa))
-            # cinelerra-ppa-ppa-trusty.list
-            short_ppa=ppa[4:]
-            parts=short_ppa.split('/')
-            filename='/etc/apt/sources.list.d/{0}-{1}-{2}.list'.format(parts[0], parts[1], codename)
-            if opt_debug:
-                    print('filename is [{0}]'.format(filename))
-            if os.path.isfile(filename):
-                    if opt_progress:
-                            print('already there in [{0}]...'.format(filename))
-                    continue
-            altered_apt_configuration=True
-            check_call_print([
-                    'sudo',
-                    'add-apt-repository',
-                    #'--enable-source', # source code too
-                    '--yes', # dont ask questions
-                    ppa
-            ])
+                print('already there in [{0}]...'.format(filename))
+            continue
+        altered_apt_configuration=True
+        check_call_print([
+            'sudo',
+            'add-apt-repository',
+            #'--enable-source', # source code too
+            '--yes', # dont ask questions
+            ppa
+        ])
 
 def download_keys():
     for dl, key_id in opt_keys_download:
@@ -156,7 +156,7 @@ def download_keys():
         if keys_have(key_id):
             if opt_progress:
                 print('already have this key')
-            continue
+                continue
         altered_apt_configuration=True
         if opt_progress:
             print('downloading key...')
@@ -278,44 +278,50 @@ def install_tp():
     sys.path.append(os.getcwd())
     import templardefs.jschess
     if os.path.isdir(tp):
-            shutil.rmtree(tp)
+        shutil.rmtree(tp)
     os.mkdir(tp)
 
     for dep in templardefs.jschess.deps:
-            print('getting javascript library [{0}]'.format(dep.name))
-            if dep.downloadUrl:
-                    debug(dep.downloadUrl+','+dep.myFile)
-                    urllib.request.urlretrieve(dep.downloadUrl, filename=dep.myFile)
-            if dep.downloadUrlDebug:
-                    debug(dep.downloadUrlDebug+','+dep.myFileDebug)
-                    urllib.request.urlretrieve(dep.downloadUrlDebug, filename=dep.myFileDebug)
-            if dep.downloadCss:
-                    debug(dep.downloadCss+','+dep.css)
-                    urllib.request.urlretrieve(dep.downloadCss, filename=dep.css)
-            if dep.closure:
-                    debug('doing closure')
-                    check_call_print([
-                            'tools/closure-compiler-v20160713.jar',
-                            dep.myFileDebug,
-                            '--js_output_file',
-                            dep.myFile,
-                    ])
-            if dep.jsmin:
-                    debug('doing jsmin')
-                    subprocess.check_call([
-                            'tools/jsmin',
-                            ],
-                            stdout=open(dep.myFile, 'w'),
-                            stdin=open(dep.myFileDebug),
-                    )
+        print('getting javascript library [{0}]'.format(dep.name))
+        if dep.downloadUrl:
+            debug(dep.downloadUrl+','+dep.myFile)
+            urllib.request.urlretrieve(dep.downloadUrl, filename=dep.myFile)
+        if dep.downloadUrlDebug:
+            debug(dep.downloadUrlDebug+','+dep.myFileDebug)
+            urllib.request.urlretrieve(dep.downloadUrlDebug, filename=dep.myFileDebug)
+        if dep.downloadCss:
+            debug(dep.downloadCss+','+dep.css)
+            urllib.request.urlretrieve(dep.downloadCss, filename=dep.css)
+        if dep.closure:
+            debug('doing closure')
+            check_call_print([
+                'tools/closure-compiler-v20160713.jar',
+                dep.myFileDebug,
+                '--js_output_file',
+                dep.myFile,
+            ])
+        if dep.jsmin:
+            debug('doing jsmin')
+            subprocess.check_call([
+                    'tools/jsmin',
+            ],
+                    stdout=open(dep.myFile, 'w'),
+                    stdin=open(dep.myFileDebug),
+            )
 
     # chmod all files
     for f in os.listdir(tp):
-            debug('considering [{0}]'.format(f))
-            full=os.path.join(tp, f)
-            if os.path.isfile(full):
-                    debug('chmodding [{0}]'.format(full))
-                    os.chmod(full, 0o0444)
+        debug('considering [{0}]'.format(f))
+        full=os.path.join(tp, f)
+        if os.path.isfile(full):
+            debug('chmodding [{0}]'.format(full))
+            os.chmod(full, 0o0444)
+
+tools={
+    install_closure.__name__: install_closure,
+    install_jsmin.__name__: install_jsmin,
+    install_jsl.__name__: install_jsl,
+}
 
 def install_deps(d):
     install_apt()
@@ -327,9 +333,5 @@ def install_deps(d):
     install_tp()
     # individual tools
     if 'tools' in d:
-        if 'closure' in d.tools:
-            install_closure()
-        if 'jsmin' in d.tools:
-            install_jsmin()
-        if 'jsl' in d.tools:
-            install_jsl()
+        for t in d.tools:
+            tools[t].__call__()
