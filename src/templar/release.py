@@ -31,7 +31,7 @@ import templar.utils # for pkg_get_real_filename
 # unless you are doing development on this script...
 opt_check=True
 # upload packages using dput to launchpad?
-opt_upload=False
+opt_upload=True
 
 #############
 # functions #
