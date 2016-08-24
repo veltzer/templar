@@ -10,13 +10,12 @@ import subprocess # for check_output
 def run(args):
     # run the command
     try:
-        out=subprocess.check_output(args)
+        out=subprocess.check_output(args).decode()
     except:
         sys.exit(7)
     doPrint=False
     error=False
     for line in out.split('\n'):
-        line=line.decode()
         if line.startswith('Sorry'):
             doPrint=True
             error=True
