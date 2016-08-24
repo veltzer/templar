@@ -248,7 +248,8 @@ def install_closure():
     if not os.path.isdir(tools):
         os.mkdir(tools)
     #jar_name='compiler.jar'
-    jar_name='closure-compiler-v20160713'
+    #jar_name='closure-compiler-v20160713'
+    jar_name='closure-compiler-v20160822'
     os.system('wget -qO- https://dl.google.com/closure-compiler/compiler-latest.zip | (cd tools; bsdtar -xf- {jar_name}.jar)'.format(jar_name=jar_name))
     os.chmod('tools/{jar_name}.jar'.format(jar_name=jar_name), 0o0775)
 
