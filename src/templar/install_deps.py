@@ -244,7 +244,6 @@ def install_pip3():
     check_call_print(args)
 
 def install_closure():
-    print('installing tool [{0}]'.format('closure'))
     if not os.path.isdir(tools):
         os.mkdir(tools)
     #jar_name='compiler.jar'
@@ -254,23 +253,31 @@ def install_closure():
     os.chmod('tools/{jar_name}.jar'.format(jar_name=jar_name), 0o0775)
 
 def install_jsmin():
-    print('installing tool [{0}]'.format('jsmin'))
     if not os.path.isdir(tools):
         os.mkdir(tools)
     os.system('wget -qO- https://raw.githubusercontent.com/douglascrockford/JSMin/master/jsmin.c | (cd tools; gcc -x c -O2 - -o jsmin)')
 
 def install_jsl():
-    print('installing tool [{0}]'.format('jsl'))
     if not os.path.isdir(tools):
         os.mkdir(tools)
-    #os.system('wget -qO- http://www.javascriptlint.com/download/jsl-0.3.0-src.tar.gz | (cd tools; tar zxf -)')
-    #os.system('cd tools; python setup.py build')
     os.system('cd tools; svn -q co https://javascriptlint.svn.sourceforge.net/svnroot/javascriptlint/trunk jsl')
     os.system('cd tools/jsl; python setup.py build > /dev/null')
 
+def install_jslsource():
+    if not os.path.isdir(tools):
+        os.mkdir(tools)
+    os.system('wget -qO- http://www.javascriptlint.com/download/jsl-0.3.0-src.tar.gz | (cd tools; tar zxf -)')
+    os.system('cd tools; python setup.py build')
+
+def install_cssvalidator():
+    if not os.path.isdir(tools):
+        os.mkdir(tools)
+    os.system('cd tools; git clone --depth 1 --branch master git@github.com:w3c/css-validator.git')
+    os.system('cd tools/css-validator; ant')
+
 def rm_tools():
     if os.path.isdir(tools):
-            shutil.rmtree(tools)
+        shutil.rmtree(tools)
 
 tp='out/web/thirdparty'
 def install_tp():
@@ -304,10 +311,10 @@ def install_tp():
         if dep.jsmin:
             debug('doing jsmin')
             subprocess.check_call([
-                    'tools/jsmin',
+                'tools/jsmin',
             ],
-                    stdout=open(dep.myFile, 'w'),
-                    stdin=open(dep.myFileDebug),
+                stdout=open(dep.myFile, 'w'),
+                stdin=open(dep.myFileDebug),
             )
 
     # chmod all files
@@ -322,6 +329,8 @@ tool_funcs={
     'closure': install_closure,
     'jsmin': install_jsmin,
     'jsl': install_jsl,
+    'jslsource': install_jslsource,
+    'css-validator': install_cssvalidator,
 }
 
 def install_deps(d):
@@ -335,4 +344,5 @@ def install_deps(d):
     # individual tools
     if 'tools' in d:
         for t in d.tools:
+            print('installing tool [{0}]'.format(t))
             tool_funcs[t].__call__()
