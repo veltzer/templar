@@ -339,10 +339,10 @@ def install_deps(d):
     install_ubuntu()
     install_pip()
     install_pip3()
-    # weird, to fix
-    install_tp()
     # individual tools
     if 'tools' in d:
         for t in d.tools:
             print('installing tool [{0}]'.format(t))
             tool_funcs[t].__call__()
+    # weird, to fix
+    install_tp()
