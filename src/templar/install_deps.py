@@ -227,6 +227,14 @@ def install_ubuntu():
     args.extend(packs)
     check_call_print(args)
 
+def install_packs():
+    if 'packs' not in d:
+        return
+    debug(d.packs)
+    args=['sudo','apt-get','install','--assume-yes']
+    args.extend(d.packs)
+    check_call_print(args)
+
 install_pip_file='requirements.txt'
 def install_pip():
     if not os.path.isfile(install_pip_file):
@@ -333,16 +341,19 @@ tool_funcs={
     'css-validator': install_cssvalidator,
 }
 
-def install_deps(d):
-    install_apt()
-    install_node()
-    install_ubuntu()
-    install_pip()
-    install_pip3()
-    # individual tools
+def install_tools(d):
     if 'tools' in d:
         for t in d.tools:
             print('installing tool [{0}]'.format(t))
             tool_funcs[t].__call__()
-    # weird, to fix
+
+def install_deps(d):
+    install_apt()
+    install_node()
+    install_ubuntu()
+    install_packs()
+    install_pip()
+    install_pip3()
+    install_tools()
+    # TBD: get ridd of this
     install_tp()
