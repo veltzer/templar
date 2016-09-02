@@ -14,6 +14,7 @@ import sys # for path
 import shutil # for rmtree
 import urllib.request # for urlretrieve
 import json # for load
+import templar.version # for check_version
 
 ##############
 # parameters #
@@ -325,10 +326,17 @@ tool_funcs={
 }
 
 def install_tools(d):
-    if 'tools' in d:
-        for t in d.tools:
-            print('installing tool [{0}]'.format(t))
-            tool_funcs[t].__call__()
+    if 'tools' not in d:
+        return
+    for t in d.tools:
+        print('installing tool [{0}]'.format(t))
+        tool_funcs[t].__call__()
+
+def check_version(d):
+    if 'python_version_needed' not in d:
+        return
+    msg('checking python version from deps.py...')
+    templar.version.check_version(d.python_version_needed)
 
 def install_deps(d):
     install_apt()
@@ -338,5 +346,6 @@ def install_deps(d):
     install_pip()
     install_pip3()
     install_tools(d)
+    check_version(d)
     # TBD: get ridd of this
     install_tp()
