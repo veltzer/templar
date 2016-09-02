@@ -227,7 +227,7 @@ def install_ubuntu():
     args.extend(packs)
     check_call_print(args)
 
-def install_packs():
+def install_packs(d):
     if 'packs' not in d:
         return
     debug(d.packs)
