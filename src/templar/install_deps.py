@@ -33,9 +33,6 @@ opt_keys_download=[
 # keys to receive from keyservers
 opt_keys_receive=[
 ]
-# packages to install
-opt_packs=[
-]
 # update apt
 opt_update=False
 
@@ -199,21 +196,6 @@ def update_apt():
         # remove unneeded .save apt files
         os.system('sudo rm -f /etc/apt/sources.list.d/*.save /etc/apt/sources.list.save')
 
-def install_packs():
-    if opt_progress:
-        print('installing packages...')
-    args=[
-        'sudo',
-        'apt-get',
-        'install',
-    #    '--assume-yes',
-    ]
-    args.extend(opt_packs)
-    try:
-        check_call_print(args)
-    except:
-        print('error in apt')
-
 install_ubuntu_file='ubuntu.json'
 def install_ubuntu():
     if not os.path.isfile(install_ubuntu_file):
@@ -230,6 +212,7 @@ def install_ubuntu():
 def install_packs(d):
     if 'packs' not in d:
         return
+    msg('installing packages from deps.py...')
     debug(d.packs)
     args=['sudo','apt-get','install','--assume-yes']
     args.extend(d.packs)
