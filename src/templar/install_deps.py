@@ -351,9 +351,9 @@ def install_deps(d):
     install_apt()
     install_node()
     install_ubuntu()
-    install_packs()
+    install_packs(d)
     install_pip()
     install_pip3()
-    install_tools()
+    install_tools(d)
     # TBD: get ridd of this
     install_tp()
