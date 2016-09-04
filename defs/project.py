@@ -55,16 +55,16 @@ def populate(d):
     d.deb_pkgname='templar'
     # to which series to publish the package?
     d.deb_series=[
-        'xenial',
-        'wily',
-        'vivid',
+        'xenial', #16.04
+        'wily', #15.10
+        'vivid', #15.04
         # end of life
-        #'utopic',
-        'trusty',
+        #'utopic', #14.10
+        'trusty', #14.04
         # does not accept new uploads
-        #'saucy',
+        #'saucy', #13.10
         # does not accept new uploads
-        #'raring',
+        #'raring', #13.04
     ]
     # these are dependencies for runtime
     d.deb_depends='${misc:Depends}, ${python3:Depends}, python3-mako'
