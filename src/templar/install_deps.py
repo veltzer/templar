@@ -40,7 +40,7 @@ opt_update=False
 #############
 # functions #
 #############
-do_msg=True
+do_msg=False
 def msg(s):
     if do_msg:
         print(s)
