@@ -3,50 +3,50 @@
 .PHONY: check_py_main
 check_py_main:
 	$(info doing [$@])
-	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-ok git grep __main -- "*.py"
+	$(TEMPLAR_Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-ok git grep __main -- "*.py"
 .PHONY: check_py_semicol
 check_py_semicol:
 	$(info doing [$@])
-	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-ok git grep ";$$" -- "*.py"
+	$(TEMPLAR_Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-ok git grep ";$$" -- "*.py"
 
 .PHONY: check_py_doublequote
 check_py_doublequote:
 	$(info doing [$@])
-	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep \" -- \*.py
+	$(TEMPLAR_Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep \" -- \*.py
 
 .PHONY: check_py_print
 check_py_print:
 	$(info doing [$@])
-	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep -e "print " --or -e "print$$" --and --not -e "pprint" -- \*.py
+	$(TEMPLAR_Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep -e "print " --or -e "print$$" --and --not -e "pprint" -- \*.py
 
 .PHONY: check_py_endsemi
 check_py_endsemi:
 	$(info doing [$@])
-	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep -e "\;$$" -- \*.py
+	$(TEMPLAR_Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep -e "\;$$" -- \*.py
 
 .PHONY: check_py_doublespace
 check_py_doublespace:
 	$(info doing [$@])
-	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep -e "\ \ " -- \*.py
+	$(TEMPLAR_Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep -e "\ \ " -- \*.py
 
 .PHONY: check_py_endspace
 check_py_endspace:
 	$(info doing [$@])
-	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep -e "\s$$" -- \*.py
+	$(TEMPLAR_Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep -e "\s$$" -- \*.py
 
 .PHONY: check_py_ops
 check_py_ops:
 	$(info doing [$@])
-	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep -e " = " --or -e " == " --or -e " != " --or -e " < " --or -e " > " --or -e " % " --or -e " / " --or -e " + " --or -e " - " --or -e " <= " --or -e " => " -- \*.py
+	$(TEMPLAR_Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep -e " = " --or -e " == " --or -e " != " --or -e " < " --or -e " > " --or -e " % " --or -e " / " --or -e " + " --or -e " - " --or -e " <= " --or -e " => " -- \*.py
 
 .PHONY: check_py_syn
 check_py_syn:
 	$(info doing [$@])
-	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep ";" -- \*.py
-	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep " \"," -- \*.py
-	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep "print\ " -- \*.py
-#$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep --files-without-match "mark@veltzer.net" -- \*.py
-#$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep ", " -- \*.py
+	$(TEMPLAR_Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep ";" -- \*.py
+	$(TEMPLAR_Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep " \"," -- \*.py
+	$(TEMPLAR_Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep "print\ " -- \*.py
+#$(TEMPLAR_Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep --files-without-match "mark@veltzer.net" -- \*.py
+#$(TEMPLAR_Q)$(TEMPLAR_MAKEHELPER_SCRIPT) wrapper-noerr git grep ", " -- \*.py
 
 .PHONY: check_py_all
 check_py_all: check_py_main check_py_semicol check_py_doublespace check_py_endspace check_py_ops check_py_print check_py_endsemi check_py_doublequote
@@ -57,14 +57,14 @@ check_py_all: check_py_main check_py_semicol check_py_doublespace check_py_endsp
 .PHONY: py_clean_compiled
 py_clean_compiled:
 	$(info doing [$@])
-	$(Q)-rm -f `find . -type f -and \( -name "*.pyo" -or -name "*.pyc" \)`
+	$(TEMPLAR_Q)-rm -f `find . -type f -and \( -name "*.pyo" -or -name "*.pyc" \)`
 
 .PHONY: py_show_compiled
 py_show_compiled:
 	$(info doing [$@])
-	$(Q)find . -type f -and \( -name "*.pyo" -or -name "*.pyc" \)
+	$(TEMPLAR_Q)find . -type f -and \( -name "*.pyo" -or -name "*.pyc" \)
 
 .PHONY: py_show_extra
 py_show_extra:
 	$(info doing [$@])
-	$(Q)find . -type f -and -not -name "*.py" -and -not -name "Makefile"
+	$(TEMPLAR_Q)find . -type f -and -not -name "*.py" -and -not -name "Makefile"

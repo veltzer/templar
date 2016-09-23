@@ -9,7 +9,7 @@ all: $(ALL)
 .PHONY: clean
 clean:
 	$(info doing [$@])
-	$(Q)git clean -ffqxd
+	$(TEMPLAR_Q)git clean -ffqxd
 
 .PHONY: debug
 debug:

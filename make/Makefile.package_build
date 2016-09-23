@@ -3,24 +3,24 @@
 .PHONY: debuild-gbp
 debuild-gbp:
 	$(info doing [$@])
-	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) debuild --gbp
+	$(TEMPLAR_Q)$(TEMPLAR_MAKEHELPER_SCRIPT) debuild --gbp
 
 .PHONY: debuild
 debuild:
 	$(info doing [$@])
-	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) debuild
+	$(TEMPLAR_Q)$(TEMPLAR_MAKEHELPER_SCRIPT) debuild
 
 .PHONY: debuild-source
 debuild-source:
 	$(info doing [$@])
-	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) debuild --source
+	$(TEMPLAR_Q)$(TEMPLAR_MAKEHELPER_SCRIPT) debuild --source
 
 .PHONY: release
 release:
 	$(info doing [$@])
-	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) release
+	$(TEMPLAR_Q)$(TEMPLAR_MAKEHELPER_SCRIPT) release
 
 .PHONY: debuild-install
 debuild-install:
 	$(info doing [$@])
-	$(Q)$(TEMPLAR_MAKEHELPER_SCRIPT) debuild-install
+	$(TEMPLAR_Q)$(TEMPLAR_MAKEHELPER_SCRIPT) debuild-install
