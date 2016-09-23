@@ -96,7 +96,7 @@ templar: $(TEMPLAR_ALL_MAKO_TGT)
 .PHONY: gh-pages
 gh-pages: $(ALL) $(ALL_DEPS)
 	$(info doing [$@])
-	$(Q)node_modules/gh-pages/bin/gh-pages --dist $(TEMPLAR_GHPAGES_FOLDER) --branch $(TEMPLAR_GHPAGES_BRANCH) 2> /dev/null
+	$(TEMPLAR_Q)node_modules/gh-pages/bin/gh-pages --dist $(TEMPLAR_GHPAGES_FOLDER) --branch $(TEMPLAR_GHPAGES_BRANCH) 2> /dev/null
 
 #########
 # rules #

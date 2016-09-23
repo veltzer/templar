@@ -9,9 +9,9 @@ DO_MKDBG?=0
 ########
 # silent stuff
 ifeq ($(DO_MKDBG),1)
-Q:=
+TEMPLAR_Q:=
 # we are not silent in this branch
 else # DO_MKDBG
-Q:=@
+TEMPLAR_Q:=@
 #.SILENT:
 endif # DO_MKDBG
