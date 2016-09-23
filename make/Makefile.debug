@@ -2,7 +2,7 @@
 # parameters #
 ##############
 # do you want to show the commands executed ?
-DO_MKDBG:=0
+DO_MKDBG?=0
 
 ########
 # code #
