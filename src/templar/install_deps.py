@@ -243,7 +243,7 @@ def install_closure():
     #jar_name='closure-compiler-v20160822'
     jar_name='closure-compiler-v20160911'
     os.system('wget -qO- https://dl.google.com/closure-compiler/compiler-latest.zip | (cd tools; bsdtar -xf- {jar_name}.jar)'.format(jar_name=jar_name))
-    os.rename('tools/{jar_name}.jar', 'tools/closure.jar')
+    os.rename('tools/{jar_name}.jar'.format(jar_name=jar_name), 'tools/closure.jar')
     os.chmod('tools/closure.jar', 0o0775)
 
 def install_jsmin():
