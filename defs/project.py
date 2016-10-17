@@ -71,7 +71,7 @@ def populate(d):
     d.deb_depends='${misc:Depends}, ${python3:Depends}, python3-mako'
     # these are dependencies for buildtime at launchpad ppa
     d.deb_builddepends='python3-all, python3-setuptools, python3-setuptools, debhelper, dh-python'
-    d.deb_standards_version='3.9.6'
+    d.deb_standards_version='3.9.8'
     #d.deb_standards_version='3.9.5'
     d.deb_x_python_version='>= 3.4'
     d.deb_x_python3_version='>= 3.4'
