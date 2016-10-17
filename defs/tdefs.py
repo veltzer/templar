@@ -4,7 +4,7 @@ Attributes for this project
 
 import datetime # for datetime
 import subprocess # for check_output, DEVNULL
-import os.path # for join, basename, isfile
+import os.path # for join, basename, isfile, expanduser
 import os # for getcwd, walk, relpath, dirname
 import glob # for glob
 import socket # for gethostname
@@ -59,8 +59,7 @@ def make_hlp_wrap(level):
 def populate(d):
     # general
     d.general_current_year=datetime.datetime.now().year
-    # TODO: get homedir in python
-    d.general_homedir='/home/mark'
+    d.general_homedir=os.path.expanduser('~')
     #d.general_hostname=subprocess.check_output(['hostname']).decode().rstrip()
     d.general_hostname=socket.gethostname()
     d.general_domainname=subprocess.check_output(['hostname','--domain']).decode().rstrip()
@@ -123,7 +122,8 @@ ga('send', 'pageview');
     # deb
     d.deb_pkgname=os.path.basename(os.getcwd())
     # create this with 'date -R'
-    d.deb_date='Wed, 29 Apr 2015 23:28:29 +0300'
+    # TODO: this should be created automatically here in python
+    d.deb_date='Mon, 17 Oct 2016 09:44:00 +0300'
 
     # apt
     d.apt_protocol='https'
