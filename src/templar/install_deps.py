@@ -206,7 +206,14 @@ def install_ubuntu():
         d=json.load(f)
     packs=[p['name'] for p in d['packages']]
     debug(packs)
-    args=['sudo','apt-get','install','--assume-yes']
+    args=[
+        'sudo',
+        'apt-get',
+        'install',
+        '--assume-yes',
+        # TODO: remove this
+        '--allow-unauthenticated',
+    ]
     args.extend(packs)
     check_call_print(args)
 
@@ -215,7 +222,14 @@ def install_packs(d):
         return
     msg('installing packages from deps.py...')
     debug(d.packs)
-    args=['sudo','apt-get','install','--assume-yes']
+    args=[
+        'sudo',
+        'apt-get',
+        'install',
+        '--assume-yes',
+        # TODO: remove this
+        '--allow-unauthenticated',
+    ]
     args.extend(d.packs)
     check_call_print(args)
 
