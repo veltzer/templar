@@ -1,3 +1,15 @@
+- stop using
+	"requirements.txt"
+	"requirements3.txt"
+	"apt.yaml"
+	"ubuntu.json"
+	as input files.
+	All must be declared in the d protocol.
+	move all packages to that.
+- make templar be able to upload to pipy as well
+	(a clean python package).
+- unify deps for python packaging needs with deps for working needs.
+
 - add this as a standard checker for python files:
 	git --no-pager grep $'\t' -- "*.py"
 - install, as part of templar, the vim script vim/templar.vim as
