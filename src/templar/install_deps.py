@@ -249,6 +249,18 @@ def install_pip3():
     args=['pip3','install','--user','-r',install_pip3_file]
     check_call_print(args)
 
+def install_python_packs(d):
+    for name, installer in [('requirements','pip'),('requirements3','pip3')]:
+        if not name in d:
+            continue
+        args=[
+            installer,
+            'install',
+            '--user',
+        ]
+        args.extend(d[name])
+        check_call_print(args)
+
 def install_closure():
     if not os.path.isdir(tools):
         os.mkdir(tools)
@@ -362,6 +374,7 @@ def install_deps(d):
     install_pip()
     install_pip3()
     install_tools(d)
+    install_python_packs(d)
     check_version(d)
     # TBD: get ridd of this
     install_tp()
