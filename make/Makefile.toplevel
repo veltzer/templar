@@ -1,10 +1,15 @@
 .DEFAULT_GOAL=all
 .PHONY: all
-all: $(ALL)
+all: tools.stamp $(ALL)
 	@true
 #this is to avoid 'make: Nothing to be done for 'all'.' message
 #$(info doing [$@])
 #@true
+
+tools.stamp: templardefs/deps.py
+	$(info doing [$@])
+	@templar_cmd install_deps
+	@make_helper touch-mkdir $@
 
 .PHONY: clean
 clean:
