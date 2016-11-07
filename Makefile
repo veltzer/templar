@@ -1,5 +1,5 @@
-TEMPLAR_TEMPLAR_SCRIPT:=./src/templar_cmd
-TEMPLAR_MAKEHELPER_SCRIPT:=./src/make_helper
+TEMPLAR_TEMPLAR_SCRIPT:=PYTHONPATH=src; python3 -m templar.templar_cmd
+TEMPLAR_MAKEHELPER_SCRIPT:=PYTHONPATH=src; python3 -m templar.make_helper
 include make/Makefile.debug
 include make/Makefile.templar
 include make/Makefile.package_build
