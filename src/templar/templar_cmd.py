@@ -12,4 +12,9 @@ import templar.cmdline # for cmdline
 ########
 # code #
 ########
-templar.cmdline.cmdline()
+def main():
+    templar.cmdline.cmdline()
+
+
+if __name__ == '__main__':
+    main()
