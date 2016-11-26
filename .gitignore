@@ -19,3 +19,5 @@ __pycache__
 # tools
 /tools
 /tools.stamp
+
+/.idea
