@@ -1,3 +1,7 @@
+- 'templardefs' and 'templartmpl' which are part of our API
+	should not be hardcoded everywhere.
+	in addition they should be:
+		$PROJECTROOT/templar/{definitions|templates}
 - stop using
 	"requirements.txt"
 	"requirements3.txt"
