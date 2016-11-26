@@ -6,8 +6,8 @@ The weird thing about dput(1) is that you just point it to the '.changes'
 file of your generated package and it takes care of the rest.
 """
 
-import templar.subprocess  # for check_call
-import os.path  # for join
+import templar.subprocess
+import os.path
 
 do_dput = True
 

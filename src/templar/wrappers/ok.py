@@ -6,4 +6,5 @@ import subprocess
 
 
 def run(args):
+    assert type(args) == list
     subprocess.call(args)

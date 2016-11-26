@@ -1,6 +1,6 @@
 """
 Make is really bad at doing text processing. So the idea is to help make out
-by supplying a python script which do the heavy lifting and keep the make code
+by supplying a python script which does the heavy lifting and keep the make code
 clean and simple.
 """
 
@@ -16,6 +16,7 @@ import templar.wrappers.debuild
 import templar.wrappers.noerr
 import templar.wrappers.ok
 import templar.wrappers.silent
+import templar.wrappers.shell_noerr
 import templar.fileops
 
 
@@ -86,6 +87,12 @@ def main():
             formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     sub_parser_wrapper_silent.add_argument('args', nargs=argparse.REMAINDER, action='store')
+    
+    sub_parser_wrapper_silent = subparsers.add_parser(
+            'wrapper-shell-noerr',
+            formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    sub_parser_wrapper_silent.add_argument('arg', nargs=1, action='store')
 
     sub_parser_touch_mkdir = subparsers.add_parser(
             'touch-mkdir',
@@ -126,6 +133,8 @@ def main():
             templar.wrappers.ok.run(args.args)
     if args.sub_command == 'wrapper-silent':
             templar.wrappers.silent.run(args.args)
+    if args.sub_command == 'wrapper-shell-noerr':
+            templar.wrappers.shell_noerr.run(args.arg[0])
     if args.sub_command == 'touch-mkdir':
             templar.fileops.touch_mkdir_many(args.files)
 

@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 
-'''
+"""
 This is the installation tool. use minimal packages here.
-dont use setuptools, dont use subprocess.
-'''
+don't use setuptools, don't use subprocess.
+"""
 
-import setuptools # for setup
+import setuptools
 
 setuptools.setup(
     name='${tdefs.project_name}',

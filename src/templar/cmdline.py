@@ -75,7 +75,7 @@ def cmdline():
                 continue
             if v.find('\n') != -1:
                 continue
-            if not args.nosec and (k.find('password') != -1 or k.find('secret') != -1):
+            if not args.no_sec and (k.find('password') != -1 or k.find('secret') != -1):
                 continue
             print('{0}.{1}:={2}'.format('tdefs', k, v))
 

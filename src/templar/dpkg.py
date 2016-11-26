@@ -5,8 +5,8 @@ TODO:
 - use a python package to interface dpkg here.
 """
 
-import templar.subprocess  # for check_call
-import os.path  # for join
+import templar.subprocess
+import os.path
 
 
 def install(d):

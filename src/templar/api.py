@@ -3,15 +3,15 @@ This is the API that templar exposes to python scripts who want
 to get access to all the variables.
 """
 
-import pkgutil  # for iter_modules
-import os  # for environ, chmod, unlink, makedirs, stat
-import os.path  # for isfile
-import mako  # for exceptions
-import mako.exceptions  # for RickTraceback
-import mako.template  # for Template
-import mako.lookup  # for TemplateLookup
-import stat  # for S_IMODE, S_IWRITE
-import templar.fileops  # for ensure_dir
+import pkgutil
+import os
+import os.path
+import mako
+import mako.exceptions
+import mako.template
+import mako.lookup
+import stat
+import templar.fileops
 import templar.git
 import sys
 import templar.install_deps

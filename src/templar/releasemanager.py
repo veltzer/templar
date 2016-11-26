@@ -1,8 +1,6 @@
-#!/usr/bin/python3
-
 import smtplib
 import email.mime.text
-import configparser  # ConfigParser
+import configparser
 import os
 import sys
 import tweepy
