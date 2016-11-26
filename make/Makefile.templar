@@ -39,7 +39,7 @@ else
 DO_INCLUDE:=$(TEMPLAR_NEED_TDEFS_INCLUDE)
 endif
 
-TEMPLAR_TMPL_EXTRA_DEPS:=$(shell $(TEMPLAR_TEMPLAR_SCRIPT) getdeps)
+TEMPLAR_TMPL_EXTRA_DEPS:=$(shell $(TEMPLAR_TEMPLAR_SCRIPT) get_deps)
 # the - (minus) at the begining of the next line is so that users wont see
 # an error coming out of make when the file needs to be rebuilt...
 ifeq ($(DO_INCLUDE),1)
@@ -58,9 +58,9 @@ endif
 
 # templar sources and targets
 TEMPLAR_ALL_MAKO_SRC:=$(shell find $(TEMPLAR_TEMPLAR_FOLDER) \( -type f -or -type l \) -and -name "*.mako" 2> /dev/null)
-TEMPLAR_ALL_MAKO_TGT:=$(shell $(TEMPLAR_MAKEHELPER_SCRIPT) rmfdas $(TEMPLAR_ALL_MAKO_SRC))
+TEMPLAR_ALL_MAKO_TGT:=$(shell $(TEMPLAR_MAKEHELPER_SCRIPT) remove-folders $(TEMPLAR_ALL_MAKO_SRC))
 TEMPLAR_ALL_COPY_SRC:=$(shell find $(TEMPLAR_TEMPLAR_FOLDER) \( -type f -or -type l \) -and -not -name "*.mako" 2> /dev/null)
-TEMPLAR_ALL_COPY_TGT:=$(shell $(TEMPLAR_MAKEHELPER_SCRIPT) rmfd $(TEMPLAR_ALL_COPY_SRC))
+TEMPLAR_ALL_COPY_TGT:=$(shell $(TEMPLAR_MAKEHELPER_SCRIPT) remove-folder $(TEMPLAR_ALL_COPY_SRC))
 
 # MAKEFILE_LIST includes included makefiles like TEMPLAR_TMPL_FILE above...
 TEMPLAR_ALL_DEP:=$(MAKEFILE_LIST) $(TEMPLAR_TMPL_EXTRA_DEPS)

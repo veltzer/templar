@@ -1,12 +1,13 @@
-'''
+"""
 Module that knows how to run dpkg(1)
 
 TODO:
 - use a python package to interface dpkg here.
-'''
+"""
 
-import templar.subprocess # for check_call
-import os.path # for join
+import templar.subprocess  # for check_call
+import os.path  # for join
+
 
 def install(d):
     templar.subprocess.check_call([

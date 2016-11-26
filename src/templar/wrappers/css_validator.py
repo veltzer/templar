@@ -1,27 +1,29 @@
-'''
+"""
 this is a specific wrapper written for the css validator
 
 css validator does NOT return a good error code (0 always).
-'''
+"""
 
-import sys # for exit
-import subprocess # for check_output
+import sys
+import subprocess
+
 
 def run(args):
     # run the command
+    # noinspection PyBroadException
     try:
-        out=subprocess.check_output(args).decode()
+        out = subprocess.check_output(args).decode()
     except:
         sys.exit(7)
-    doPrint=False
-    error=False
+    do_print = False
+    error = False
     for line in out.split('\n'):
         if line.startswith('Sorry'):
-            doPrint=True
-            error=True
+            do_print = True
+            error = True
         if line.startswith('Valid'):
-            doPrint=False
-        if doPrint:
+            do_print = False
+        if do_print:
             print(line)
     if error:
         sys.exit(1)

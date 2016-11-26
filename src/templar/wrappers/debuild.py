@@ -1,46 +1,48 @@
-'''
+"""
 this is a specific wrapper written for debuild since it does not have "warnings as errors"
 and produces copious amounts of junk as output.
-'''
-import sys # for exit
-import templar.capture_all # for capture_all
+"""
+import sys
+import templar.capture_all
 
-warning_patterns_to_ignore=set([
+
+warning_patterns_to_ignore = {
     'binary-without-manpage',
     'extra-license-file',
-])
-error_patterns_to_ignore=set([
+}
+error_patterns_to_ignore = {
     'source-contains-unsafe-symlink',
     'missing-dep-for-interpreter',
-])
+}
+
 
 def run(args):
-    seen_error=False
-    do_errors=True
-    do_always_print=False
-    do_print_naked=True
+    seen_error = False
+    do_errors = True
+    do_always_print = False
+    do_print_naked = True
     for line in templar.capture_all.capture_all(args):
-        do_print=False
-        if line.find('warning')!=-1:
-            do_print=True
-            seen_error=True
-        if line.find('error')!=-1:
-            do_print=True
-            seen_error=True
+        do_print = False
+        if line.find('warning') != -1:
+            do_print = True
+            seen_error = True
+        if line.find('error') != -1:
+            do_print = True
+            seen_error = True
         if line.startswith('E: '):
             for pat in error_patterns_to_ignore:
-                if line.find(pat)!=-1:
+                if line.find(pat) != -1:
                     break
             else:
-                do_print=True
-                seen_error=True
+                do_print = True
+                seen_error = True
         if line.startswith('W: '):
             for pat in warning_patterns_to_ignore:
-                if line.find(pat)!=-1:
+                if line.find(pat) != -1:
                     break
             else:
-                do_print=True
-                seen_error=True
+                do_print = True
+                seen_error = True
         if do_print or do_always_print:
             if do_print_naked:
                 print(line, end='')

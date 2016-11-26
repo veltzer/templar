@@ -1,9 +1,10 @@
-'''
+"""
 dependencies for this project
-'''
+"""
+
 
 def populate(d):
-    d.packs=[
+    d.packs = [
         # for the python scripts
         'python3',
         # for the python scripts
@@ -28,7 +29,8 @@ def populate(d):
         'devscripts',
     ]
 
-def getdeps():
+
+def get_deps():
     return [
-        __file__, # myself
+        __file__,  # myself
     ]

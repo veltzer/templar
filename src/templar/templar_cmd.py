@@ -1,17 +1,10 @@
-#!/usr/bin/python3
-
-'''
+"""
 This is just a simple wrapper script that shows how to run templar.cmdline.
-'''
+"""
 
-###########
-# imports #
-###########
-import templar.cmdline # for cmdline
+import templar.cmdline
 
-########
-# code #
-########
+
 def main():
     templar.cmdline.cmdline()
 

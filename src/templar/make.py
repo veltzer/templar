@@ -1,9 +1,10 @@
-'''
+"""
 Module that will run make tasks for you
-'''
+"""
 
-import templar.subprocess # for check_call
+import templar.subprocess
 
-''' make [foo] '''
+
 def make(target):
+    """ make [foo] """
     templar.subprocess.check_call(['make', target])
