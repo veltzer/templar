@@ -10,12 +10,14 @@ import templar.subprocess
 
 
 def clean():
-    """ git clean -xdf > /dev/null """
-    templar.subprocess.check_call(['git', 'clean', '-xdf'])
+    # soft version
+    # templar.subprocess.check_call(['git', 'clean', '-xdf'])
+    # hard version
+    templar.subprocess.check_call(['git', 'clean', '-qffxd'])
 
 
 def is_allcommit():
-    """ function that reports if all is comitted """
+    """ function that reports if all is committed """
     out = templar.subprocess.check_output(['git', 'status', '-s']).decode()
     return out == ''
 

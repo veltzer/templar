@@ -1,6 +1,6 @@
 """
 this is a release module.
-it runs git status -s in order to see that everything is commited.
+it runs git status -s in order to see that everything is committed.
 it then tags the current tree with one + the old tag.
 it then cleans and then rebuilds everything and puts the results in the output.
 
@@ -10,9 +10,6 @@ TODO:
 - try to use a better git interface (there are native python git interfaces).
 """
 
-###########
-# imports #
-###########
 import os
 import os.path
 import shutil
@@ -24,19 +21,13 @@ import templar.debuild
 import templar.api
 import templar.utils
 
-##############
-# parameters #
-##############
-# do you want to check if everything is commited ? Answer True to this
+# do you want to check if everything is committed ? Answer True to this
 # unless you are doing development on this script...
 opt_check = True
 # upload packages using dput to launchpad?
 opt_upload = True
 
 
-#############
-# functions #
-#############
 def set_tag(d, tag):
     d.git_lasttag = tag
     d.git_version = d.git_lasttag
@@ -63,6 +54,17 @@ def run(d):
     # check that everything is committed
     if opt_check:
         templar.git.check_allcommit()
+
+    # calculate and create various folders that we will need
+    folder = os.path.expanduser('~/.templar')
+    folder_src = os.path.join(folder, 'source')
+    folder_deb = os.path.join(folder, 'deb')
+    if not os.path.isdir(folder):
+        os.mkdir(folder)
+    if not os.path.isdir(folder_src):
+        os.mkdir(folder_src)
+    if not os.path.isdir(folder_deb):
+        os.mkdir(folder_deb)
 
     # calculate the new tag and setup data
     tag = str(int(d.git_lasttag) + 1)
@@ -92,23 +94,11 @@ def run(d):
             set_codename(d, series)
             templar.debuild.run(d)
             templar.dput.run(d)
-            copy_results(d, FOLDER_SRC)
+            copy_results(d, folder_src)
     for series in d.deb_series:
         templar.debug.debug('starting to build binaries for series [{0}]'.format(series))
         set_codename(d, series)
         templar.debuild.run(d, source=False)
-        copy_results(d, FOLDER_DEB)
+        copy_results(d, folder_deb)
 
-
-########
-# code #
-########
-FOLDER = os.path.expanduser('~/.templar')
-FOLDER_SRC = os.path.join(FOLDER, 'source')
-FOLDER_DEB = os.path.join(FOLDER, 'deb')
-if not os.path.isdir(FOLDER):
-    os.mkdir(FOLDER)
-if not os.path.isdir(FOLDER_SRC):
-    os.mkdir(FOLDER_SRC)
-if not os.path.isdir(FOLDER_DEB):
-    os.mkdir(FOLDER_DEB)
+    templar.git.clean()
