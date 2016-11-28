@@ -20,4 +20,5 @@ __pycache__
 /tools
 /tools.stamp
 
-/.idea
+# idea
+/.idea/workspace.xml
