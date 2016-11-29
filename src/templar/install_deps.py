@@ -101,27 +101,6 @@ def get_codename():
     return local_codename
 
 
-APT_FILE = 'apt.yaml'
-
-
-def install_apt():
-    # if the file is not there it is NOT an error
-    if not os.path.isfile(APT_FILE):
-        return
-    msg('installing from [{0}]...'.format(APT_FILE))
-    with open(APT_FILE, 'r') as stream:
-        o = yaml.load(stream)
-    packs = [x['name'] for x in o['packages']]
-    args = [
-        'sudo',
-        'apt-get',
-        'install',
-        '--assume-yes'
-    ]
-    args.extend(packs)
-    check_call_print(args)
-
-
 NODE_FILE = 'package.json'
 
 
@@ -225,29 +204,6 @@ def update_apt():
         os.system('sudo rm -f /etc/apt/sources.list.d/*.save /etc/apt/sources.list.save')
 
 
-install_ubuntu_file = 'ubuntu.json'
-
-
-def install_ubuntu():
-    if not os.path.isfile(install_ubuntu_file):
-        return
-    msg('installing packages from [{0}]...'.format(install_ubuntu_file))
-    with open(install_ubuntu_file) as f:
-        d = json.load(f)
-    packs = [p['name'] for p in d['packages']]
-    debug(packs)
-    args = [
-        'sudo',
-        'apt-get',
-        'install',
-        '--assume-yes',
-        # TODO: remove this
-        '--allow-unauthenticated',
-    ]
-    args.extend(packs)
-    check_call_print(args)
-
-
 def install_packs(d):
     if 'packs' not in d:
         return
@@ -262,28 +218,6 @@ def install_packs(d):
         '--allow-unauthenticated',
     ]
     args.extend(d.packs)
-    check_call_print(args)
-
-
-install_pip_file = 'requirements.txt'
-
-
-def install_pip():
-    if not os.path.isfile(install_pip_file):
-        return
-    msg('installing packages from [{0}]...'.format(install_pip_file))
-    args = ['pip', 'install', '--user', '-r', install_pip_file]
-    check_call_print(args)
-
-
-install_pip3_file = 'requirements3.txt'
-
-
-def install_pip3():
-    if not os.path.isfile(install_pip3_file):
-        return
-    msg('installing packages from [{0}]...'.format(install_pip3_file))
-    args = ['pip3', 'install', '--user', '-r', install_pip3_file]
     check_call_print(args)
 
 
@@ -424,12 +358,8 @@ def check_version(d):
 
 
 def install_deps(d):
-    install_apt()
     install_node()
-    install_ubuntu()
     install_packs(d)
-    install_pip()
-    install_pip3()
     install_tools(d)
     install_python_packs(d)
     check_version(d)
