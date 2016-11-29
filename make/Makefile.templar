@@ -88,7 +88,7 @@ templar_debug:
 # it should not depend on TEMPLAR_ALL_DEP since TEMPLAR_ALL_DEP includes it and this will create circular dependency
 $(TEMPLAR_TMPL_FILE): $(TEMPLAR_TEMPLAR_SCRIPT) $(TEMPLAR_TMPL_EXTRA_DEPS)
 	$(info doing [$@])
-	$(TEMPLAR_Q)$(TEMPLAR_TEMPLAR_SCRIPT) printmake $(TEMPLAR_TEMPLAR_SCRIPT_ARGS_PRINT) > $@
+	$(TEMPLAR_Q)$(TEMPLAR_TEMPLAR_SCRIPT) print_make $(TEMPLAR_TEMPLAR_SCRIPT_ARGS_PRINT) > $@
 
 .PHONY: templar
 templar: $(TEMPLAR_ALL_MAKO_TGT)
