@@ -293,7 +293,7 @@ def install_tp():
     import templardefs.jschess
     if os.path.isdir(tp):
         shutil.rmtree(tp)
-    os.mkdir(tp)
+    os.makedirs(tp)
 
     for dep in templardefs.jschess.deps:
         print('getting javascript library [{0}]'.format(dep.name))
