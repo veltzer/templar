@@ -10,10 +10,13 @@ import templar.subprocess
 
 
 def clean():
-    # soft version
-    # templar.subprocess.check_call(['git', 'clean', '-xdf'])
-    # hard version
+    """ this removes everything git doesn't know about """
     templar.subprocess.check_call(['git', 'clean', '-qffxd'])
+
+
+def soft_clean():
+    """ this is a softer kind of clean for git """
+    templar.subprocess.check_call(['git', 'clean', '-xdf'])
 
 
 def is_allcommit():
