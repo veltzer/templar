@@ -17,7 +17,7 @@ import argparse
 import templar.api
 
 
-def cmdline():
+def main():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
@@ -95,3 +95,7 @@ def cmdline():
 
     if args.sub_command == 'get_deps':
         print(' '.join(templar.api.get_all_deps()))
+
+
+if __name__ == '__main__':
+    main()

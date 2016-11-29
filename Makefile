@@ -1,4 +1,4 @@
-TEMPLAR_TEMPLAR_SCRIPT:=PYTHONPATH=src; python3 -m templar.templar_cmd
+TEMPLAR_TEMPLAR_SCRIPT:=PYTHONPATH=src; python3 -m templar.cmdline
 TEMPLAR_MAKEHELPER_SCRIPT:=PYTHONPATH=src; python3 -m templar.make_helper
 include make/Makefile.debug
 include make/Makefile.templar
