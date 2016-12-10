@@ -260,7 +260,8 @@ def install_closure():
             assert len(jar_files) == 1
             jar_file = jar_files[0]
             # extract the jar file
-            zip_file.extract(jar_file, output)
+            zip_file.extract(jar_file, tools)
+        os.rename(os.path.join(tools, jar_file), output)
 
 
 def install_jsmin():
