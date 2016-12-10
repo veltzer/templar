@@ -1,5 +1,5 @@
 """
-run a string via a shell and do not heade its exit code.
+run a string via a shell and do not return its exit code.
 """
 
 import subprocess

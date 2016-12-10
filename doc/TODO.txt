@@ -1,7 +1,7 @@
 - 'templardefs' and 'templartmpl' which are part of our API
 	should not be hardcoded everywhere.
 	in addition they should be:
-		$PROJECTROOT/templar/{definitions|templates}
+		$PROJECT_ROOT/templar/{definitions|templates}
 - stop using
 	"requirements.txt"
 	"requirements3.txt"
@@ -10,7 +10,7 @@
 	as input files.
 	All must be declared in the d protocol.
 	move all packages to that.
-- make templar be able to upload to pipy as well
+- make templar be able to upload to pypi as well
 	(a clean python package).
 - unify deps for python packaging needs with deps for working needs.
 
@@ -37,7 +37,7 @@
 	write them up inside templar and allow to run them with the make_helper.
 	use them in templar.
 	use them in other scripts too.
-- when reading all the defs configurations, do not just check os.path.isfile
+- when reading all the definitions configurations, do not just check os.path.isfile
 	since it may be a symbolic dangling link and still pass the test.
 	Check if I can read the file.
 - add manual pages created by sphinx for all the executables here.
@@ -47,7 +47,7 @@
 - instead of having a stupid CREDITS, Changelog and debian changelog
 	and LICENCE.
 	create all of these intelligently using templar from git.
-- why do we remove passwords when doing "makeprint".
+- why do we remove passwords when doing "print_make".
 	the reason is that we don't want passwords written to the .tdefs.config
 	file.
 	But we can have make(1) read the data from templar without saving it to file.
@@ -59,10 +59,10 @@
 	be python processes and they can read the parameters directly from the py module?
 	- for the time being, as long as we are using make, we really do need make to have access
 	to templar parameters.
-	- another option is to create the defs file as a temporary file in /tmp or something and
+	- another option is to create the definitions file as a temporary file in /tmp or something and
 	have make read that. We can also remove the file after we read it, or at any case of make
 	shutdown. Then the file will not leave traces of itself and there will be no chance
-	of it accidentaly getting into source package and binary packages on the web.
+	of it accidentally getting into source package and binary packages on the web.
 	This way the file could contain passwords.
 - add an example of ~/.personal.py file to the package so that people will know how to write this.
 	generate it automatically from my own by hiding the passwords
