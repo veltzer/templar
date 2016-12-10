@@ -22,7 +22,7 @@
         <entry file="file://$PROJECT_DIR$/src/templar/install_deps.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="325">
-              <caret line="251" column="41" lean-forward="false" selection-start-line="251" selection-start-column="41" selection-end-line="251" selection-end-column="41" />
+              <caret line="251" column="32" lean-forward="false" selection-start-line="251" selection-start-column="32" selection-end-line="251" selection-end-column="32" />
               <folding>
                 <element signature="e#123#132#0" expanded="true" />
               </folding>
@@ -527,7 +527,7 @@
     <entry file="file://$PROJECT_DIR$/src/templar/install_deps.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="325">
-          <caret line="251" column="41" lean-forward="false" selection-start-line="251" selection-start-column="41" selection-end-line="251" selection-end-column="41" />
+          <caret line="251" column="32" lean-forward="false" selection-start-line="251" selection-start-column="32" selection-end-line="251" selection-end-column="32" />
           <folding>
             <element signature="e#123#132#0" expanded="true" />
           </folding>

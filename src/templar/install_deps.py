@@ -249,7 +249,7 @@ def install_closure():
     url = "https://dl.google.com/closure-compiler/compiler-latest.zip"
     output = "tools/closure.jar"
     # create a temp file
-    with tempfile.TemporaryFile(mode="wb") as temp_handle:
+    with tempfile.TemporaryFile() as temp_handle:
         # download the zip to the temp file
         response = urllib.request.urlopen(url)
         temp_handle.write(response.read())
