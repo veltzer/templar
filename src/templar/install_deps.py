@@ -43,7 +43,7 @@ def msg(s):
         print(s)
 
 
-do_debug = True
+do_debug = False
 
 
 def debug(s):
