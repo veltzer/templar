@@ -3,14 +3,13 @@ this script will install all the required packages that you need on
 ubuntu to compile and work with this package.
 """
 
-import subprocess
-import yaml
-import os.path
 import os
-import sys
+import os.path
 import shutil
+import subprocess
+import sys
 import urllib.request
-import json
+
 import templar.version
 
 # in what folder do we install tools?
