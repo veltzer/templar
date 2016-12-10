@@ -8,7 +8,9 @@ import os.path
 import shutil
 import subprocess
 import sys
+import tempfile
 import urllib.request
+import zipfile
 
 import templar.version
 
@@ -233,13 +235,7 @@ def install_python_packs(d):
         check_call_print(args)
 
 
-def install_closure():
-    if not os.path.isdir(tools):
-        os.mkdir(tools)
-    # jar_name='compiler.jar'
-    # jar_name='closure-compiler-v20160713'
-    # jar_name='closure-compiler-v20160822'
-    # jar_name='closure-compiler-v20160911'
+def install_closure_old():
     jar_name = 'closure-compiler-v20161024'
     os.system(
         'wget -qO- https://dl.google.com/closure-compiler/compiler-latest.zip |'
@@ -248,31 +244,42 @@ def install_closure():
     os.chmod('tools/closure.jar', 0o0775)
 
 
+def install_closure():
+    # some parameters
+    url = "https://dl.google.com/closure-compiler/compiler-latest.zip"
+    output = "tools/closure.jar"
+    # create a temp file
+    with tempfile.TemporaryFile(mode="wb", delete=False) as temp_handle:
+        # download the zip to the temp file
+        response = urllib.request.urlopen(url)
+        temp_handle.write(response.read())
+        temp_handle.seek(0)
+        # open the zip file
+        with zipfile.ZipFile(temp_handle) as zip_file:
+            jar_files = filter(lambda file_name: file_name.endswith('.jar'), zip_file.namelist())
+            assert len(jar_files) == 1
+            jar_file = jar_files[0]
+            # extract the jar file
+            zip_file.extract(jar_file, output)
+
+
 def install_jsmin():
-    if not os.path.isdir(tools):
-        os.mkdir(tools)
     os.system(
         'wget -qO- https://raw.githubusercontent.com/douglascrockford/JSMin/master/jsmin.c |'
         '(cd tools; gcc -x c -O2 - -o jsmin)')
 
 
 def install_jsl():
-    if not os.path.isdir(tools):
-        os.mkdir(tools)
     os.system('cd tools; svn -q co https://javascriptlint.svn.sourceforge.net/svnroot/javascriptlint/trunk jsl')
     os.system('cd tools/jsl; python setup.py build > /dev/null')
 
 
 def install_jsl_source():
-    if not os.path.isdir(tools):
-        os.mkdir(tools)
     os.system('wget -qO- http://www.javascriptlint.com/download/jsl-0.3.0-src.tar.gz | (cd tools; tar zxf -)')
     os.system('cd tools; python setup.py build')
 
 
 def install_css_validator():
-    if not os.path.isdir(tools):
-        os.mkdir(tools)
     os.system('cd tools; git clone --depth 1 --branch master git@github.com:w3c/css-validator.git')
     os.system('cd tools/css-validator; ant')
 
@@ -343,6 +350,9 @@ tool_funcs = {
 def install_tools(d):
     if 'tools' not in d:
         return
+    if len(d.tools)>0:
+        if not os.path.isdir(tools):
+            os.mkdir(tools)
     for t in d.tools:
         print('installing tool [{0}]'.format(t))
         # noinspection PyUnresolvedReferences
