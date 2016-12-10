@@ -249,14 +249,14 @@ def install_closure():
     url = "https://dl.google.com/closure-compiler/compiler-latest.zip"
     output = "tools/closure.jar"
     # create a temp file
-    with tempfile.TemporaryFile(mode="wb", delete=False) as temp_handle:
+    with tempfile.TemporaryFile(mode="wb") as temp_handle:
         # download the zip to the temp file
         response = urllib.request.urlopen(url)
         temp_handle.write(response.read())
         temp_handle.seek(0)
         # open the zip file
         with zipfile.ZipFile(temp_handle) as zip_file:
-            jar_files = filter(lambda file_name: file_name.endswith('.jar'), zip_file.namelist())
+            jar_files = list(filter(lambda file_name: file_name.endswith('.jar'), zip_file.namelist()))
             assert len(jar_files) == 1
             jar_file = jar_files[0]
             # extract the jar file
@@ -350,7 +350,7 @@ tool_funcs = {
 def install_tools(d):
     if 'tools' not in d:
         return
-    if len(d.tools)>0:
+    if len(d.tools) > 0:
         if not os.path.isdir(tools):
             os.mkdir(tools)
     for t in d.tools:
