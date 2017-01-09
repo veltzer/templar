@@ -1,11 +1,13 @@
-#!/usr/bin/python3
-
 """
 This is the installation tool. use minimal packages here.
 don't use setuptools, don't use subprocess.
 """
 
 import setuptools
+
+import sys
+if not sys.version_info[0] == 3:
+    sys.exit("Sorry, only python version 3 is supported")
 
 setuptools.setup(
     name='${tdefs.project_name}',
