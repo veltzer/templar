@@ -12,7 +12,7 @@ clean:
 	find . -name __pycache__ -exec rm -rf {} \; ; true
 build:
 	$(info doing [$@])
-	./setup.py build
+	python3 setup.py build
 binary:
 	$(info doing [$@])
 	./setup.py install --install-layout=deb --root=debian/${tdefs.deb_pkgname}
