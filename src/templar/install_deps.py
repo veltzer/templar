@@ -271,7 +271,8 @@ def install_jsmin():
 
 
 def install_jsl():
-    os.system('cd tools; svn -q co https://javascriptlint.svn.sourceforge.net/svnroot/javascriptlint/trunk jsl')
+    # os.system('cd tools; svn --quiet checkout https://javascriptlint.svn.sourceforge.net/svnroot/javascriptlint/trunk jsl')
+    os.system('cd tools; svn --quiet checkout -r 350 https://javascriptlint.svn.sourceforge.net/svnroot/javascriptlint/trunk jsl')
     os.system('cd tools/jsl; python setup.py build > /dev/null')
 
 
