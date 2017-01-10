@@ -262,6 +262,7 @@ def install_closure():
             # extract the jar file
             zip_file.extract(jar_file, tools)
         os.rename(os.path.join(tools, jar_file), output)
+        os.chmod(output, 0o0775)
 
 
 def install_jsmin():
