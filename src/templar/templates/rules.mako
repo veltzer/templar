@@ -15,7 +15,7 @@ build:
 	python3 setup.py build
 binary:
 	$(info doing [$@])
-	./setup.py install --install-layout=deb --root=debian/${tdefs.deb_pkgname}
+	python3 setup.py install --install-layout=deb --root=debian/${tdefs.deb_pkgname}
 	dh_installchangelogs
 	dh_installdocs
 	dh_installexamples
