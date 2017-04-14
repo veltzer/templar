@@ -11,10 +11,15 @@ tools.stamp: templardefs/deps.py
 	@templar install_deps
 	@make_helper touch-mkdir $@
 
+
+# note that we both use git for cleaning and remove $(ALL). This is needed
+# because sometimes we create files that we commit to git (as when publishing a website
+# from the /docs subfolder for instance).
 .PHONY: clean
 clean:
 	$(info doing [$@])
 	$(TEMPLAR_Q)git clean -ffqxd
+	$(TEMPLAR_Q)rm -f $(ALL)
 
 .PHONY: debug
 debug:
