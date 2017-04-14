@@ -112,9 +112,5 @@ $(TEMPLAR_ALL_COPY_TGT): %: $(TEMPLAR_TEMPLAR_FOLDER)/% $(TEMPLAR_ALL_DEP)
 ###########
 # globals #
 ###########
-ifneq (clean, $(MAKECMDGOALS))
 ALL:=$(TEMPLAR_ALL)
-else
-ALL:=
-endif
 ALL_DEP:=$(TEMPLAR_ALL_DEP)
