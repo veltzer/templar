@@ -9,6 +9,7 @@ import templar.capture_all
 warning_patterns_to_ignore = {
     'binary-without-manpage',
     'extra-license-file',
+    'package-needs-versioned-debhelper-build-depends',
 }
 error_patterns_to_ignore = {
     'source-contains-unsafe-symlink',
