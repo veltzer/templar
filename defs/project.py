@@ -61,7 +61,8 @@ def populate(d):
         'zesty',  # 17.04
         'yakkety',  # 16.10
         'xenial',  # 16.04
-        'wily',  # 15.10
+        # end of life
+        # 'wily',  # 15.10
         'vivid',  # 15.04
         # end of life
         # 'utopic', #14.10
