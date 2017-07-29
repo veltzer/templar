@@ -10,7 +10,7 @@
   <component name="TemplatesService">
     <option name="TEMPLATE_FOLDERS">
       <list>
-        <option value="$MODULE_DIR$/src/templar/templates" />
+        <option value="$MODULE_DIR$/templar/templates" />
       </list>
     </option>
   </component>
