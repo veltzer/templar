@@ -1,1 +1,1 @@
-../src/templar/templates/LICENSE.GPL3.mako
+../templar/templates/LICENSE.GPL3.mako
