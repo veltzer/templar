@@ -272,6 +272,8 @@ def install_jsmin():
 
 
 def install_jsl():
+    # os.system('wget -qO- http://www.javascriptlint.com/download/jsl-0.3.0-src.tar.gz | (cd tools; tar zxf -)')
+    # os.system('cd tools; python setup.py build')
     # os.system('cd tools; svn --quiet checkout https://javascriptlint.svn.sourceforge.net/svnroot/javascriptlint/trunk jsl')
     os.system('cd tools; svn --quiet checkout -r 350 https://javascriptlint.svn.sourceforge.net/svnroot/javascriptlint/trunk jsl')
     os.system('cd tools/jsl; python setup.py build > /dev/null')
@@ -377,3 +379,43 @@ def install_deps(d):
     check_version(d)
     # TBD: get rid of this
     install_tp()
+
+def download(url, output_file):
+    if not os.path.isfile(output_file):
+        print('downloading [{0}] because it is not there...'.format(output_file))
+        # this doesn't work because I need user agent...
+        # urllib.request.urlretrieve(url, output_file)
+        opener = urllib.request.build_opener()
+        opener.addheaders = [('User-agent', 'Mozilla/5.0')]
+        response = opener.open(url)
+        f = open(output_file, 'wb')
+        f.write(response.read())
+        f.close()
+
+def download_highcharts():
+    if not os.path.isdir('download'):
+        os.mkdir('download')
+
+    download('http://code.highcharts.com/zips/Highcharts-3.0.5.zip', 'download/Highcharts-3.0.5.zip')
+    if not os.path.isdir('download/Highcharts'):
+        os.mkdir('download/Highcharts')
+        z = zipfile.ZipFile('download/Highcharts-3.0.5.zip', 'r')
+        z.extractall('download/Highcharts')
+        z.close()
+
+    folder = 'download/extjs'
+    file_name = 'ext-4.2.1-gpl.zip'
+    url_prefix = 'http://cdn.sencha.com/ext/gpl'
+    local_file = os.path.join('download', file_name)
+    remote_file = os.path.join(url_prefix, file_name)
+    download(remote_file, local_file) 
+    if not os.path.isdir(folder):
+        z = zipfile.ZipFile(local_file, 'r')
+        z.extractall('download')
+        z.close()
+    os.rename('download/ext-4.2.1.883', folder)
+
+    download('http://veltzer.net/media/sample.ogg', 'download/sample.ogg')
+    download('http://veltzer.net/media/sample.ogv', 'download/sample.ogv')
+    download('http://veltzer.net/media/sample.mp4', 'download/sample.mp4')
+    download('http://veltzer.net/media/sample.mp3', 'download/sample.mp3')
