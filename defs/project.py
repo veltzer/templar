@@ -60,18 +60,14 @@ def populate(d):
     d.deb_series = [
         'artful',  # 17.10
         'zesty',  # 17.04
-        'yakkety',  # 16.10
+        # 'yakkety',  # 16.10 EOL
         'xenial',  # 16.04
-        # end of life
-        # 'wily',  # 15.10
-        'vivid',  # 15.04
-        # end of life
-        # 'utopic', #14.10
+        # 'wily',  # 15.10 EOL
+        # 'vivid',  # 15.04 EOL
+        # 'utopic', # 14.10 EOL
         'trusty',  # 14.04
-        # does not accept new uploads
-        # 'saucy', #13.10
-        # does not accept new uploads
-        # 'raring', #13.04
+        # 'saucy', # 13.10 EOL
+        # 'raring', # 13.04 EOL
     ]
     # these are dependencies for runtime
     d.deb_depends = '${misc:Depends}, ${python3:Depends}, python3-mako'
