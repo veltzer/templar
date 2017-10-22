@@ -32,7 +32,8 @@ def run(d, source=True, gbp=False):
                         'debian/{0}.lintian-overrides'.format(d.deb_pkgname))
     for f in glob.glob('../{0}_*'.format(d.deb_pkgname)):
         templar.fileops.unlink(f)
-    if not source or gbp:
+    # if not source or gbp:
+    if gbp:
         templar.fileops.chmod_pw('debian/control')
     if gbp:
         args = ['git-buildpackage']
