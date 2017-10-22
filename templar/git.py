@@ -21,7 +21,7 @@ def soft_clean():
 
 def is_allcommit():
     """ function that reports if all is committed """
-    out = templar.subprocess.check_output(['git', 'status', '-s']).decode()
+    out = templar.subprocess.check_output(['git', 'status', '--short', '--no-branch']).decode()
     return out == ''
 
 
