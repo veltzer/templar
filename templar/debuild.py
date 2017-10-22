@@ -33,8 +33,7 @@ def run(d, source=True, gbp=False):
     for f in glob.glob('../{0}_*'.format(d.deb_pkgname)):
         templar.fileops.unlink(f)
     # if not source or gbp:
-    if gbp:
-        templar.fileops.chmod_pw('debian/control')
+    templar.fileops.chmod_pw('debian/control')
     if gbp:
         args = ['git-buildpackage']
     else:
