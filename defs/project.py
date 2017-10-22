@@ -48,7 +48,7 @@ def populate(d):
     # these are scripts, not needed since we use entry points
     # d.project_data_files.append(templar.utils.hlp_files_under('/usr/bin', 'src/*'))
     d.project_data_files.append(templar.utils.hlp_files_under('/usr/lib/python3/dist-packages/templar/templates',
-                                                              'src/templar/templates/*.mako'))
+                                                              'templar/templates/*.mako'))
 
     # deb section
     d.deb_package = True
