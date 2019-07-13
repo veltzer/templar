@@ -1,0 +1,10 @@
+# THIS IS AN AUTO-GENERATED FILE. DO NOT EDIT!
+# production requirements
+lxml
+requests
+browser-cookie3
+pylogconf
+# dev requirements
+pypitools
+pydmt
+pyclassifiers

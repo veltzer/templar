@@ -57,6 +57,7 @@ def populate(d):
     d.deb_architecture = 'all'
     d.deb_pkgname = 'templar'
     # to which series to publish the package?
+    # https://wiki.ubuntu.com/Releases
     d.deb_series = [
         # 'eoan',  # 19.10
         'disco',  # 19.04

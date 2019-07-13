@@ -1,5 +1,6 @@
 # build folders for my packages
 /out
+/.venv/
 
 # deb package build residue
 /build
