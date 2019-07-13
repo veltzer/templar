@@ -58,8 +58,12 @@ def populate(d):
     d.deb_pkgname = 'templar'
     # to which series to publish the package?
     d.deb_series = [
-        'artful',  # 17.10
-        'zesty',  # 17.04
+        # 'eoan',  # 19.10
+        'disco',  # 19.04
+        'cosmic',  # 18.10
+        'bionic',  # 18.04
+        # 'artful',  # 17.10 EOL
+        # 'zesty',  # 17.04 EOL
         # 'yakkety',  # 16.10 EOL
         'xenial',  # 16.04
         # 'wily',  # 15.10 EOL
