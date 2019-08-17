@@ -23,3 +23,5 @@ __pycache__
 /.idea/workspace.xml
 
 /package-lock.json
+
+/dist
