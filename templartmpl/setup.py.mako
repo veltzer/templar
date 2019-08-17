@@ -1,0 +1,1 @@
+../templar/templates/setup.py.mako
