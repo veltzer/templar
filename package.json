@@ -6,8 +6,7 @@
   "directories": {
     "doc": "doc"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "gh-pages": "latest",
     "htmlhint": "latest"
