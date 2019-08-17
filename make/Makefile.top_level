@@ -8,8 +8,8 @@ all: tools.stamp $(ALL)
 
 tools.stamp: templardefs/deps.py
 	$(info doing [$@])
-	@templar install_deps
-	@make_helper touch-mkdir $@
+	$(TEMPLAR_Q)$(TEMPLAR_TEMPLAR_SCRIPT) install_deps
+	$(TEMPLAR_Q)$(TEMPLAR_MAKEHELPER_SCRIPT) make_helper touch-mkdir $@
 
 
 # note that we both use git for cleaning and remove $(ALL). This is needed

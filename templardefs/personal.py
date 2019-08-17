@@ -1,0 +1,1 @@
+/home/mark/.config/templar/personal.py
